@@ -1,40 +1,93 @@
-import React from 'react'
-import { Link, NavLink } from 'react-router-dom'
-import './css/Header.css'
+import React from "react";
+import { Link, NavLink } from "react-router-dom";
 
-const Header = () => {
+const Header = ({ isLoggedIn }) => {
   return (
-    <header>
-      <nav className='navbar'>
+    <header className="">
+      <nav className="">
 
         {/* Logo */}
-        <div className='logo'>
-          <Link to="/">careme</Link>
-        </div>
+        <Link to="/" className="">
+          CareMe
+        </Link>
 
         {/* Navigation */}
-        <ul className='nav_link'>
+        <ul className="">
           <li>
             <NavLink
               to="/"
               className={({ isActive }) =>
-                `nav-child ${isActive ? "text-blue-700" : "text-gray-700"}`
+                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
               }
             >
               Home
             </NavLink>
           </li>
+
+          <li>
+            <NavLink
+              to="/explore"
+              className={({ isActive }) =>
+                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
+              }
+            >
+              Explore
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/about"
+              className={({ isActive }) =>
+                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
+              }
+            >
+              About
+            </NavLink>
+          </li>
+
+          <li>
+            <NavLink
+              to="/contact"
+              className={({ isActive }) =>
+                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
+              }
+            >
+              Contact
+            </NavLink>
+          </li>
         </ul>
 
         {/* Auth Buttons */}
-        <div className='auth'>
-          <Link to="/login" className='login'>Login</Link>
-          <Link to="/signup" className='signup'>Signup</Link>
-        </div>
+        <div className="">
+          {!isLoggedIn ? (
+            <>
+              <Link
+                to="/login"
+                className=""
+              >
+                Login
+              </Link>
 
+              <Link
+                to="/register"
+                className=""
+              >
+                Register
+              </Link>
+            </>
+          ) : (
+            <Link
+              to="/dashboard"
+              className=""
+            >
+              Dashboard
+            </Link>
+          )}
+        </div>
       </nav>
     </header>
-  )
-}
+  );
+};
 
-export default Header
+export default Header;

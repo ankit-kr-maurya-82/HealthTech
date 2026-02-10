@@ -1,13 +1,11 @@
-header{
-    /* background: #a7a4a4; */
-    display: flex;
+.navbar{
+  display:flex;
+  justify-content:space-between;
+  align-items:center;
 }
 
-.nav_link ul {
-    list-style: none;
-    /* background-color: #d28282; */
-}
-
-nav ul li {
-  display: inline-block; /* or use float: left; for older layouts */
+.nav_link{
+  display:flex;
+  list-style:none;
+  gap:20px;
 }

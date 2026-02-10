@@ -55,82 +55,82 @@ Built for Hackathon MVP with a focus on:
 
 ## 📁 Project Structure
 
-careme/
-│
-├── client/                 # React Frontend
-│   ├── public/
-│   │
-│   └── src/
-│       ├── assets/         # images, icons
-│       ├── components/
-│       │   ├── layout/
-│       │   │   ├── Header.jsx
-│       │   │   ├── Footer.jsx
-│       │   │   └── Sidebar.jsx
-│       │   │
-│       │   ├── ui/
-│       │   │   ├── Button.jsx
-│       │   │   ├── Card.jsx
-│       │   │   └── Input.jsx
-│       │   │
-│       │   └── common/
-│       │       ├── FeatureCard.jsx
-│       │       ├── TestimonialCard.jsx
-│       │       └── StatusCard.jsx
-│       │
-│       ├── pages/
-│       │   ├── public/
-│       │   │   ├── Home.jsx
-│       │   │   ├── About.jsx
-│       │   │   └── Contact.jsx
-│       │   │
-│       │   ├── auth/
-│       │   │   ├── Login.jsx
-│       │   │   └── Register.jsx
-│       │   │
-│       │   ├── patient/
-│       │   │   ├── PatientDashboard.jsx
-│       │   │   ├── AddProblem.jsx
-│       │   │   ├── Advice.jsx
-│       │   │   └── Reminder.jsx
-│       │   │
-│       │   └── doctor/
-│       │       ├── DoctorDashboard.jsx
-│       │       ├── PatientDetails.jsx
-│       │       └── History.jsx
-│       │
-│       ├── routes/
-│       │   └── AppRoutes.jsx
-│       │
-│       ├── App.jsx
-│       └── main.jsx
-│
-├── server/                 # Node + Express Backend
-│   ├── controllers/
-│   │   ├── auth.controller.js
-│   │   ├── patient.controller.js
-│   │   └── doctor.controller.js
-│   │
-│   ├── models/
-│   │   ├── User.js
-│   │   ├── Problem.js
-│   │   └── Advice.js
-│   │
-│   ├── routes/
-│   │   ├── auth.routes.js
-│   │   ├── patient.routes.js
-│   │   └── doctor.routes.js
-│   │
-│   ├── middleware/
-│   │   └── auth.middleware.js
-│   │
-│   ├── config/
-│   │   └── db.js
-│   │
-│   ├── server.js
-│   └── app.js
-│
-└── README.md  
+careme/ <br>
+│<br>
+├── client/                 # React Frontend<br>
+│   ├── public/<br>
+│   │<br>
+│   └── src/<br>
+│       ├── assets/         # images, icons<br>
+│       ├── components/<br>
+│       │   ├── layout/<br>
+│       │   │   ├── Header.jsx<br>
+│       │   │   ├── Footer.jsx<br>
+│       │   │   └── Sidebar.jsx<br>
+│       │   │<br>
+│       │   ├── ui/<br>
+│       │   │   ├── Button.jsx<br>
+│       │   │   ├── Card.jsx<br>
+│       │   │   └── Input.jsx<br>
+│       │   │<br>
+│       │   └── common/<br>
+│       │       ├── FeatureCard.jsx<br>
+│       │       ├── TestimonialCard.jsx<br>
+│       │       └── StatusCard.jsx<br>
+│       │<br>
+│       ├── pages/<br>
+│       │   ├── public/<br>
+│       │   │   ├── Home.jsx<br>
+│       │   │   ├── About.jsx<br>
+│       │   │   └── Contact.jsx<br>
+│       │   │<br>
+│       │   ├── auth/<br>
+│       │   │   ├── Login.jsx<br>
+│       │   │   └── Register.jsx<br>
+│       │   │<br>
+│       │   ├── patient/<br>
+│       │   │   ├── PatientDashboard.jsx<br>
+│       │   │   ├── AddProblem.jsx<br>
+│       │   │   ├── Advice.jsx<br>
+│       │   │   └── Reminder.jsx<br>
+│       │   │<br>
+│       │   └── doctor/<br>
+│       │       ├── DoctorDashboard.jsx<br>
+│       │       ├── PatientDetails.jsx<br>
+│       │       └── History.jsx<br>
+│       │<br>
+│       ├── routes/<br>
+│       │   └── AppRoutes.jsx<br>
+│       │<br>
+│       ├── App.jsx<br>
+│       └── main.jsx<br>
+│<br>
+├── server/                 # Node + Express Backend<br>
+│   ├── controllers/<br>
+│   │   ├── auth.controller.js<br>
+│   │   ├── patient.controller.js<br>
+│   │   └── doctor.controller.js<br>
+│   │<br>
+│   ├── models/<br>
+│   │   ├── User.js<br>
+│   │   ├── Problem.js<br>
+│   │   └── Advice.js<br>
+│   │<br>
+│   ├── routes/<br>
+│   │   ├── auth.routes.js<br>
+│   │   ├── patient.routes.js<br>
+│   │   └── doctor.routes.js<br>
+│   │<br>
+│   ├── middleware/<br>
+│   │   └── auth.middleware.js<br>
+│   │<br>
+│   ├── config/<br>
+│   │   └── db.js<br>
+│   │<br>
+│   ├── server.js<br>
+│   └── app.js<br>
+│<br>
+└── README.md  <br>
 
 
 ---

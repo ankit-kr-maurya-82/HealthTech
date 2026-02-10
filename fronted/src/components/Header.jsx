@@ -10,17 +10,18 @@ const Header = () => {
                 {/* logo */}
                 <Link 
                 to="/">
-                    Logo
+                    careme 
+                    <img src="" alt="" />
                 </Link>
                 <div>
                     <Link to={'/login'} className='login'>Login</Link>
                     <Link to={'/signup'} className='signup'>Signup</Link>
                 </div>
-                <div>
+                <div className='nav_link'>
                     <ul>
                         <li>
                             <NavLink
-                            className={({isActive}) => `text-grey-20`}>
+                            className={({isActive}) => `text-blue-200 ${isActive ? "text-blue-700" : "text-grey-700"}`}>
                                 Home
                             </NavLink>
                         </li>

@@ -1,16 +1,25 @@
-# React + Vite
+# Fronted
+# Heatlhcare
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+## git
+git branch your branch_name
+git checkout branch_name
 
-Currently, two official plugins are available:
+### team   branch name
+Bhrantik - fronted-one
+Anshumaan - fronted-two
+Harsh - backend
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Babel](https://babeljs.io/) (or [oxc](https://oxc.rs) when used in [rolldown-vite](https://vite.dev/guide/rolldown)) for Fast Refresh
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/) for Fast Refresh
+### git push and pull
+git push origin (branch_name)   // your branch name
+git pull origin (branch_name)   // your branch name
 
-## React Compiler
+### git control
+git add . <br>
+git commit -m "jo bhi apna kiya hai wahi likhna hai"<br>
+git push origin (branch_name)   // your branch name
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
-
-## Expanding the ESLint configuration
-
-If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+## terminal
+start a app<br>
+cd fronted<br>
+npm run dev

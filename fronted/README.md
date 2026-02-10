@@ -23,3 +23,56 @@ git push origin (branch_name)   // your branch name
 start a app<br>
 cd fronted<br>
 npm run dev
+
+
+
+## 📁 Project Structure (Fronted)
+
+├── client/                 # React Frontend<br>
+│   ├── public/<br>
+│   │<br>
+│   └── src/<br>
+│       ├── assets/         # images, icons<br>
+│       ├── components/<br>
+│       │   ├── layout/<br>
+│       │   │   ├── Header.jsx<br>
+│       │   │   ├── Footer.jsx<br>
+│       │   │   └── Sidebar.jsx<br>
+│       │   │<br>
+│       │   ├── ui/<br>
+│       │   │   ├── Button.jsx<br>
+│       │   │   ├── Card.jsx<br>
+│       │   │   └── Input.jsx<br>
+│       │   │<br>
+│       │   └── common/<br>
+│       │       ├── FeatureCard.jsx<br>
+│       │       ├── TestimonialCard.jsx<br>
+│       │       └── StatusCard.jsx<br>
+│       │<br>
+│       ├── pages/<br>
+│       │   ├── public/<br>
+│       │   │   ├── Home.jsx<br>
+│       │   │   ├── About.jsx<br>
+│       │   │   └── Contact.jsx<br>
+│       │   │<br>
+│       │   ├── auth/<br>
+│       │   │   ├── Login.jsx<br>
+│       │   │   └── Register.jsx<br>
+│       │   │<br>
+│       │   ├── patient/<br>
+│       │   │   ├── PatientDashboard.jsx<br>
+│       │   │   ├── AddProblem.jsx<br>
+│       │   │   ├── Advice.jsx<br>
+│       │   │   └── Reminder.jsx<br>
+│       │   │<br>
+│       │   └── doctor/<br>
+│       │       ├── DoctorDashboard.jsx<br>
+│       │       ├── PatientDetails.jsx<br>
+│       │       └── History.jsx<br>
+│       │<br>
+│       ├── routes/<br>
+│       │   └── AppRoutes.jsx<br>
+│       │<br>
+│       ├── App.jsx<br>
+│       └── main.jsx<br>
+│

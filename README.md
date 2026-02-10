@@ -20,7 +20,7 @@ git commit -m "jo bhi apna kiya hai wahi likhna hai"<br>
 git push origin (branch_name)   // your branch name
 
 ## terminal
-start a app<br>
+### start a app<br>
 cd fronted<br>
 npm run dev
 

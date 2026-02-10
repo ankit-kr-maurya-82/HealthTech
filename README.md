@@ -11,7 +11,7 @@ Anshumaan - fronted-two
 Harsh - backend
 
 ### git push and pull
-git push origin (branch_name)   // your branch name
+git push origin (branch_name)   // your branch name<br>
 git pull origin (branch_name)   // your branch name
 
 ### git control

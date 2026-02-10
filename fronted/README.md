@@ -2,16 +2,16 @@
 # Heatlhcare
 
 ## git
-git branch your branch_name
+git branch your branch_name<br>
 git checkout branch_name
 
 ### team   branch name
-Bhrantik - fronted-one
-Anshumaan - fronted-two
+Bhrantik - fronted-one<br>
+Anshumaan - fronted-two<br>
 Harsh - backend
 
 ### git push and pull
-git push origin (branch_name)   // your branch name
+git push origin (branch_name)   // your branch name<br>
 git pull origin (branch_name)   // your branch name
 
 ### git control

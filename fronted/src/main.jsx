@@ -8,7 +8,6 @@ import Home from './pages/public/Home.jsx'
 import About from './pages/public/About.jsx'
 import Contact from './pages/public/Contact.jsx'
 import Register from './pages/auth/Register.jsx'
-import Login from './pages/auth/Login.jsx'
 import DoctorRegister from './pages/auth/DoctorRegister.jsx'
 import PatientRegister from './pages/auth/PatientRegister.jsx'
 import DoctorLogin from './pages/auth/DoctorLogin.jsx'
@@ -22,7 +21,6 @@ const router = createBrowserRouter(
       <Route path='about' element={<About/>}/>
       <Route path='contact' element={<Contact/>}/>
       <Route path='register' element={<Register/>}/>
-      <Route path='login' element={<Login/>}/>
       <Route path='register/doctor' element={<DoctorRegister/>}/>
       <Route path='login/doctor' element={<DoctorLogin/>}/>
       <Route path='register/patient' element={<PatientRegister/>}/>

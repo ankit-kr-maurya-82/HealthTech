@@ -1,16 +1,15 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const DoctorRegister = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
     name: "",
     email: "",
     password: "",
-    age: "",
-    gender: "",
-    role: "patient",
+    specialization: "",
+    role: "doctor",
   });
 
   const handleChange = (e) => {
@@ -23,10 +22,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Register Data:", formData);
+    console.log("Doctor Register Data:", formData);
 
-    // 👉 Later connect API
-    // await axios.post("/api/auth/register", formData)
+    // 👉 API connect later
+    // axios.post("/api/auth/register", formData)
 
     navigate("/login");
   };
@@ -36,7 +35,7 @@ const Register = () => {
       <div className="">
 
         <h2 className="">
-          Create Account
+          Doctor Registration
         </h2>
 
         <form onSubmit={handleSubmit} className="">
@@ -44,9 +43,9 @@ const Register = () => {
           <input
             type="text"
             name="name"
-            placeholder="Full Name"
-            onChange={handleChange}
+            placeholder="Doctor Name"
             required
+            onChange={handleChange}
             className=""
           />
 
@@ -54,8 +53,8 @@ const Register = () => {
             type="email"
             name="email"
             placeholder="Email"
-            onChange={handleChange}
             required
+            onChange={handleChange}
             className=""
           />
 
@@ -63,49 +62,30 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
-            onChange={handleChange}
             required
+            onChange={handleChange}
             className=""
           />
 
           <input
-            type="number"
-            name="age"
-            placeholder="Age"
+            type="text"
+            name="specialization"
+            placeholder="Specialization (e.g. Cardiologist)"
+            required
             onChange={handleChange}
             className=""
           />
-
-          <select
-            name="gender"
-            onChange={handleChange}
-            className=""
-          >
-            <option value="">Select Gender</option>
-            <option>Male</option>
-            <option>Female</option>
-            <option>Other</option>
-          </select>
-
-          <select
-            name="role"
-            onChange={handleChange}
-            className=""
-          >
-            <option value="patient">Patient</option>
-            <option value="doctor">Doctor</option>
-          </select>
 
           <button
             type="submit"
             className=""
           >
-            Register
+            Register as Doctor
           </button>
         </form>
 
-        <p className="text-sm text-center mt-4">
-          Already have an account?{" "}
+        <p className="">
+          Already registered?{" "}
           <Link to="/login" className="">
             Login
           </Link>
@@ -116,4 +96,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default DoctorRegister;

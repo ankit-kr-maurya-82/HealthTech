@@ -1,8 +1,10 @@
-import React from "react";
+import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
-import "./css/Header.css"
 
-const Header = ({ isLoggedIn }) => {
+const Header = () => {
+  const [showRegister, setShowRegister] = useState(false);
+  const [showLogin, setShowLogin] = useState(false);
+
   return (
     <header className="">
       <nav className="">
@@ -12,79 +14,70 @@ const Header = ({ isLoggedIn }) => {
           CareMe
         </Link>
 
-        {/* Navigation */}
+        {/* Nav Links */}
         <ul className="">
-          <li>
-            <NavLink
-              to="/"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
-              }
-            >
-              Home
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/explore"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
-              }
-            >
-              Explore
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/about"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
-              }
-            >
-              About
-            </NavLink>
-          </li>
-
-          <li>
-            <NavLink
-              to="/contact"
-              className={({ isActive }) =>
-                isActive ? "text-blue-600" : "text-gray-700 hover:text-blue-500"
-              }
-            >
-              Contact
-            </NavLink>
-          </li>
+          <NavLink to="/">Home</NavLink>
+          <NavLink to="/about">About</NavLink>
+          <NavLink to="/contact">Contact</NavLink>
         </ul>
 
         {/* Auth Buttons */}
         <div className="">
-          {!isLoggedIn ? (
-            <>
-              <Link
-                to="/login"
-                className=""
-              >
-                Login
-              </Link>
 
-              <Link
-                to="/register"
-                className=""
-              >
-                Register
-              </Link>
-            </>
-          ) : (
-            <Link
-              to="/dashboard"
+          {/* Register Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowRegister(!showRegister)}
               className=""
             >
-              Dashboard
-            </Link>
-          )}
+              Register
+            </button>
+
+            {showRegister && (
+              <div className="">
+                <Link
+                  to="/register/patient"
+                  className=""
+                >
+                  Patient Register
+                </Link>
+                <Link
+                  to="/register/doctor"
+                  className=""
+                >
+                  Doctor Register
+                </Link>
+              </div>
+            )}
+          </div>
+
+          {/* Login Dropdown */}
+          <div className="relative">
+            <button
+              onClick={() => setShowLogin(!showLogin)}
+              className=""
+            >
+              Login
+            </button>
+
+            {showLogin && (
+              <div className="">
+                <Link
+                  to="/login/patient"
+                  className=""
+                >
+                  Patient Login
+                </Link>
+                <Link
+                  to="/login/doctor"
+                  className=""
+                >
+                  Doctor Login
+                </Link>
+              </div>
+            )}
+          </div>
+
         </div>
       </nav>
     </header>
@@ -92,11 +85,3 @@ const Header = ({ isLoggedIn }) => {
 };
 
 export default Header;
-
-
-
-
-<ankit>ankit</ankit>
-
-
-

@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 
-const Register = () => {
+const PatientRegister = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
@@ -23,10 +23,10 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    console.log("Register Data:", formData);
+    console.log("Patient Register Data:", formData);
 
-    // 👉 Later connect API
-    // await axios.post("/api/auth/register", formData)
+    // 👉 later API connect
+    // axios.post("/api/auth/register", formData)
 
     navigate("/login");
   };
@@ -36,7 +36,7 @@ const Register = () => {
       <div className="">
 
         <h2 className="">
-          Create Account
+          Patient Registration
         </h2>
 
         <form onSubmit={handleSubmit} className="">
@@ -45,8 +45,8 @@ const Register = () => {
             type="text"
             name="name"
             placeholder="Full Name"
-            onChange={handleChange}
             required
+            onChange={handleChange}
             className=""
           />
 
@@ -54,8 +54,8 @@ const Register = () => {
             type="email"
             name="email"
             placeholder="Email"
-            onChange={handleChange}
             required
+            onChange={handleChange}
             className=""
           />
 
@@ -63,8 +63,8 @@ const Register = () => {
             type="password"
             name="password"
             placeholder="Password"
-            onChange={handleChange}
             required
+            onChange={handleChange}
             className=""
           />
 
@@ -72,12 +72,14 @@ const Register = () => {
             type="number"
             name="age"
             placeholder="Age"
+            required
             onChange={handleChange}
             className=""
           />
 
           <select
             name="gender"
+            required
             onChange={handleChange}
             className=""
           >
@@ -87,24 +89,16 @@ const Register = () => {
             <option>Other</option>
           </select>
 
-          <select
-            name="role"
-            onChange={handleChange}
-            className=""
-          >
-            <option value="patient">Patient</option>
-            <option value="doctor">Doctor</option>
-          </select>
-
           <button
             type="submit"
             className=""
           >
-            Register
+            Register as Patient
           </button>
+
         </form>
 
-        <p className="text-sm text-center mt-4">
+        <p className="">
           Already have an account?{" "}
           <Link to="/login" className="">
             Login
@@ -116,4 +110,4 @@ const Register = () => {
   );
 };
 
-export default Register;
+export default PatientRegister;

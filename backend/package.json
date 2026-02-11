@@ -1,26 +1,22 @@
 {
-  "name": "healthcare",
+  "name": "careme",
   "version": "1.0.0",
   "description": "healthcare",
-  "keywords": [
-    "diet",
-    "doctor",
-    "patient"
-  ],
   "license": "ISC",
-  "author": "ak maurya",
-  "type": "module",
+  "author": "ak Maurya",
+  "type": "commonjs",
   "main": "index.js",
   "scripts": {
-    "dev": "nodemon -r dotenv/config --experimental-json-modules src/index.js"
-  },
-  "devDependencies": {
-    "nodemon": "^3.1.11",
-    "prettier": "^3.8.1"
+     "dev": "nodemon server.js"
+
   },
   "dependencies": {
+    "cors": "^2.8.6",
     "dotenv": "^17.2.4",
     "express": "^5.2.1",
     "mongoose": "^9.2.0"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.11"
   }
 }

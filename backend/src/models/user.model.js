@@ -6,15 +6,29 @@ const userSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
-    email: { 
-        type: String, 
-        required: true, 
-        unique: true },
-    password: { type: String, required: true },
-    role: { type: String, enum: ["patient", "doctor"], required: true },
-    age: { type: Number }, // patient only
-    gender: { type: String }, // patient only
-    specialization: { type: String }, // doctor only
+    email: {
+      type: String,
+      required: true,
+      unique: true,
+    },
+    password: {
+      type: String,
+      required: true,
+    },
+    role: {
+      type: String,
+      enum: ["patient", "doctor"],
+      required: true,
+    },
+    age: {
+      type: Number,
+    }, // patient only
+    gender: {
+      type: String,
+    }, // patient only
+    specialization: {
+      type: String,
+    }, // doctor only
   },
   { timestamps: true }
 );

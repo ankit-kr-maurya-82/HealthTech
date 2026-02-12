@@ -13,6 +13,7 @@ import PatientRegister from './pages/auth/PatientRegister.jsx'
 import DoctorLogin from './pages/auth/DoctorLogin.jsx'
 import PatientLogin from './pages/auth/PatientLogin.jsx'
 import Team from './pages/public/Team.jsx'
+import Github, { githubInfoLoader } from './pages/public/Github.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -26,6 +27,9 @@ const router = createBrowserRouter(
       <Route path="login/doctor" element={<DoctorLogin/>}/>
       <Route path="register/patient" element={<PatientRegister/>}/>
       <Route path="login/patient" element={<PatientLogin/>}/>
+      <Route
+      loader={githubInfoLoader}
+      path="github" element={<Github/>}/>
     </Route>
   )
 )

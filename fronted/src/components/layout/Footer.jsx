@@ -35,6 +35,17 @@ const Footer = () => {
           </ul>
         </div>
 
+
+        {/* Developer Tools */}
+        <div className="footer-section">
+          <h3>Developer</h3>
+          <ul>
+            <li><a href="github">Github</a></li>
+            {/* <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Twitter</a></li> */}
+          </ul>
+        </div>
+
         {/* Policies */}
         <div className="footer-section">
           <h3>Policies</h3>

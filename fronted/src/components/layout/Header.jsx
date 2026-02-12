@@ -30,7 +30,8 @@ const Header = () => {
 
         {/* Logo */}
         <Link to="/" className="logo">
-          <img src={Logo} alt="CareMe" />
+          {/* <img src={Logo} alt="CareMe" /> */}
+          Careme
         </Link>
 
         {/* Mobile Toggle */}

@@ -4,18 +4,18 @@ import "./css/Team.css";
 const Team = () => {
   const members = [
     {
-      name: "Ankit Maurya",
+      name: "Ankit Kumar Maurya",
       role: "Full Stack Developer",
       img: "https://via.placeholder.com/150"
     },
     {
-      name: "Dr. Rahul Sharma",
-      role: "Medical Advisor",
+      name: "Bhrantik Nagar",
+      role: "UI/UX Designer",
       img: "https://via.placeholder.com/150"
     },
     {
-      name: "Priya Singh",
-      role: "UI/UX Designer",
+      name: "Harsh Tiwari",
+      role: "Database Designer",
       img: "https://via.placeholder.com/150"
     }
   ];

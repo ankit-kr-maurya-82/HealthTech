@@ -1,11 +1,56 @@
-import React from 'react'
+import React from "react";
+import "./css/Footer.css";
 
 const Footer = () => {
   return (
-    <div>
-      Footer
-    </div>
-  )
-}
+    <footer className="footer">
+      <div className="footer-container">
 
-export default Footer
+        {/* Logo + About */}
+        <div className="footer-section">
+          <h2 className="footer-logo">CareMe</h2>
+          <p>
+            Smart digital healthcare platform helping patients track health,
+            connect with doctors, and improve daily lifestyle.
+          </p>
+        </div>
+
+        {/* Quick Links */}
+        <div className="footer-section">
+          <h3>Links</h3>
+          <ul>
+            <li><a href="/">Home</a></li>
+            <li><a href="/about">About</a></li>
+            <li><a href="/contact">Contact</a></li>
+          </ul>
+        </div>
+
+        {/* Social Media */}
+        <div className="footer-section">
+          <h3>Social</h3>
+          <ul>
+            <li><a href="#">Instagram</a></li>
+            <li><a href="#">LinkedIn</a></li>
+            <li><a href="#">Twitter</a></li>
+          </ul>
+        </div>
+
+        {/* Policies */}
+        <div className="footer-section">
+          <h3>Policies</h3>
+          <ul>
+            <li><a href="#">Privacy Policy</a></li>
+            <li><a href="#">Terms & Conditions</a></li>
+          </ul>
+        </div>
+
+      </div>
+
+      <div className="footer-bottom">
+        © {new Date().getFullYear()} CareMe. All Rights Reserved.
+      </div>
+    </footer>
+  );
+};
+
+export default Footer;

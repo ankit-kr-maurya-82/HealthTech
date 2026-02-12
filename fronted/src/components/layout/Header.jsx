@@ -1,79 +1,60 @@
 import React, { useState } from "react";
 import { Link, NavLink } from "react-router-dom";
+import "./css/Header.css";
 
 const Header = () => {
   const [showRegister, setShowRegister] = useState(false);
   const [showLogin, setShowLogin] = useState(false);
 
   return (
-    <header className="">
-      <nav className="">
+    <header className="header">
+      <nav className="navbar">
 
         {/* Logo */}
-        <Link to="/" className="">
+        <Link to="/" className="logo">
           CareMe
         </Link>
 
         {/* Nav Links */}
-        <ul className="">
+        <ul className="nav-links">
           <NavLink to="/">Home</NavLink>
           <NavLink to="/about">About</NavLink>
           <NavLink to="/contact">Contact</NavLink>
         </ul>
 
         {/* Auth Buttons */}
-        <div className="">
+        <div className="auth-buttons">
 
-          {/* Register Dropdown */}
-          <div className="relative">
+          {/* Register */}
+          <div className="dropdown">
             <button
               onClick={() => setShowRegister(!showRegister)}
-              className=""
+              className="btn primary"
             >
               Register
             </button>
 
             {showRegister && (
-              <div className="">
-                <Link
-                  to="/register/patient"
-                  className=""
-                >
-                  Patient Register
-                </Link>
-                <Link
-                  to="/register/doctor"
-                  className=""
-                >
-                  Doctor Register
-                </Link>
+              <div className="dropdown-menu">
+                <Link to="/register/patient">Patient Register</Link>
+                <Link to="/register/doctor">Doctor Register</Link>
               </div>
             )}
           </div>
 
-          {/* Login Dropdown */}
-          <div className="relative">
+          {/* Login */}
+          <div className="dropdown">
             <button
               onClick={() => setShowLogin(!showLogin)}
-              className=""
+              className="btn outline"
             >
               Login
             </button>
 
             {showLogin && (
-              <div className="">
-                <Link
-                  to="/login/patient"
-                  className=""
-                >
-                  Patient Login
-                </Link>
-                <Link
-                  to="/login/doctor"
-                  className=""
-                >
-                  Doctor Login
-                </Link>
+              <div className="dropdown-menu">
+                <Link to="/login/patient">Patient Login</Link>
+                <Link to="/login/doctor">Doctor Login</Link>
               </div>
             )}
           </div>

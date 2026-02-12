@@ -9,6 +9,7 @@ const DoctorRegister = () => {
     email: "",
     password: "",
     specialization: "",
+    certificateNumber: "",
     role: "doctor",
   });
 
@@ -24,29 +25,24 @@ const DoctorRegister = () => {
 
     console.log("Doctor Register Data:", formData);
 
-    // 👉 API connect later
+    // 👉 later API connect
     // axios.post("/api/auth/register", formData)
 
-    navigate("/login");
+    navigate("/doctor/dashboard");
   };
 
   return (
-    <div className="">
-      <div className="">
+    <div className="doctor-register-container">
+      <div className="doctor-register-card">
+        <h2>Doctor Registration</h2>
 
-        <h2 className="">
-          Doctor Registration
-        </h2>
-
-        <form onSubmit={handleSubmit} className="">
-
+        <form onSubmit={handleSubmit}>
           <input
             type="text"
             name="name"
-            placeholder="Doctor Name"
+            placeholder="Full Name"
             required
             onChange={handleChange}
-            className=""
           />
 
           <input
@@ -55,7 +51,6 @@ const DoctorRegister = () => {
             placeholder="Email"
             required
             onChange={handleChange}
-            className=""
           />
 
           <input
@@ -64,33 +59,33 @@ const DoctorRegister = () => {
             placeholder="Password"
             required
             onChange={handleChange}
-            className=""
           />
 
           <input
             type="text"
             name="specialization"
-            placeholder="Specialization (e.g. Cardiologist)"
+            placeholder="Specialization (Cardiologist, Dentist...)"
             required
             onChange={handleChange}
-            className=""
           />
 
-          <button
-            type="submit"
-            className=""
-          >
+          <input
+            type="text"
+            name="certificateNumber"
+            placeholder="Medical Certificate Number"
+            required
+            onChange={handleChange}
+          />
+
+          <button type="submit">
             Register as Doctor
           </button>
         </form>
 
-        <p className="">
-          Already registered?{" "}
-          <Link to="/login" className="">
-            Login
-          </Link>
+        <p>
+          Already have an account?{" "}
+          <Link to="/login/doctor">Login</Link>
         </p>
-
       </div>
     </div>
   );

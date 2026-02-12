@@ -2,6 +2,10 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./css/DoctorLogin.css"
 
+// import user_icon from "../../assets/user.png";
+// import email_icon from "../../assets/envlope.png";
+// import password_icon from "../../assets/lock.png";
+
 const DoctorLogin = () => {
   const navigate = useNavigate();
 
@@ -26,12 +30,12 @@ const DoctorLogin = () => {
   };
 
   return (
-    <div className="">
+    <div className="container">
       <form
         onSubmit={handleSubmit}
-        className=""
+        className="main-form"
       >
-        <h2 className="">
+        <h2 className="main-heading">
           Doctor Login
         </h2>
 
@@ -41,7 +45,7 @@ const DoctorLogin = () => {
           placeholder="Email"
           required
           onChange={handleChange}
-          className=""
+          className="main-input"
         />
 
         <input
@@ -50,10 +54,10 @@ const DoctorLogin = () => {
           placeholder="Password"
           required
           onChange={handleChange}
-          className=""
+          className="main-input"
         />
 
-        <button className="">
+        <button className="main-button">
           Login as Doctor
         </button>
       </form>

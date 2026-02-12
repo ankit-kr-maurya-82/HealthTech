@@ -26,12 +26,12 @@ const PatientLogin = () => {
   };
 
   return (
-    <div className="">
+    <div className="container">
       <form
         onSubmit={handleSubmit}
-        className=""
+        className="main-form"
       >
-        <h2 className="">
+        <h2 className="main-heading">
           Patient Login
         </h2>
 
@@ -41,7 +41,7 @@ const PatientLogin = () => {
           placeholder="Email"
           required
           onChange={handleChange}
-          className=""
+          className="main-input"
         />
 
         <input
@@ -50,10 +50,10 @@ const PatientLogin = () => {
           placeholder="Password"
           required
           onChange={handleChange}
-          className=""
+          className="main-input"
         />
 
-        <button className="">
+        <button className="main-button">
           Login as Patient
         </button>
       </form>

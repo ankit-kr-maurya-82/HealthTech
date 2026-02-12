@@ -17,6 +17,16 @@ const Team = () => {
       name: "Harsh Tiwari",
       role: "Database Designer",
       img: "https://via.placeholder.com/150"
+    },
+    {
+      name: "Anshumaan Pandey",
+      role: "UI Designer",
+      img: "https://via.placeholder.com/150"
+    },
+    {
+      name: "Dev Sharma",
+      role: "Database Designer",
+      img: "https://via.placeholder.com/150"
     }
   ];
 

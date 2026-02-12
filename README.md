@@ -12,7 +12,7 @@ Harsh - backend<br>
 
 ### git push and pull
 git push origin (branch_name)   // your branch name<br>
-git pull origin (branch_name)   // your branch name
+git pull origin main 
 
 ### git control
 git add . <br>

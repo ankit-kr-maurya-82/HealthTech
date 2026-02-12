@@ -12,9 +12,9 @@ const Contact = () => {
           <p>We are here to help you improve your health lifestyle.</p>
 
           <div className="info-box">
-            <p>Email: support@careme.com</p>
-            <p>Phone: +91 9876543210</p>
-            <p>Location: India</p>
+            <p>Email: ankitkrmaurya82@gmail.com</p>
+            <p>Phone: +91 9555154346</p>
+            <p>Location: Kota,India</p>
           </div>
 
           {/* SOCIAL ICONS */}

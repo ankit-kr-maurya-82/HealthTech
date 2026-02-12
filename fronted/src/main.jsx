@@ -12,12 +12,14 @@ import DoctorRegister from './pages/auth/DoctorRegister.jsx'
 import PatientRegister from './pages/auth/PatientRegister.jsx'
 import DoctorLogin from './pages/auth/DoctorLogin.jsx'
 import PatientLogin from './pages/auth/PatientLogin.jsx'
+import Team from './pages/public/Team.jsx'
 
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path='/' element={<Layout/>}>
       <Route path='' element={<Home/>}/>
+      <Route path='team' element={<Team/>}/>
       <Route path='about' element={<About/>}/>
       <Route path='contact' element={<Contact/>}/>
       <Route path='register' element={<Register/>}/>

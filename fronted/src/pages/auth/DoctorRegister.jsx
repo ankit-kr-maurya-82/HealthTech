@@ -94,7 +94,7 @@ const DoctorRegister = () => {
       setLoading(false);
     }
   };
-
+ 
   return (
     <div className="doctor-register-container">
       <div className="doctor-register-card">

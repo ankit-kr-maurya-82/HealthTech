@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/axios";
+import "./css/PatientRegister.css"
 
 const PatientRegister = () => {
   const navigate = useNavigate();
@@ -37,55 +37,80 @@ const PatientRegister = () => {
   };
 
   return (
-    <div>
-      <h2>Patient Registration</h2>
+    <div className="">
+      <div className="">
 
-      <form onSubmit={handleSubmit}>
-        <input
-          type="text"
-          name="username"
-          placeholder="Full Name"
-          required
-          onChange={handleChange}
-        />
+        <h2 className="">
+          Patient Registration
+        </h2>
 
-        <input
-          type="email"
-          name="email"
-          placeholder="Email"
-          required
-          onChange={handleChange}
-        />
+        <form onSubmit={handleSubmit} className="">
 
-        <input
-          type="password"
-          name="password"
-          placeholder="Password"
-          required
-          onChange={handleChange}
-        />
+          <input
+            type="text"
+            name="name"
+            placeholder="Full Name"
+            required
+            onChange={handleChange}
+            className=""
+          />
 
-        <input
-          type="number"
-          name="age"
-          placeholder="Age"
-          required
-          onChange={handleChange}
-        />
+          <input
+            type="email"
+            name="email"
+            placeholder="Email"
+            required
+            onChange={handleChange}
+            className=""
+          />
 
-        <select name="gender" required onChange={handleChange}>
-          <option value="">Select Gender</option>
-          <option value="male">Male</option>
-          <option value="female">Female</option>
-          <option value="other">Other</option>
-        </select>
+          <input
+            type="password"
+            name="password"
+            placeholder="Password"
+            required
+            onChange={handleChange}
+            className=""
+          />
 
-        <button type="submit">Register as Patient</button>
-      </form>
+          <input
+            type="number"
+            name="age"
+            placeholder="Age"
+            required
+            onChange={handleChange}
+            className=""
+          />
 
-      <p>
-        Already have account? <Link to="/login/patient">Login</Link>
-      </p>
+          <select
+            name="gender"
+            required
+            onChange={handleChange}
+            className=""
+          >
+            <option value="">Select Gender</option>
+            <option>Male</option>
+            <option>Female</option>
+            <option>Other</option>
+          </select>
+
+          <button
+            type="submit"
+            className=""
+          >
+            Register as Patient
+          </button>
+
+        </form>
+
+        <p className="">
+          Already have an account?{" "}
+          <Link to="/login" className="">
+            Login
+          </Link>
+        </p>
+
+      </div>
     </div>
   );
 };

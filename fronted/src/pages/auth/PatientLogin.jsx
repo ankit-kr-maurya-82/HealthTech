@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/PatientLogin.css"
 
 const PatientLogin = () => {
@@ -56,7 +56,14 @@ const PatientLogin = () => {
         <button className="main-button">
           Login as Patient
         </button>
+        <p className="">
+          Already have an account?{" "}
+          <Link to="/register/patient" className="">
+            Register
+          </Link>
+        </p>
       </form>
+      
     </div>
   );
 };

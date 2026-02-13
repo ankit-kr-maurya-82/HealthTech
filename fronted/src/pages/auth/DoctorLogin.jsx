@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import "./css/DoctorLogin.css"
 
 // import user_icon from "../../assets/user.png";
@@ -60,6 +60,12 @@ const DoctorLogin = () => {
         <button className="main-button">
           Login as Doctor
         </button>
+        <p className="">
+          Already have an account?{" "}
+          <Link to="/register/doctor" className="">
+            Register
+          </Link>
+        </p>
       </form>
     </div>
   );

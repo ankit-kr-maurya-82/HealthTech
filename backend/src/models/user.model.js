@@ -28,6 +28,9 @@ const userSchema = new mongoose.Schema(
           "Password must contain at least one uppercase letter, one lowercase letter, and one number",
       },
     },
+    avatar: {
+            type: String, // cloudinary url
+        },
 
     role: {
       type: String,

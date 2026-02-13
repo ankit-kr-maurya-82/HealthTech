@@ -66,7 +66,7 @@ const DoctorRegister = () => {
     setLoading(false);
     navigate("/doctor/dashboard");
   };
-
+ 
   return (
     <div className="doctor-register-container">
       <div className="doctor-register-card">

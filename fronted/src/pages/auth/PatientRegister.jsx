@@ -1,7 +1,7 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/PatientRegister.css"
-
+ 
 const PatientRegister = () => {
   const navigate = useNavigate();
 
@@ -33,14 +33,14 @@ const PatientRegister = () => {
   };
 
   return (
-    <div className="">
-      <div className="">
+    <div className="dragon-main">
+      <div className="dragon-card">
 
-        <h2 className="">
+        <h2 className="dragon-h2">
           Patient Registration
         </h2>
 
-        <form onSubmit={handleSubmit} className="">
+        <form onSubmit={handleSubmit} className="dragon-form">
 
           <input
             type="text"
@@ -48,7 +48,7 @@ const PatientRegister = () => {
             placeholder="Full Name"
             required
             onChange={handleChange}
-            className=""
+            className="dragon-selput"
           />
 
           <input
@@ -57,7 +57,7 @@ const PatientRegister = () => {
             placeholder="Email"
             required
             onChange={handleChange}
-            className=""
+            className="dragon-selput"
           />
 
           <input
@@ -66,7 +66,7 @@ const PatientRegister = () => {
             placeholder="Password"
             required
             onChange={handleChange}
-            className=""
+            className="dragon-selput"
           />
 
           <input
@@ -75,14 +75,14 @@ const PatientRegister = () => {
             placeholder="Age"
             required
             onChange={handleChange}
-            className=""
+            className="dragon-selput"
           />
 
           <select
             name="gender"
             required
             onChange={handleChange}
-            className=""
+            className="dragon-selput"
           >
             <option value="">Select Gender</option>
             <option>Male</option>
@@ -92,16 +92,16 @@ const PatientRegister = () => {
 
           <button
             type="submit"
-            className=""
+            className="dragon-button"
           >
             Register as Patient
           </button>
 
         </form>
 
-        <p className="">
+        <p className="dragon-text">
           Already have an account?{" "}
-          <Link to="/login" className="">
+          <Link to="/login" className="dragon-log">
             Login
           </Link>
         </p>

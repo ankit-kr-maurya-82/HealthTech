@@ -8,11 +8,21 @@ const UserContextProvider = ({ children }) => {
   const logout = () => {
     setUser(null);
     localStorage.removeItem("user");
+    localStorage.removeItem("token");
   };
 
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-    if (storedUser) setUser(JSON.parse(storedUser));
+
+    if (storedUser && storedUser !== "undefined") {
+      try {
+        setUser(JSON.parse(storedUser));
+      } catch (error) {
+        console.log("Invalid user data in localStorage");
+        localStorage.removeItem("user");
+      }
+    }
+
     setLoading(false);
   }, []);
 

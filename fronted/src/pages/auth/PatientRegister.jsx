@@ -1,7 +1,9 @@
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
-import "./css/PatientRegister.css"
+import "./css/PatientRegister.css";
+import Input from "../../components/ui/Input";
+import Button from "../../components/ui/Button";
 
 const PatientRegister = () => {
   const navigate = useNavigate();
@@ -40,11 +42,9 @@ const PatientRegister = () => {
   return (
     <div className="dragon-main">
       <div className="dragon-card">
-
         <h2 className="dragon-h2">Patient Registration</h2>
 
         <form onSubmit={handleSubmit} className="dragon-form">
-
           <input
             type="text"
             name="username"
@@ -93,10 +93,8 @@ const PatientRegister = () => {
             <option value="other">Other</option>
           </select>
 
-          <button type="submit" className="dragon-button">
-            Register as Patient
-          </button>
-
+          
+          <Button text="Register as Patient" type="submit" className="dragon-button" />
         </form>
 
         <p className="dragon-text">
@@ -105,7 +103,6 @@ const PatientRegister = () => {
             Login
           </Link>
         </p>
-
       </div>
     </div>
   );

@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import "./css/DoctorRegister.css";
 import api from "../../api/axios.js";
 import UserContext from "../../context/UserContext";
+import Button from "../../components/ui/Button.jsx";
 
 const DoctorRegister = () => {
   const navigate = useNavigate();
@@ -12,7 +13,7 @@ const DoctorRegister = () => {
     username: "",
     email: "",
     password: "",
-    gender: "",          // ✅ added
+    gender: "", // ✅ added
     specialization: "",
     certificateNumber: "",
     role: "doctor",
@@ -55,9 +56,7 @@ const DoctorRegister = () => {
         );
       }
 
-      const isValidCert = await verifyCertificate(
-        formData.certificateNumber
-      );
+      const isValidCert = await verifyCertificate(formData.certificateNumber);
 
       if (!isValidCert) {
         throw new Error("Certificate number not verified with NMC.");
@@ -65,17 +64,21 @@ const DoctorRegister = () => {
 
       const response = await api.post("/users/register", formData);
 
-      console.log("Doctor saved in DB:", response.data);
+      console.log("FULL RESPONSE =", response.data);
 
-      setUser(response.data.data);
+      // ✅ correct save
+      localStorage.setItem("token", response.data.data.token);
+      localStorage.setItem("user", JSON.stringify(response.data.data.user));
+
+      // ✅ context update
+      setUser(response.data.data.user);
+
+      // ✅ redirect
       navigate("/doctor/dashboard");
-
     } catch (err) {
       console.log(err);
       setError(
-        err.response?.data?.message ||
-        err.message ||
-        "Registration failed"
+        err.response?.data?.message || err.message || "Registration failed"
       );
     } finally {
       setLoading(false);
@@ -149,14 +152,16 @@ const DoctorRegister = () => {
             onChange={handleChange}
           />
 
-          <button type="submit" disabled={loading}>
+          <Button 
+          type="submit" 
+          text="Register on Doctor"
+          disabled={loading}>
             {loading ? "Registering..." : "Register as Doctor"}
-          </button>
+          </Button>
         </form>
 
         <p>
-          Already have an account?{" "}
-          <Link to="/login/doctor">Login</Link>
+          Already have an account? <Link to="/login/doctor">Login</Link>
         </p>
       </div>
     </div>

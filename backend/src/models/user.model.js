@@ -31,7 +31,7 @@ age: {
   },
   gender: { 
     type: String, 
-    enum: ["male", "male", "other"], 
+    enum: ["male", "female", "other"], 
     default: "" },
   refreshToken: { 
     type: String, 

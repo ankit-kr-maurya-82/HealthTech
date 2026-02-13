@@ -51,17 +51,15 @@ const registerUser = asyncHandler(async (req, res) => {
   const existedUser = await User.findOne({
     $or: [{ username: username.toLowerCase() }, { email }],
   });
-  if (existedUser)
-    throw new ApiError(409, "User with email or username already exists");
 
-  // Avatar optional
+  if (existedUser) {
+    throw new ApiError(409, "User already exists");
+  }
+
   let avatarUrl = "";
-  if (
-    req.files &&
-    Array.isArray(req.files.avatar) &&
-    req.files.avatar.length > 0
-  ) {
-    avatarUrl = (await uploadOnCloudinary(req.files.avatar[0].path))?.url || "";
+  if (req.files?.avatar?.length > 0) {
+    avatarUrl =
+      (await uploadOnCloudinary(req.files.avatar[0].path))?.url || "";
   }
 
   const user = await User.create({
@@ -76,13 +74,33 @@ const registerUser = asyncHandler(async (req, res) => {
     avatar: avatarUrl,
   });
 
+  // ✅ generate tokens
+  const { accessToken, refreshToken } =
+    await generateAccessAndRefreshTokens(user._id);
+
   const createdUser = await User.findById(user._id).select(
     "-password -refreshToken"
   );
+
+  const cookieOptions = {
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict",
+  };
+
   return res
     .status(201)
-    .json(new ApiResponse(200, createdUser, "User registered successfully"));
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(
+      new ApiResponse(
+        200,
+        { user: createdUser, accessToken },
+        "User registered successfully"
+      )
+    );
 });
+
 
 // ===============================
 // 🔐 Login User

@@ -9,20 +9,20 @@ const Layout = () => {
   const [user, setUser] = useState(null);
   const location = useLocation();
 
-  const hideHeader =
-    location.pathname.startsWith("/login") ||
-    location.pathname.startsWith("/register");
-  const hideFooter =
-    location.pathname.startsWith("/login") ||
-    location.pathname.startsWith("/register");
+  const hideRoutes = ["/login", "/register", "/doctor-register"];
+
+  const hideHeader = hideRoutes.includes(location.pathname);
+  const hideFooter = hideRoutes.includes(location.pathname);
 
   return (
     <UserContext.Provider value={{ user, setUser }}>
       {!hideHeader && <Header />}
       {/* {!hideHeader && <Sidebar />} */}
+
       <main>
         <Outlet />
       </main>
+
       {!hideFooter && <Footer />}
     </UserContext.Provider>
   );

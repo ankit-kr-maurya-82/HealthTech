@@ -10,6 +10,9 @@ const Layout = () => {
      const hideHeader =
     location.pathname.startsWith("/login") ||
     location.pathname.startsWith("/register");
+     const hideFooter =
+    location.pathname.startsWith("/login") ||
+    location.pathname.startsWith("/register");
 
   return (
     <>
@@ -20,6 +23,7 @@ const Layout = () => {
         <main>
           <Outlet />
         </main>
+        {!hideFooter && <Footer />}
       </UserContextProvider>
     </>
   )

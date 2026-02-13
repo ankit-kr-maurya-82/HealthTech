@@ -16,6 +16,8 @@ import Team from './pages/public/Team.jsx'
 import Github, { githubInfoLoader } from './pages/public/Github.jsx'
 import PatientDashboard from './pages/patient/PatientDashboard.jsx'
 import DoctorDashboard from './pages/doctor/DoctorDashboard.jsx'
+import UserProvider from "./context/UserContextProvider";
+
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -41,8 +43,8 @@ const router = createBrowserRouter(
 
 createRoot(document.getElementById('root')).render(
   <React.StrictMode>
-    {/* <BrowserRouter> */}
-    <RouterProvider router={router}/>
-    {/* </BrowserRouter> */}
-  </React.StrictMode>,
+    <UserProvider>
+      <RouterProvider router={router}/>
+    </UserProvider>
+  </React.StrictMode>
 )

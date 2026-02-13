@@ -12,6 +12,7 @@ const DoctorRegister = () => {
     username: "",
     email: "",
     password: "",
+    gender: "",          // ✅ added
     specialization: "",
     certificateNumber: "",
     role: "doctor",
@@ -27,7 +28,6 @@ const DoctorRegister = () => {
     });
   };
 
-  // Fake certificate verification
   const verifyCertificate = async (certificateNumber) => {
     return new Promise((resolve) => {
       setTimeout(() => {
@@ -43,58 +43,45 @@ const DoctorRegister = () => {
     setLoading(true);
 
     try {
-      // ✅ certificate validation
+      if (!formData.gender) {
+        throw new Error("Please select gender");
+      }
+
       const certRegex = /^NMC[A-Za-z0-9]{3,9}$/;
+
       if (!certRegex.test(formData.certificateNumber)) {
         throw new Error(
-          "Please enter a valid Medical Certificate Number starting with 'NMC'."
+          "Please enter a valid Medical Certificate Number starting with NMC."
         );
       }
 
       const isValidCert = await verifyCertificate(
         formData.certificateNumber
       );
+
       if (!isValidCert) {
         throw new Error("Certificate number not verified with NMC.");
       }
 
-      // ✅ create FormData (multer compatible)
-      const data = new FormData();
-
-      Object.keys(formData).forEach((key) => {
-        data.append(key, formData[key]);
-      });
-
-      // ✅ API CALL
-      const response = await api.post(
-        "/users/register",
-        data,
-        {
-          headers: {
-            "Content-Type": "multipart/form-data",
-          },
-        }
-      );
+      const response = await api.post("/users/register", formData);
 
       console.log("Doctor saved in DB:", response.data);
 
-      // ✅ save user in context
       setUser(response.data.data);
-
       navigate("/doctor/dashboard");
 
     } catch (err) {
       console.log(err);
       setError(
         err.response?.data?.message ||
-          err.message ||
-          "Registration failed"
+        err.message ||
+        "Registration failed"
       );
     } finally {
       setLoading(false);
     }
   };
- 
+
   return (
     <div className="doctor-register-container">
       <div className="doctor-register-card">
@@ -129,6 +116,20 @@ const DoctorRegister = () => {
             value={formData.password}
             onChange={handleChange}
           />
+
+          {/* ✅ Gender Added */}
+          <select
+            name="gender"
+            required
+            value={formData.gender}
+            onChange={handleChange}
+            className="dragon-selput"
+          >
+            <option value="">Select Gender</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
+          </select>
 
           <input
             type="text"

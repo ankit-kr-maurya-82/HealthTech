@@ -90,6 +90,22 @@
   text-decoration: underline;
 }
 
+
+.dragon-selput {
+  margin-bottom: 14px;
+  padding: 11px 12px;
+  border-radius: 6px;
+  border: 1px solid #dbeafe;
+  font-size: 14px;
+  transition: 0.2s ease;
+  background-color: #ffffff;
+}
+
+.dragon-selput:focus {
+  border-color: #2563EB;
+  outline: none;
+  box-shadow: 0 0 0 2px rgba(37, 99, 235, 0.1);
+}
 @media (max-width: 420px) {
   .doctor-register-card {
     width: 90%;

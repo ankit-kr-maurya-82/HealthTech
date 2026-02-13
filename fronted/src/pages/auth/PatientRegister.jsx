@@ -1,12 +1,13 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import api from "../../api/axios";
+import UserContext from "../../context/UserContext";
 import "./css/PatientRegister.css";
-import Input from "../../components/ui/Input";
 import Button from "../../components/ui/Button";
 
 const PatientRegister = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -16,26 +17,35 @@ const PatientRegister = () => {
     gender: "",
     role: "patient",
   });
+  const [loading, setLoading] = useState(false);
+  const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
+    setLoading(true);
+    setError("");
 
     try {
       const response = await api.post("/users/register", formData);
 
-      console.log("Patient Saved:", response.data);
+      const userData = response.data.data; // assuming ApiResponse wraps user in data
+      const token = response.data.data?.accessToken || response.data.token;
+
+      // ✅ save in context & localStorage
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", token);
 
       navigate("/patient/dashboard");
     } catch (err) {
       console.log(err.response?.data);
-      alert(err.response?.data?.message || "Registration failed");
+      setError(err.response?.data?.message || "Registration failed");
+    } finally {
+      setLoading(false);
     }
   };
 
@@ -43,6 +53,8 @@ const PatientRegister = () => {
     <div className="dragon-main">
       <div className="dragon-card">
         <h2 className="dragon-h2">Patient Registration</h2>
+
+        {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit} className="dragon-form">
           <input
@@ -93,8 +105,12 @@ const PatientRegister = () => {
             <option value="other">Other</option>
           </select>
 
-          
-          <Button text="Register as Patient" type="submit" className="dragon-button" />
+          <Button
+            text={loading ? "Registering..." : "Register as Patient"}
+            type="submit"
+            className="dragon-button"
+            disabled={loading}
+          />
         </form>
 
         <p className="dragon-text">

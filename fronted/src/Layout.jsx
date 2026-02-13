@@ -1,30 +1,32 @@
-import React, { useState } from 'react';
-import { Outlet, useLocation } from 'react-router-dom';
-import Header from './components/layout/Header';
-import Footer from './components/layout/Footer';
-import Sidebar from './components/layout/Sidebar';
-import UserContext from './context/UserContext';
+import React, { useContext } from "react";
+import { Outlet, useLocation } from "react-router-dom";
+import Header from "./components/layout/Header";
+import Footer from "./components/layout/Footer";
+import UserContext from "./context/UserContext";
 
 const Layout = () => {
-  const [user, setUser] = useState(null);
+  const { user, loading } = useContext(UserContext);
   const location = useLocation();
 
+  // routes jahan header/footer hide karna hai
   const hideRoutes = ["/login", "/register", "/doctor-register"];
 
-  const hideHeader = hideRoutes.includes(location.pathname);
-  const hideFooter = hideRoutes.includes(location.pathname);
+  const hideHeader = hideRoutes.some((route) =>
+    location.pathname.startsWith(route)
+  );
+  const hideFooter = hideHeader || !!user; // hide footer on auth pages or if user is logged in
+
+  // optional: wait until context loaded
+  if (loading) return null;
 
   return (
-    <UserContext.Provider value={{ user, setUser }}>
+    <>
       {!hideHeader && <Header />}
-      {/* {!hideHeader && <Sidebar />} */}
-
       <main>
         <Outlet />
       </main>
-
       {!hideFooter && <Footer />}
-    </UserContext.Provider>
+    </>
   );
 };
 

@@ -1,7 +1,7 @@
-import React, { useState, useEffect, useRef } from "react";
+import React, { useState, useEffect, useRef, useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
-import Logo from "../../assets/caremeTransparent.png";
+import UserContext from "../../context/UserContext";
 import "./css/Header.css";
 
 const Header = () => {
@@ -9,7 +9,7 @@ const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const isLoggedIn = false;
+  const { user, logout } = useContext(UserContext); // ✅ context
 
   const dropdownRef = useRef();
 
@@ -27,12 +27,8 @@ const Header = () => {
   return (
     <header className="header">
       <nav className="navbar">
-
         {/* Logo */}
-        <Link to="/" className="logo">
-          {/* <img src={Logo} alt="CareMe" /> */}
-          Careme
-        </Link>
+        <Link to="/" className="logo">Careme</Link>
 
         {/* Mobile Toggle */}
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
@@ -40,19 +36,23 @@ const Header = () => {
         </div>
 
         <div className={`nav-section ${menuOpen ? "active" : ""}`}>
-
           {/* Links */}
           <ul className="nav-links">
             <NavLink to="/" end className="nav-link">Home</NavLink>
-            <NavLink to="/about" className="nav-link">About</NavLink>
-            <NavLink to="/contact" className="nav-link">Contact</NavLink>
-            <NavLink to="/team" className="nav-link">Developer Team</NavLink>
+
+            {/* Only show these if user NOT logged in */}
+            {!user && (
+              <>
+                <NavLink to="/about" className="nav-link">About</NavLink>
+                <NavLink to="/contact" className="nav-link">Contact</NavLink>
+                <NavLink to="/team" className="nav-link">Developer Team</NavLink>
+              </>
+            )}
           </ul>
 
-          {/* Auth */}
+          {/* Auth Buttons */}
           <div className="auth-buttons" ref={dropdownRef}>
-
-            {!isLoggedIn ? (
+            {!user ? (
               <>
                 <div className="dropdown">
                   <button
@@ -61,7 +61,6 @@ const Header = () => {
                   >
                     Register
                   </button>
-
                   {showRegister && (
                     <div className="dropdown-menu">
                       <Link to="/register/patient">Patient Register</Link>
@@ -77,7 +76,6 @@ const Header = () => {
                   >
                     Login
                   </button>
-
                   {showLogin && (
                     <div className="dropdown-menu">
                       <Link to="/login/patient">Patient Login</Link>
@@ -87,7 +85,24 @@ const Header = () => {
                 </div>
               </>
             ) : (
-              <FaUserCircle className="profile-icon" />
+              <div className="user-profile">
+                <FaUserCircle className="profile-icon" />
+                {/* ✅ Show username + role */}
+                <span className="username">
+                  {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
+                </span>
+
+                {/* ✅ Logout */}
+                <button
+                  className="btn logout"
+                  onClick={() => {
+                    logout();          // clear context & localStorage
+                    setMenuOpen(false); // close mobile menu
+                  }}
+                >
+                  Logout
+                </button>
+              </div>
             )}
           </div>
         </div>

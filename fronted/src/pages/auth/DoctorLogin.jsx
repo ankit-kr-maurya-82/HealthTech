@@ -1,15 +1,17 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/UserContext";
+import api from "../../api/axios"; // your axios instance
 import "./css/DoctorLogin.css";
-// NMC987654 medical Certificate Number
 
 const DoctorLogin = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const [data, setData] = useState({
     email: "",
     password: "",
-    certificateNumber: "", // add certificate number field
+    certificateNumber: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -18,14 +20,12 @@ const DoctorLogin = () => {
     setData({ ...data, [e.target.name]: e.target.value });
   };
 
-  // Simulated certificate verification
   const verifyCertificate = async (certificateNumber) => {
-    // Replace with backend API / NMC API call
+    // simulate NMC verification
     return new Promise((resolve) => {
       setTimeout(() => {
-        if (certificateNumber.startsWith("NMC")) resolve(true);
-        else resolve(false);
-      }, 1000);
+        resolve(certificateNumber.startsWith("NMC"));
+      }, 500);
     });
   };
 
@@ -34,27 +34,36 @@ const DoctorLogin = () => {
     setError("");
     setLoading(true);
 
-    if (!data.email || !data.password || !data.certificateNumber) {
-      setError("Please fill in all fields.");
-      setLoading(false);
-      return;
-    }
+    try {
+      if (!data.email || !data.password || !data.certificateNumber) {
+        throw new Error("Please fill in all fields.");
+      }
 
-    // Verify certificate
-    const isValidCert = await verifyCertificate(data.certificateNumber);
-    if (!isValidCert) {
-      setError("Certificate number not verified with NMC. Login denied.");
-      setLoading(false);
-      return;
-    }
+      const isValidCert = await verifyCertificate(data.certificateNumber);
+      if (!isValidCert) {
+        throw new Error("Certificate number not verified with NMC. Login denied.");
+      }
 
-    // TODO: Call backend to check email/password
-    console.log("Doctor Login Data:", data);
+      // ✅ call backend login
+      const response = await api.post("/users/login", {
+        email: data.email,
+        password: data.password,
+      });
 
-    setTimeout(() => {
-      setLoading(false);
+      const userData = response.data.data.user; // assuming backend response
+      const token = response.data.data.accessToken || response.data.token;
+
+      // save in context + localStorage
+      setUser(userData);
+      localStorage.setItem("user", JSON.stringify(userData));
+      localStorage.setItem("token", token);
+
       navigate("/doctor/dashboard");
-    }, 1000); // simulate backend delay
+    } catch (err) {
+      setError(err.response?.data?.message || err.message);
+    } finally {
+      setLoading(false);
+    }
   };
 
   return (

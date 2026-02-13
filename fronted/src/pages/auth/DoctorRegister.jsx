@@ -7,7 +7,7 @@ const DoctorRegister = () => {
   const navigate = useNavigate();
 
   const [formData, setFormData] = useState({
-    name: "",
+    username: "",
     email: "",
     password: "",
     specialization: "",

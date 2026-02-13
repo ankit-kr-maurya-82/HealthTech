@@ -15,6 +15,7 @@ import PatientLogin from './pages/auth/PatientLogin.jsx'
 import Team from './pages/public/Team.jsx'
 import Github, { githubInfoLoader } from './pages/public/Github.jsx'
 import PatientDashboard from './pages/patient/PatientDashboard.jsx'
+import DoctorDashboard from './pages/doctor/DoctorDashboard.jsx'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -28,7 +29,8 @@ const router = createBrowserRouter(
       <Route path="login/doctor" element={<DoctorLogin/>}/>
       <Route path="register/patient" element={<PatientRegister/>}/>
       <Route path="login/patient" element={<PatientLogin/>}/>
-      <Route path="patient" element={<PatientDashboard/>}/>
+      <Route path="patient/dashboard" element={<PatientDashboard/>}/>
+      <Route path="doctor/dashboard" element={<DoctorDashboard/>}/>
       <Route
       loader={githubInfoLoader}
       path="github" element={<Github/>}/>

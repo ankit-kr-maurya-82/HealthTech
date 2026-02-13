@@ -1,10 +1,12 @@
-import React, { useState } from "react";
+import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "./css/DoctorRegister.css";
+import api from "../../api/axios.js";
+import UserContext from "../../context/UserContext";
 
-// NMC987654 medical Certificate Number
 const DoctorRegister = () => {
   const navigate = useNavigate();
+  const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
     username: "",
@@ -25,15 +27,13 @@ const DoctorRegister = () => {
     });
   };
 
-  // Simulated certificate verification API
+  // Fake certificate verification
   const verifyCertificate = async (certificateNumber) => {
-    // Here, you can replace this with a real API call to your backend or NMC API
-    // For demonstration, we simulate valid certificates as starting with "NMC"
     return new Promise((resolve) => {
       setTimeout(() => {
         if (certificateNumber.startsWith("NMC")) resolve(true);
         else resolve(false);
-      }, 1000); // simulate network delay
+      }, 1000);
     });
   };
 
@@ -42,29 +42,57 @@ const DoctorRegister = () => {
     setError("");
     setLoading(true);
 
-    // Basic certificate validation (alphanumeric, 6-12 chars)
-    const certRegex = /^[A-Za-z0-9]{6,12}$/;
-    if (!certRegex.test(formData.certificateNumber)) {
-      setError("Please enter a valid Medical Certificate Number (6-12 alphanumeric characters).");
+    try {
+      // ✅ certificate validation
+      const certRegex = /^NMC[A-Za-z0-9]{3,9}$/;
+      if (!certRegex.test(formData.certificateNumber)) {
+        throw new Error(
+          "Please enter a valid Medical Certificate Number starting with 'NMC'."
+        );
+      }
+
+      const isValidCert = await verifyCertificate(
+        formData.certificateNumber
+      );
+      if (!isValidCert) {
+        throw new Error("Certificate number not verified with NMC.");
+      }
+
+      // ✅ create FormData (multer compatible)
+      const data = new FormData();
+
+      Object.keys(formData).forEach((key) => {
+        data.append(key, formData[key]);
+      });
+
+      // ✅ API CALL
+      const response = await api.post(
+        "/users/register",
+        data,
+        {
+          headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        }
+      );
+
+      console.log("Doctor saved in DB:", response.data);
+
+      // ✅ save user in context
+      setUser(response.data.data);
+
+      navigate("/doctor/dashboard");
+
+    } catch (err) {
+      console.log(err);
+      setError(
+        err.response?.data?.message ||
+          err.message ||
+          "Registration failed"
+      );
+    } finally {
       setLoading(false);
-      return;
     }
-
-    // Verify certificate (simulated)
-    const isValidCert = await verifyCertificate(formData.certificateNumber);
-    if (!isValidCert) {
-      setError("Certificate number not verified with NMC. Please check your number.");
-      setLoading(false);
-      return;
-    }
-
-    console.log("Doctor Register Data:", formData);
-
-    // TODO: replace with real API call
-    // await axios.post("/api/auth/register", formData)
-
-    setLoading(false);
-    navigate("/doctor/dashboard");
   };
 
   return (
@@ -77,10 +105,10 @@ const DoctorRegister = () => {
         <form onSubmit={handleSubmit}>
           <input
             type="text"
-            name="name"
+            name="username"
             placeholder="Full Name"
             required
-            value={formData.name}
+            value={formData.username}
             onChange={handleChange}
           />
 
@@ -105,7 +133,7 @@ const DoctorRegister = () => {
           <input
             type="text"
             name="specialization"
-            placeholder="Specialization (Cardiologist, Dentist...)"
+            placeholder="Specialization"
             required
             value={formData.specialization}
             onChange={handleChange}

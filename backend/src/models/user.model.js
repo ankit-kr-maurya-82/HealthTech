@@ -3,13 +3,39 @@ import bcrypt from "bcrypt";
 import jwt from "jsonwebtoken";
 
 const userSchema = new mongoose.Schema({
-  email: { type: String, required: true, unique: true },
-  username: { type: String, required: true, unique: true },
-  password: { type: String, required: true },
-  role: { type: String, default: "patient" },
-  avatar: { type: String, default: "" },
-  gender: { type: String, enum: ["Male", "Female", "Other"], default: "" },
-  refreshToken: { type: String, default: "" },
+  email: { 
+    type: String, 
+    required: true, 
+    unique: true 
+  },
+  username: { 
+    type: String, 
+    required: true, 
+    unique: true 
+  },
+  password: { 
+    type: String, 
+    required: true 
+  },
+  role: { 
+    type: String, 
+    default: "patient" 
+  },
+age: { 
+  type: Number, 
+  default: null 
+}, // optional number
+  avatar: { 
+    type: String, 
+    default: "" 
+  },
+  gender: { 
+    type: String, 
+    enum: ["male", "male", "other"], 
+    default: "" },
+  refreshToken: { 
+    type: String, 
+    default: "" },
 });
 
 // ===== Pre-save: hash password =====

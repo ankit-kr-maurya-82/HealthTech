@@ -8,18 +8,16 @@ const Layout = () => {
   const { user, loading } = useContext(UserContext);
   const location = useLocation();
 
-  // Routes where header/footer should be hidden
   const hideRoutes = ["/login", "/register", "/doctor-register"];
 
   const hideHeader = hideRoutes.some((route) =>
     location.pathname.startsWith(route)
   );
 
-  // Footer is only hidden on auth pages, not for logged-in users
-  const hideFooter = hideHeader;
+  // hide footer on auth pages + after login
+  const hideFooter = hideHeader || user;
 
-  // Wait until user data is loaded
-  if (loading) return null;
+  if (loading) return <div>Loading...</div>;
 
   return (
     <>
@@ -31,5 +29,6 @@ const Layout = () => {
     </>
   );
 };
+
 
 export default Layout;

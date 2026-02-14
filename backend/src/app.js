@@ -16,6 +16,10 @@ app.use(express.urlencoded({extended: true}))
 app.use(express.static("public"))
 app.use(cookieParser())
 
+app.get("/",(req,res)=>{
+  return res.send("Backend is Running")
+})
+
 // ✅ Routes import
 import userRouter from "./routes/user.routes.js";
 

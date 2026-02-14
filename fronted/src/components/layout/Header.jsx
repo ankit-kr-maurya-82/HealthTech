@@ -114,7 +114,6 @@ const Header = () => {
   {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
 </span>
 
-
                 {/* ✅ Logout */}
                 <button
                   className="btn logout"

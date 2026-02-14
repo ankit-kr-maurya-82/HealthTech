@@ -1,11 +1,5 @@
-// context/UserContext.js
 import { createContext } from "react";
 
-const UserContext = createContext({
-  user: null,
-  setUser: () => {},
-  loading: true, // initial loading state
-  setLoading: () => {},
-});
+const UserContext = createContext();
 
 export default UserContext;

@@ -1,29 +1,13 @@
 import { Router } from "express";
-import {
-  registerUser,
-  loginUser,
-  logoutUser,
-  refreshAccessToken,
-//   getProfile
-} from "../controllers/user.controller.js";
-
-// import User from "../models/user.model.js";
-
-
-import { upload } from "../middlewares/multer.middleware.js";
-import { protect } from "../middlewares/auth.middleware.js";
-import verifyJWT from "../middlewares/verifyJWT.js";
+import { loginUser, refreshAccessToken, registerUser } from "../controllers/user.controller.js";
 
 const router = Router();
 
-// 🔓 Public Routes
+// Public test route
 router.post("/register", registerUser);
 router.post("/login", loginUser);
+
+
 router.post("/refresh-token", refreshAccessToken);
-
-// 🔒 Protected Routes
-router.post("/logout", protect, logoutUser);
-// router.get("/profile", protect, getProfile);
-
 
 export default router;

@@ -11,9 +11,9 @@ const UserContextProvider = ({ children }) => {
     localStorage.removeItem("token");
   };
 
+  // Load user from localStorage on app start
   useEffect(() => {
     const storedUser = localStorage.getItem("user");
-
     if (storedUser && storedUser !== "undefined") {
       try {
         setUser(JSON.parse(storedUser));
@@ -22,7 +22,6 @@ const UserContextProvider = ({ children }) => {
         localStorage.removeItem("user");
       }
     }
-
     setLoading(false);
   }, []);
 

@@ -1,6 +1,6 @@
 import React, { useState, useContext } from "react";
 import { Link, useNavigate } from "react-router-dom";
-import api from "../../api/axios"; // your axios instance
+import api from "../../api/axios"; // Axios instance
 import UserContext from "../../context/UserContext";
 import "./css/PatientLogin.css";
 
@@ -26,17 +26,23 @@ const PatientLogin = () => {
         throw new Error("Please fill in all fields.");
       }
 
-      // ✅ Call backend login
+      // Call backend login
       const response = await api.post("/users/login", data);
 
-      const userData = response.data.data.user; // assuming ApiResponse wraps user
-      const token = response.data.data.accessToken || response.data.token;
+      // Backend must return user with username and role
+      const userData = response.data?.data?.user;
+      const token = response.data?.data?.accessToken;
 
-      // ✅ Save in context & localStorage
+      if (!userData || !token) {
+        throw new Error("Invalid login response from server");
+      }
+
+      // Save in context & localStorage
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", token);
 
+      // Redirect to patient dashboard
       navigate("/patient/dashboard");
     } catch (err) {
       setError(err.response?.data?.message || err.message || "Login failed");

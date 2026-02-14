@@ -17,5 +17,3 @@ import userRouter from "./routes/user.routes.js";
 
 // Mount user routes
 app.use("/api/v1/users", userRouter);
-
-export { app };

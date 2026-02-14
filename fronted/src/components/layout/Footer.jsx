@@ -14,7 +14,7 @@ const Footer = () => {
             connect with doctors, and improve daily lifestyle.
           </p>
         </div>
-
+ 
         {/* Quick Links */}
         <div className="footer-section">
           <h3>Links</h3>
@@ -34,7 +34,6 @@ const Footer = () => {
             <li><a href="#">Twitter</a></li>
           </ul>
         </div>
-
 
         {/* Developer Tools */}
         <div className="footer-section">

@@ -13,11 +13,6 @@
   /* background-color: #00a6ff; */
 }
 
-.logo img {
-  height: 34px;
-  color: #599ee8;
-}
-
 .nav-section {
   display: flex;
   align-items: center;
@@ -33,10 +28,15 @@
   text-decoration: none;
   color: #514d4d;
   font-weight: 500;
+  transition: 0.2s;
 }
 
 .nav-link.active {
   color: var(--primary-color);
+}
+
+.nav-link:hover {
+  color: #599ee8;
 }
 
 .auth-buttons {
@@ -62,24 +62,34 @@
   background: transparent;
 }
 
+.dropdown {
+  position: relative;
+}
+
 .dropdown-menu {
   position: absolute;
-  top: 40px;
+  top: 100%;
+  right: 0;
+  margin-top: 6px;
   background: white;
   box-shadow: 0 2px 10px rgba(0,0,0,0.1);
   display: flex;
   flex-direction: column;
+  min-width: 150px;
+  border-radius: 5px;
+  overflow: hidden;
+  z-index: 100;
 }
 
 .dropdown-menu a {
-  padding: 8px 14px;
+  padding: 13px 14px;
   text-decoration: none;
   color: black;
+  transition: 0.2s;
 }
 
-.menu-icon {
-  display: none;
-  font-size: 22px;
+.dropdown-menu a:hover {
+  background-color: #f2f2f2;
 }
 
 .profile-icon {
@@ -87,22 +97,71 @@
   color: #ff6600;
 }
 
+.sidebar-header {
+    display: none;
+  }
+
+  .menu-icon {
+    display: none;
+    font-size: 22px;
+    cursor: pointer;
+  }
+
 /* Mobile */
 @media(max-width:768px){
-  .menu-icon{
-    display:block;
+
+  .menu-icon {
+    display: block;
   }
 
   .nav-section{
-    display:none;
-    flex-direction:column;
+    position: fixed;
+    top: 0;
+    right: -100%;
+    width: 260px;
+    height: 100vh;
+    background: white;
+    padding: 20px;
+    box-shadow: -3px 0 12px rgba(0,0,0,0.15);
+    flex-direction: column;
+    border-radius: 5px 15px;
+    transition: 0.3s ease;
+    gap: 20px;
+    z-index: 200;
   }
 
   .nav-section.active{
-    display:flex;
+    right: 0;
+  }
+
+  .sidebar-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+
+  .close-icon {
+    font-size: 22px;
+    cursor: pointer;
   }
 
   .nav-links{
     flex-direction:column;
+    gap: 15px;
+  }
+
+  .auth-buttons{
+    flex-direction: column;
+    gap: 12px;
+    width: 100%;
+  }
+
+  .btn{
+    width: 100%;
+  }
+
+  .nav-link:hover {
+    background: #f2f2f2;
+    border-radius: 5px;
   }
 }

@@ -89,8 +89,9 @@ const Header = () => {
                 <FaUserCircle className="profile-icon" />
                 {/* ✅ Show username + role */}
                 <span className="username">
-                  {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
-                </span>
+  {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
+</span>
+
 
                 {/* ✅ Logout */}
                 <button

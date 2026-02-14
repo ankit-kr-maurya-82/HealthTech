@@ -23,19 +23,35 @@ const Header = () => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
-
+ 
   return (
     <header className="header">
       <nav className="navbar">
-        {/* Logo */}
+
+        {/* Desktop header */}
         <Link to="/" className="logo">Careme</Link>
 
-        {/* Mobile Toggle */}
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-          {menuOpen ? <FaTimes /> : <FaBars />}
+          <FaBars />
         </div>
 
+        {/* Sidebar */}
         <div className={`nav-section ${menuOpen ? "active" : ""}`}>
+
+          {/* close sign */}
+          <div className="sidebar-header">
+            <FaTimes
+              className="close-icon"
+              onClick={() => setMenuOpen(false)}
+            />
+          </div>
+        </div>
+        
+        <div className={`nav-section ${menuOpen ? "active" : ""}`}>
+
+          <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
+            <FaBars />
+          </div>
           {/* Links */}
           <ul className="nav-links">
             <NavLink to="/" end className="nav-link">Home</NavLink>
@@ -57,7 +73,10 @@ const Header = () => {
                 <div className="dropdown">
                   <button
                     className="btn primary"
-                    onClick={() => setShowRegister(!showRegister)}
+                    onClick={() => {
+                      setShowRegister(!showRegister);
+                      setShowLogin(false);
+                    }}
                   >
                     Register
                   </button>
@@ -72,7 +91,10 @@ const Header = () => {
                 <div className="dropdown">
                   <button
                     className="btn outline"
-                    onClick={() => setShowLogin(!showLogin)}
+                    onClick={() => {
+                      setShowLogin(!showLogin);
+                      setShowRegister(false);
+                    }}
                   >
                     Login
                   </button>

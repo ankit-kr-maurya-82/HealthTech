@@ -7,44 +7,47 @@ import DoctorHeader from "./components/layout/DoctorHeader";
 import Footer from "./components/layout/Footer";
 
 import UserContext from "./context/UserContext";
-
 const Layout = () => {
   const { user, loading } = useContext(UserContext);
   const location = useLocation();
 
-  // Auth pages (login/register)
-  const authRoutes = ["/login", "/register"];
+  if (loading) return <div>Loading...</div>;
 
-  const isAuthPage = authRoutes.some((route) =>
+  const isAuthPage = ["/login", "/register"].some((route) =>
     location.pathname.startsWith(route)
   );
 
-  // Dashboard pages
-  const isDashboard =
-    location.pathname.startsWith("/patient") ||
-    location.pathname.startsWith("/doctor");
+  const isPatientDashboard = location.pathname.startsWith(
+    "/patient/dashboard"
+  );
+
+  const isDoctorDashboard = location.pathname.startsWith(
+    "/doctor/dashboard"
+  );
 
   const hideHeader = isAuthPage;
-  const hideFooter = isAuthPage || isDashboard;
-
-  if (loading) return <div>Loading...</div>;
+  const hideFooter = isAuthPage || isPatientDashboard || isDoctorDashboard;
 
   return (
     <>
-      {/* ===== HEADER SECTION ===== */}
-      {!hideHeader && !user && <Header />}
-      {!hideHeader && user?.role === "patient" && <PatientHeader />}
-      {!hideHeader && user?.role === "doctor" && <DoctorHeader />}
+      {/* HEADER */}
+      {!hideHeader && (
+        <>
+          {!user && <Header />}
+          {user?.role === "patient" && <PatientHeader />}
+          {user?.role === "doctor" && <DoctorHeader />}
+        </>
+      )}
 
-      {/* ===== MAIN CONTENT ===== */}
       <main>
         <Outlet />
       </main>
 
-      {/* ===== FOOTER SECTION ===== */}
+      {/* FOOTER */}
       {!hideFooter && <Footer />}
     </>
   );
 };
+
 
 export default Layout;

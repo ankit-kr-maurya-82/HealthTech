@@ -17,11 +17,17 @@ const PatientRegister = () => {
     gender: "",
     role: "patient",
   });
+
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
 
   const handleChange = (e) => {
-    setFormData({ ...formData, [e.target.name]: e.target.value });
+    const { name, value } = e.target;
+
+    setFormData((prev) => ({
+      ...prev,
+      [name]: name === "age" ? Number(value) : value,
+    }));
   };
 
   const handleSubmit = async (e) => {
@@ -29,21 +35,46 @@ const PatientRegister = () => {
     setLoading(true);
     setError("");
 
+    // ✅ Basic validation
+    if (formData.password.length < 6) {
+      setError("Password must be at least 6 characters");
+      setLoading(false);
+      return;
+    }
+
+    if (!formData.gender) {
+      setError("Please select gender");
+      setLoading(false);
+      return;
+    }
+
     try {
       const response = await api.post("/users/register", formData);
 
-      const userData = response.data.data; // assuming ApiResponse wraps user in data
-      const token = response.data.data?.accessToken || response.data.token;
+      // Expected backend structure:
+      // {
+      //   success: true,
+      //   data: { user: {}, accessToken: "" }
+      // }
 
-      // ✅ save in context & localStorage
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
-      localStorage.setItem("token", token);
+      const { user, accessToken } = response.data.data;
+
+      // ✅ Save to context
+      setUser(user);
+
+      // ✅ Save to localStorage
+      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("token", accessToken);
 
       navigate("/patient/dashboard");
     } catch (err) {
-      console.log(err.response?.data);
-      setError(err.response?.data?.message || "Registration failed");
+      if (err.response) {
+        setError(err.response.data?.message || "Registration failed");
+      } else if (err.request) {
+        setError("Server not responding");
+      } else {
+        setError("Something went wrong");
+      }
     } finally {
       setLoading(false);
     }
@@ -89,8 +120,9 @@ const PatientRegister = () => {
             name="age"
             placeholder="Age"
             required
-            onChange={handleChange}
+            min="1"
             className="dragon-selput"
+            onChange={handleChange}
           />
 
           <select

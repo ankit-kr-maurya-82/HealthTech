@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 const AddProblem = () => {
   const [formData, setFormData] = useState({
@@ -15,15 +16,34 @@ const AddProblem = () => {
     });
   };
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
-    console.log("Problem Submitted:", formData);
+    try {
+      const response = await axios.post(
+        "http://localhost:8000/api/problems",
+        formData,
+        {
+          withCredentials: true, // 🔥 important for cookies
+        }
+      );
 
-    // later → API call yaha karega
-    // await api.post("/problems", formData)
+      console.log("Saved:", response.data);
+      alert("Problem Added Successfully 👍");
 
-    alert("Problem Added Successfully 👍");
+      // reset form
+      setFormData({
+        title: "",
+        description: "",
+        severity: "",
+        date: "",
+      });
+
+    } catch (error) {
+  console.log("FULL ERROR:", error);
+  console.log("Response:", error.response);
+  alert(error.response?.data?.message || "Error occurred");
+    }
   };
 
   return (
@@ -31,7 +51,6 @@ const AddProblem = () => {
       <h2>Add Medical Problem 🩺</h2>
 
       <form onSubmit={handleSubmit}>
-
         <input
           type="text"
           name="title"
@@ -79,7 +98,6 @@ const AddProblem = () => {
         >
           Submit Problem
         </button>
-
       </form>
     </div>
   );

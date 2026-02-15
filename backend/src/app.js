@@ -10,21 +10,36 @@ app.use(cors({
   credentials: true
 }));
 
-// ✅ Body parsers (important!)
-app.use(express.json())
-app.use(express.urlencoded({extended: true}))
-app.use(express.static("public"))
-app.use(cookieParser())
+// ✅ Body parsers
+app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
+app.use(express.static("public"));
+app.use(cookieParser());
 
-app.get("/",(req,res)=>{
-  return res.send("Backend is Running")
-})
+app.get("/", (req, res) => {
+  return res.send("Backend is Running");
+});
 
 // ✅ Routes import
 import userRouter from "./routes/user.routes.js";
+import adviceRouter from "./routes/advice.routes.js";
+import problemRouter from "./routes/problem.routes.js";
 
-// routes declaration
+// ✅ Routes declaration
 app.use("/api/users", userRouter);
+app.use("/api/advice", adviceRouter);
+app.use("/api/problems", problemRouter);
 
-// http://localhost:8000/api/v1/users/register
+
+// 🔥🔥🔥 VERY IMPORTANT 🔥🔥🔥
+// ✅ Global Error Handler (ADD THIS)
+app.use((err, req, res, next) => {
+  console.error("ERROR:", err);
+
+  res.status(err.statusCode || 500).json({
+    success: false,
+    message: err.message || "Internal Server Error",
+  });
+});
+
 export { app };

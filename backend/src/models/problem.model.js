@@ -7,35 +7,23 @@ const problemSchema = new mongoose.Schema(
       ref: "User",
       required: true,
     },
-    symptoms: [
-      {
-        type: String,
-        enum: [
-          "Weakness",
-          "Stomach Pain",
-          "Digestion Issue",
-          "Sugar Problem",
-          "Other",
-        ],
-      },
-    ],
-    foodType: {
+    title: {
       type: String,
-      enum: ["Veg", "Junk", "Mixed"],
       required: true,
     },
-    sweetConsumption: {
+    description: {
       type: String,
-      enum: ["Low", "Medium", "High"],
       required: true,
     },
-    packagedJuice: {
-      type: Boolean,
-      default: false,
-    },
-    report: {
+    severity: {
       type: String,
-    }, // optional uploaded file (image / PDF URL)
+      enum: ["low", "medium", "high"],
+      required: true,
+    },
+    date: {
+      type: Date,
+      required: true,
+    },
     status: {
       type: String,
       enum: ["Pending", "Reviewed"],
@@ -45,4 +33,4 @@ const problemSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-export default mongoose.model("Problem", problemSchema);
+export const Problem = mongoose.model("Problem", problemSchema);

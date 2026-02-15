@@ -1,5 +1,5 @@
 import React, { useState, useEffect, useRef, useContext } from "react";
-import { Link, NavLink } from "react-router-dom";
+import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import UserContext from "../../context/UserContext";
 import "./css/Header.css";
@@ -9,7 +9,8 @@ const Header = () => {
   const [showLogin, setShowLogin] = useState(false);
   const [menuOpen, setMenuOpen] = useState(false);
 
-  const { user, logout } = useContext(UserContext); // ✅ context
+  const { user, logout } = useContext(UserContext);
+  const navigate = useNavigate(); // ✅ added
 
   const dropdownRef = useRef();
 
@@ -23,50 +24,52 @@ const Header = () => {
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
- 
+
+  const handleLogout = () => {
+    logout();           // clear context + localStorage
+    setMenuOpen(false); // close mobile menu
+    navigate("/");      // ✅ redirect to Home
+  };
+
   return (
     <header className="header">
       <nav className="navbar">
-
-        {/* Desktop header */}
-        <Link to="/" className="logo">Careme</Link>
+        <Link to="/" className="logo">
+          Careme
+        </Link>
 
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
           <FaBars />
         </div>
 
-        {/* Sidebar */}
         <div className={`nav-section ${menuOpen ? "active" : ""}`}>
-
-          {/* close sign */}
           <div className="sidebar-header">
             <FaTimes
               className="close-icon"
               onClick={() => setMenuOpen(false)}
             />
           </div>
-        </div>
-        
-        <div className={`nav-section ${menuOpen ? "active" : ""}`}>
 
-          <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-            <FaBars />
-          </div>
-          {/* Links */}
           <ul className="nav-links">
-            <NavLink to="/" end className="nav-link">Home</NavLink>
+            <NavLink to="/" end className="nav-link">
+              Home
+            </NavLink>
 
-            {/* Only show these if user NOT logged in */}
             {!user && (
               <>
-                <NavLink to="/about" className="nav-link">About</NavLink>
-                <NavLink to="/contact" className="nav-link">Contact</NavLink>
-                <NavLink to="/team" className="nav-link">Developer Team</NavLink>
+                <NavLink to="/about" className="nav-link">
+                  About
+                </NavLink>
+                <NavLink to="/contact" className="nav-link">
+                  Contact
+                </NavLink>
+                <NavLink to="/team" className="nav-link">
+                  Developer Team
+                </NavLink>
               </>
             )}
           </ul>
 
-          {/* Auth Buttons */}
           <div className="auth-buttons" ref={dropdownRef}>
             {!user ? (
               <>
@@ -109,19 +112,13 @@ const Header = () => {
             ) : (
               <div className="user-profile">
                 <FaUserCircle className="profile-icon" />
-                {/* ✅ Show username + role */}
-                <span className="username">
-  {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
-</span>
 
-                {/* ✅ Logout */}
-                <button
-                  className="btn logout"
-                  onClick={() => {
-                    logout();          // clear context & localStorage
-                    setMenuOpen(false); // close mobile menu
-                  }}
-                >
+                <span className="username">
+                  {user.username} (
+                  {user.role === "doctor" ? "Doctor" : "Patient"})
+                </span>
+
+                <button className="btn logout" onClick={handleLogout}>
                   Logout
                 </button>
               </div>

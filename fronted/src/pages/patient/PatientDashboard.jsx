@@ -12,6 +12,7 @@ const PatientDashboard = () => {
   return (
     <div style={{ padding: "20px" }}>
       
+      {/*  */}
       {/* Header */}
       <div>
         <h1>Welcome {user.username ?? "Patient"} 👋</h1>

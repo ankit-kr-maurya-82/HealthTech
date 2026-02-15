@@ -1,59 +1,135 @@
-.edit-container {
+/* Overlay Background */
+.modal-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.55);
+  backdrop-filter: blur(4px);
   display: flex;
   justify-content: center;
   align-items: center;
-  min-height: 80vh;
-  background-color: #f4f6f9;
-  padding: 40px;
+  z-index: 1000;
 }
 
-.edit-card {
+/* Modal Card */
+.modal-card {
   background: #ffffff;
+  width: 420px;
+  max-width: 95%;
   padding: 30px;
-  border-radius: 12px;
-  width: 400px;
-  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
+  border-radius: 16px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+  animation: fadeIn 0.3s ease;
 }
 
-.edit-card h2 {
+/* Animation */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(-15px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.modal-card h2 {
   text-align: center;
   margin-bottom: 20px;
+  font-weight: 600;
+  color: #333;
 }
 
-.edit-card form {
+/* Form Layout */
+.modal-card form {
   display: flex;
   flex-direction: column;
 }
 
-.edit-card label {
-  margin-top: 10px;
+.modal-card label {
+  margin-top: 12px;
+  font-size: 14px;
   font-weight: 500;
+  color: #555;
 }
 
-.edit-card input,
-.edit-card select {
-  margin-top: 5px;
-  padding: 8px;
-  border-radius: 6px;
-  border: 1px solid #ccc;
-}
-
-.edit-card button {
-  margin-top: 20px;
+/* Inputs */
+.modal-card input,
+.modal-card select {
+  margin-top: 6px;
   padding: 10px;
-  border-radius: 6px;
+  border-radius: 8px;
+  border: 1px solid #dcdcdc;
+  font-size: 14px;
+  transition: 0.3s ease;
+}
+
+.modal-card input:focus,
+.modal-card select:focus {
+  outline: none;
+  border-color: #4CAF50;
+  box-shadow: 0 0 0 2px rgba(76, 175, 80, 0.15);
+}
+
+/* Button Section */
+.modal-buttons {
+  display: flex;
+  justify-content: space-between;
+  margin-top: 25px;
+}
+
+/* Primary Button */
+.modal-buttons button {
+  flex: 1;
+  padding: 10px;
+  border-radius: 8px;
   border: none;
-  background-color: #4CAF50;
-  color: #ffffff;
+  font-size: 14px;
   cursor: pointer;
-  transition: background 0.3s ease;
+  transition: 0.3s ease;
 }
 
-.edit-card button:hover {
-  background-color: #45a049;
+/* Update Button */
+.modal-buttons button[type="submit"] {
+  background-color: #4CAF50;
+  color: #fff;
+  margin-right: 10px;
 }
 
-.edit-card button:disabled {
-  background-color: #999;
+.modal-buttons button[type="submit"]:hover {
+  background-color: #43a047;
+}
+
+/* Cancel Button */
+.cancel-btn {
+  background-color: #e0e0e0;
+  color: #333;
+}
+
+.cancel-btn:hover {
+  background-color: #d5d5d5;
+}
+
+/* Disabled State */
+.modal-buttons button:disabled {
+  opacity: 0.6;
   cursor: not-allowed;
+}
+
+/* Responsive */
+@media (max-width: 480px) {
+  .modal-card {
+    padding: 20px;
+  }
+
+  .modal-buttons {
+    flex-direction: column;
+  }
+
+  .modal-buttons button {
+    margin: 5px 0;
+  }
 }

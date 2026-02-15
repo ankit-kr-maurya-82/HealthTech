@@ -34,19 +34,30 @@ const DoctorRegister = () => {
 
     try {
       const response = await api.post("/users/register", formData);
+      console.log("Registration Response:", response.data);
 
-      const userData = response.data.data; // backend returns { data: { ... } }
-      const token = response.data.data?.accessToken || response.data.token;
+      // Backend returns { data: { user, accessToken, refreshToken } }
+      const userData = response.data.data.user;
+      const token = response.data.data.accessToken;
+
+      console.log("User Data:", userData);
+      console.log("Token:", token);
 
       // ✅ Save in context and localStorage
+      if (!userData) {
+        throw new Error("No user data in response");
+      }
+
       setUser(userData);
       localStorage.setItem("user", JSON.stringify(userData));
       localStorage.setItem("token", token);
 
+      console.log("Navigating to /doctor/dashboard");
       navigate("/doctor/dashboard");
     } catch (err) {
-      console.error(err.response?.data || err.message);
-      setError(err.response?.data?.message || "Registration failed");
+      console.error("Full Error:", err);
+      console.error("Error Response:", err.response?.data || err.message);
+      setError(err.response?.data?.message || err.message || "Registration failed");
     } finally {
       setLoading(false);
     }

@@ -167,6 +167,22 @@ const updateProfile = asyncHandler(async (req, res) => {
 });
 
 
+// GET /api/users/patients
+
+export const getAllPatients = async (req, res) => {
+  try {
+    const patients = await User.find({ role: "patient" }).sort({ createdAt: -1 });
+
+    res.status(200).json({
+      success: true,
+      data: patients,
+    });
+  } catch (error) {
+    console.error("Fetch Patients Error:", error);
+    res.status(500).json({ message: "Server error" });
+  }
+};
+
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =

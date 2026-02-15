@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { loginUser, refreshAccessToken, registerUser, updateProfile } from "../controllers/user.controller.js";
+import { getAllPatients, loginUser, refreshAccessToken, registerUser, updateProfile } from "../controllers/user.controller.js";
 import { verifyJWT } from "../middlewares/verifyJWT.js";
 
 const router = Router();
@@ -8,6 +8,7 @@ const router = Router();
 router.post("/register", registerUser);
 router.post("/login", loginUser);
 router.put("/update-profile", verifyJWT, updateProfile);
+router.get("/patients", verifyJWT, getAllPatients);
 
 
 router.post("/refresh-token", refreshAccessToken);

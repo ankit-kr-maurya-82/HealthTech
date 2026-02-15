@@ -137,6 +137,36 @@ const loginUser = asyncHandler(async (req, res) => {
 });
 
 
+// ===============================
+// ✏️ UPDATE PROFILE
+// ===============================
+const updateProfile = asyncHandler(async (req, res) => {
+  const userId = req.user._id;
+  const { username, email, gender, age } = req.body;
+
+  const updatedUser = await User.findByIdAndUpdate(
+    userId,
+    {
+      $set: {
+        username,
+        email,
+        gender,
+        age,
+      },
+    },
+    { new: true }
+  ).select("-password -refreshToken");
+
+  return res.status(200).json(
+    new ApiResponse(
+      200,
+      { user: updatedUser },   // ✅ IMPORTANT
+      "Profile updated successfully"
+    )
+  );
+});
+
+
 
 const refreshAccessToken = asyncHandler(async (req, res) => {
   const incomingRefreshToken =
@@ -186,4 +216,4 @@ const refreshAccessToken = asyncHandler(async (req, res) => {
   }
 });
 
-export { registerUser, loginUser, refreshAccessToken };
+export { registerUser, loginUser, updateProfile, refreshAccessToken };

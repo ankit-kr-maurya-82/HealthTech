@@ -2,7 +2,7 @@ import React, { useState, useContext } from "react";
 import { Link, NavLink, useNavigate } from "react-router-dom";
 import { FaBars, FaTimes, FaUserCircle } from "react-icons/fa";
 import UserContext from "../../context/UserContext";
-import "./css/Header.css";
+import "./css/PatientHeader.css";
 
 const PatientHeader = () => {
   const [menuOpen, setMenuOpen] = useState(false);

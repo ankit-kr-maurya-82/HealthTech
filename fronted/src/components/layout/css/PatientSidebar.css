@@ -1,0 +1,73 @@
+.patient-sidebar {
+  width: 220px;
+  background: #f5f5f5;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+  height: 100vh;
+  position: fixed;
+  top: 0;
+  left: 0;
+  transition: all 0.3s ease;
+  z-index: 1000;
+}
+
+.patient-sidebar.closed {
+  transform: translateX(-250px);
+}
+
+.patient-sidebar .sidebar-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
+
+.patient-sidebar h3 {
+  margin: 0;
+  font-size: 1.2rem;
+}
+
+.patient-sidebar .close-btn {
+  background: none;
+  border: none;
+  cursor: pointer;
+}
+
+.patient-sidebar ul {
+  list-style: none;
+  padding: 0;
+}
+
+.patient-sidebar ul li {
+  margin-bottom: 12px;
+}
+
+.patient-sidebar ul li a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  display: block;
+  padding: 8px 10px;
+  border-radius: 5px;
+  transition: all 0.2s ease;
+}
+
+.patient-sidebar ul li a:hover {
+  background-color: #e0e0e0;
+  color: #007bff;
+}
+
+/* Hamburger toggle button */
+.sidebar-toggle {
+  position: fixed;
+  top: 15px;
+  left: 15px;
+  background: #007bff;
+  color: white;
+  border: none;
+  padding: 8px;
+  border-radius: 5px;
+  cursor: pointer;
+  z-index: 1100;
+}

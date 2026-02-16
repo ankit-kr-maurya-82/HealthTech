@@ -4,7 +4,6 @@ import { Outlet, useLocation } from "react-router-dom";
 import Header from "./components/layout/Header";
 import PatientHeader from "./components/layout/PatientHeader";
 import DoctorHeader from "./components/layout/DoctorHeader";
-import Footer from "./components/layout/Footer";
 
 import UserContext from "./context/UserContext";
 const Layout = () => {

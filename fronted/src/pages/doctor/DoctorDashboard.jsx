@@ -8,7 +8,7 @@ const DoctorDashboard = () => {
 
   return (
     <div style={{ padding: "20px" }}>
-      <h1>Welcome Dr. {user?.username}</h1>
+      <h1>Welcome Dr. {user?.fullName}</h1>
       <p>Email: {user?.email}</p>
       <hr />
 

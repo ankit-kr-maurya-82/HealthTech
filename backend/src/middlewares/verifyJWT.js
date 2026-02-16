@@ -1,5 +1,6 @@
 import jwt from "jsonwebtoken";
-import { User } from "../models/user.model.js";
+import { Doctor } from "../models/doctor.model.js";
+import { Patient } from "../models/patient.model.js";
 import { ApiError } from "../utils/ApiError.js";
 
 export const verifyJWT = async (req, res, next) => {
@@ -17,13 +18,16 @@ export const verifyJWT = async (req, res, next) => {
       process.env.ACCESS_TOKEN_SECRET
     );
 
-    const user = await User.findById(decodedToken?._id).select(
+    let user = await Doctor.findById(decodedToken?._id).select(
       "-password -refreshToken"
     );
-
     if (!user) {
-      return next(new ApiError(401, "Invalid Access Token"));
+      user = await Patient.findById(decodedToken?._id).select(
+        "-password -refreshToken"
+      );
     }
+
+    if (!user) return next(new ApiError(401, "Invalid Access Token"));
 
     req.user = user;
     next();

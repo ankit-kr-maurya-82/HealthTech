@@ -44,6 +44,7 @@ import PatientList from "./pages/doctor/PatientList.jsx";
 import PatientLayout from "./components/layout/PatientLayout.jsx";
 import UserProvider from "./context/UserContextProvider";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
+import DoctorProfile from "./pages/doctor/DoctorProfile.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -79,6 +80,7 @@ const router = createBrowserRouter(
         <Route path="doctor/dashboard" element={<DoctorDashboard />} />
         <Route path="doctor/patients" element={<PatientList />} />
         <Route path="doctor/problems" element={<AllProblems />} />
+        <Route path="doctor/profile" element={<DoctorProfile />} />
       </Route>
     </Route>
   )

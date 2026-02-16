@@ -21,12 +21,14 @@ app.get("/", (req, res) => {
 });
 
 // ✅ Routes import
-import userRouter from "./routes/user.routes.js";
+import doctorRouter from "./routes/doctor.routes.js";
+import patientRouter from "./routes/patient.routes.js";
 import adviceRouter from "./routes/advice.routes.js";
 import problemRouter from "./routes/problem.routes.js";
 
 // ✅ Routes declaration
-app.use("/api/users", userRouter);
+app.use("/api/doctors", doctorRouter);
+app.use("/api/patient", patientRouter);
 app.use("/api/advice", adviceRouter);
 app.use("/api/problems", problemRouter);
 

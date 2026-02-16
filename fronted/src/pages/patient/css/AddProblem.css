@@ -1,0 +1,67 @@
+/* Container styling */
+.add-problem-container {
+  padding: 20px;
+  max-width: 500px;
+  margin: 0 auto;
+  background-color: #f9f9f9;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  font-family: Arial, sans-serif;
+}
+
+/* Heading */
+.add-problem-container h2 {
+  text-align: center;
+  margin-bottom: 20px;
+  color: #333;
+}
+
+/* Form inputs and textarea */
+.add-problem-container input,
+.add-problem-container textarea,
+.add-problem-container select {
+  width: 100%;
+  padding: 10px 12px;
+  margin-top: 10px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 6px;
+  font-size: 16px;
+  box-sizing: border-box;
+  transition: border-color 0.2s ease;
+}
+
+.add-problem-container input:focus,
+.add-problem-container textarea:focus,
+.add-problem-container select:focus {
+  border-color: #007bff;
+  outline: none;
+}
+
+/* Textarea specific */
+.add-problem-container textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+/* Submit button */
+.add-problem-container button {
+  width: 100%;
+  padding: 12px;
+  background-color: #007bff;
+  border: none;
+  border-radius: 6px;
+  color: #fff;
+  font-size: 16px;
+  cursor: pointer;
+  transition: background-color 0.2s ease;
+}
+
+.add-problem-container button:hover {
+  background-color: #0056b3;
+}
+
+/* Option default */
+.add-problem-container select option:first-child {
+  color: #999;
+}

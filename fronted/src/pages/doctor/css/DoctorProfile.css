@@ -1,0 +1,44 @@
+.doctor-profile-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 40px 20px;
+  min-height: 80vh;
+  background-color: #f5f5f5;
+}
+
+.doctor-card {
+  background-color: #fff;
+  padding: 30px 20px;
+  border-radius: 12px;
+  box-shadow: 0 6px 18px rgba(0, 0, 0, 0.1);
+  text-align: center;
+  width: 320px;
+  font-family: Arial, sans-serif;
+}
+
+.doctor-avatar {
+  width: 120px;
+  height: 120px;
+  border-radius: 50%;
+  margin-bottom: 15px;
+  object-fit: cover;
+  border: 3px solid #007bff;
+}
+
+.doctor-card h2 {
+  margin-bottom: 5px;
+  color: #333;
+}
+
+.specialty {
+  font-style: italic;
+  color: #555;
+  margin-bottom: 15px;
+}
+
+.doctor-card p {
+  margin: 5px 0;
+  color: #666;
+  font-size: 14px;
+}

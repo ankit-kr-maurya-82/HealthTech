@@ -1,5 +1,6 @@
 import React, { useState } from "react";
 import axios from "axios";
+import "./css/AddProblem.css";
 
 const AddProblem = () => {
   const [formData, setFormData] = useState({
@@ -10,46 +11,30 @@ const AddProblem = () => {
   });
 
   const handleChange = (e) => {
-    setFormData({
-      ...formData,
-      [e.target.name]: e.target.value,
-    });
+    setFormData({ ...formData, [e.target.name]: e.target.value });
   };
 
   const handleSubmit = async (e) => {
     e.preventDefault();
-
     try {
       const response = await axios.post(
         "http://localhost:8000/api/problems",
         formData,
-        {
-          withCredentials: true, // 🔥 important for cookies
-        }
+        { withCredentials: true }
       );
-
       console.log("Saved:", response.data);
       alert("Problem Added Successfully 👍");
-
-      // reset form
-      setFormData({
-        title: "",
-        description: "",
-        severity: "",
-        date: "",
-      });
-
+      setFormData({ title: "", description: "", severity: "", date: "" });
     } catch (error) {
-  console.log("FULL ERROR:", error);
-  console.log("Response:", error.response);
-  alert(error.response?.data?.message || "Error occurred");
+      console.log("FULL ERROR:", error);
+      console.log("Response:", error.response);
+      alert(error.response?.data?.message || "Error occurred");
     }
   };
 
   return (
-    <div style={{ padding: "20px", maxWidth: "500px" }}>
+    <div className="add-problem-container">
       <h2>Add Medical Problem 🩺</h2>
-
       <form onSubmit={handleSubmit}>
         <input
           type="text"
@@ -58,46 +43,33 @@ const AddProblem = () => {
           value={formData.title}
           onChange={handleChange}
           required
-          style={{ width: "100%", marginTop: "10px", padding: "8px" }}
         />
-
         <textarea
           name="description"
           placeholder="Describe your problem..."
           value={formData.description}
           onChange={handleChange}
           required
-          style={{ width: "100%", marginTop: "10px", padding: "8px" }}
         />
-
         <select
           name="severity"
           value={formData.severity}
           onChange={handleChange}
           required
-          style={{ width: "100%", marginTop: "10px", padding: "8px" }}
         >
           <option value="">Select Severity</option>
           <option value="low">Low</option>
           <option value="medium">Medium</option>
           <option value="high">High</option>
         </select>
-
         <input
           type="date"
           name="date"
           value={formData.date}
           onChange={handleChange}
           required
-          style={{ width: "100%", marginTop: "10px", padding: "8px" }}
         />
-
-        <button
-          type="submit"
-          style={{ marginTop: "15px", padding: "10px 15px" }}
-        >
-          Submit Problem
-        </button>
+        <button type="submit">Submit Problem</button>
       </form>
     </div>
   );

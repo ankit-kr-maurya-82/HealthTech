@@ -44,7 +44,13 @@ const Layout = () => {
       </main>
 
       {/* FOOTER */}
-      {!hideFooter && <Footer />}
+     {!hideFooter && (
+        <>
+          {!user && <Header />}
+          {user?.role === "patient"}
+          {user?.role === "doctor"}
+        </>
+      )}
     </>
   );
 };

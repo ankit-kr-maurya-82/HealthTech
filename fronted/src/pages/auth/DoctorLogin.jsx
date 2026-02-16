@@ -48,14 +48,18 @@ const DoctorLogin = () => {
       const response = await api.post("/doctors/login", {
         email: data.email,
         password: data.password,
+        nmcNumber: data.certificateNumber,
       });
 
-      const userData = response.data.data.user; // assuming backend response
+      const userData = response.data.data.user;
       const token = response.data.data.accessToken || response.data.token;
 
+      // Ensure role exists so ProtectedRoute can validate
+      const userWithRole = { ...userData, role: "doctor" };
+
       // save in context + localStorage
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userWithRole);
+      localStorage.setItem("user", JSON.stringify(userWithRole));
       localStorage.setItem("token", token);
 
       navigate("/doctor/dashboard");

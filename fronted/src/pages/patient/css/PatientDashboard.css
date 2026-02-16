@@ -11,9 +11,12 @@
 .patient-dashboard p {
   color: #555;
   margin-bottom: 20px;
+  padding-bottom: 23px;
+  padding-left: 40px;
 }
 
 .patient-dashboard .search-box input {
+  
   padding: 10px;
   width: 100%;
   max-width: 300px;
@@ -25,6 +28,11 @@
 .patient-dashboard .search-box input:focus {
   border-color: #007bff;
   outline: none;
+}
+
+.patient-dashboard .search-box:hover {
+  max-width: 300px;
+  border-radius: 6px;
 }
 
 /* Optional quick links */
@@ -50,3 +58,4 @@
   transform: translateY(-2px);
   color: #007bff;
 }
+ 

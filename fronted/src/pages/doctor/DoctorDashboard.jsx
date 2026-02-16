@@ -10,6 +10,7 @@ const DoctorDashboard = () => {
     <div style={{ padding: "20px" }}>
       <h1>Welcome Dr. {user?.fullName}</h1>
       <p>Email: {user?.email}</p>
+      <p>Specialty: {user?.specialty}</p>
       <hr />
 
       <div style={{ marginTop: "20px" }}>

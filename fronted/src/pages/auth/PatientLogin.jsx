@@ -27,7 +27,7 @@ const PatientLogin = () => {
       }
 
       // Call backend login
-      const response = await api.post("/users/login", data);
+      const response = await api.post("/patient/login", data);
 
       // Backend must return user with username and role
       const userData = response.data?.data?.user;
@@ -37,9 +37,12 @@ const PatientLogin = () => {
         throw new Error("Invalid login response from server");
       }
 
+      // Ensure role exists so ProtectedRoute can validate
+      const userWithRole = { ...userData, role: "patient" };
+
       // Save in context & localStorage
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
+      setUser(userWithRole);
+      localStorage.setItem("user", JSON.stringify(userWithRole));
       localStorage.setItem("token", token);
 
       // Redirect to patient dashboard

@@ -10,7 +10,7 @@ const PatientRegister = () => {
   const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
-    username: "",
+    fullName: "",
     email: "",
     password: "",
     age: "",
@@ -49,7 +49,7 @@ const PatientRegister = () => {
     }
 
     try {
-      const response = await api.post("/users/register", formData);
+      const response = await api.post("/patient/register", formData);
 
       // Expected backend structure:
       // {
@@ -59,11 +59,14 @@ const PatientRegister = () => {
 
       const { user, accessToken } = response.data.data;
 
+      // Ensure role exists so ProtectedRoute can validate
+      const userWithRole = { ...user, role: "patient" };
+
       // ✅ Save to context
-      setUser(user);
+      setUser(userWithRole);
 
       // ✅ Save to localStorage
-      localStorage.setItem("user", JSON.stringify(user));
+      localStorage.setItem("user", JSON.stringify(userWithRole));
       localStorage.setItem("token", accessToken);
 
       navigate("/patient/dashboard");
@@ -90,7 +93,7 @@ const PatientRegister = () => {
         <form onSubmit={handleSubmit} className="dragon-form">
           <input
             type="text"
-            name="username"
+            name="fullName"
             placeholder="Full Name"
             required
             onChange={handleChange}

@@ -11,12 +11,11 @@ const patientSchema = new mongoose.Schema(
       lowercase: true, 
       trim: true 
     },
-    username: { 
-      type: String, 
-      required: true, 
-      unique: true, 
-      lowercase: true, 
-      trim: true 
+    username: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
     },
     password: { 
       type: String, 

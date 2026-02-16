@@ -45,7 +45,7 @@ const DoctorLogin = () => {
       }
 
       // ✅ call backend login
-      const response = await api.post("/users/login", {
+      const response = await api.post("/doctors/login", {
         email: data.email,
         password: data.password,
       });

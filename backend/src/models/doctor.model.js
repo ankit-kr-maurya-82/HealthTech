@@ -11,12 +11,11 @@ const doctorSchema = new mongoose.Schema(
         lowercase: true, 
         trim: true 
     },
-    username: { 
-        type: String, 
-        required: true, 
-        unique: true, 
-        lowercase: true, 
-        trim: true 
+    username: {
+      type: String,
+      unique: true,
+      sparse: true,
+      trim: true,
     },
     password: { 
         type: String, 
@@ -37,6 +36,19 @@ const doctorSchema = new mongoose.Schema(
     avatar: { 
         type: String, 
         default: "" 
+    },
+    gender: {
+        type: String,
+        enum: ["male", "female", "other"],
+        default: ""
+    },
+    age: {
+        type: Number,
+        default: null
+    },
+    nmcNumber: {
+        type: String,
+        default: ""
     },
     refreshToken: { 
         type: String, 

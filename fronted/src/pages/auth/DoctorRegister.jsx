@@ -11,14 +11,13 @@ const DoctorRegister = () => {
   const { setUser } = useContext(UserContext);
 
   const [formData, setFormData] = useState({
-    username: "",
+    fullName: "",
     email: "",
     password: "",
     age: "",
     gender: "",
-    role: "doctor",
     nmcNumber: "", // NMC registration number
-    specialization: "",
+    specialty: "",
   });
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState("");
@@ -33,7 +32,7 @@ const DoctorRegister = () => {
     setError("");
 
     try {
-      const response = await api.post("/users/register", formData);
+      const response = await api.post("/doctors/register", formData);
       console.log("Registration Response:", response.data);
 
       // Backend returns { data: { user, accessToken, refreshToken } }
@@ -71,9 +70,11 @@ const DoctorRegister = () => {
         {error && <p className="error">{error}</p>}
 
         <form onSubmit={handleSubmit} className="dragon-form">
+          
+
           <input
             type="text"
-            name="username"
+            name="fullName"
             placeholder="Full Name"
             required
             onChange={handleChange}
@@ -130,7 +131,7 @@ const DoctorRegister = () => {
 
           <input
             type="text"
-            name="specialization"
+            name="specialty"
             placeholder="Specialization"
             required
             onChange={handleChange}

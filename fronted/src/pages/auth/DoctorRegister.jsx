@@ -47,8 +47,11 @@ const DoctorRegister = () => {
         throw new Error("No user data in response");
       }
 
-      setUser(userData);
-      localStorage.setItem("user", JSON.stringify(userData));
+      // Ensure role exists so ProtectedRoute can validate
+      const userWithRole = { ...userData, role: "doctor" };
+
+      setUser(userWithRole);
+      localStorage.setItem("user", JSON.stringify(userWithRole));
       localStorage.setItem("token", token);
 
       console.log("Navigating to /doctor/dashboard");

@@ -15,9 +15,9 @@ const PatientDashboard = () => {
   return (
     <div className="patient-dashboard">
       {/* Header */}
-      <div>
+      <div className="dashboard-header">
         <h1>Welcome {user.username ?? "Patient"} 👋</h1>
-        <p>Your role: {user.role ?? "Patient"}</p>
+        <div className="role">Your role: {user.role ?? "Patient"}</div>
       </div>
 
       {/* Search Box */}

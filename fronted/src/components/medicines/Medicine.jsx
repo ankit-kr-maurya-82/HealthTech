@@ -40,9 +40,7 @@ const Medicine = () => {
   return (
     <section className="medicine-page">
       <div className="medicine-hero">
-        <span className="medicine-hero-badge">
-          <FiShield /> AI-Powered • Educational Only
-        </span>
+       
         <h1>Understand Your Medicines</h1>
         <p>Search any medicine to learn about uses, side effects, interactions, and safer alternatives.</p>
 

@@ -1,20 +1,18 @@
 ﻿import React from "react";
-import { FiSearch } from "react-icons/fi";
+import SearchBar from "../common/SearchBar";
 import "./css/MedicineSearch.css";
 
 const MedicineSearch = ({ value, onChange, placeholder }) => {
   return (
-    <div className="medicine-search-wrap">
-      <FiSearch className="medicine-search-icon" />
-      <input
-        type="text"
-        value={value}
-        onChange={(e) => onChange(e.target.value)}
-        placeholder={placeholder}
-        className="medicine-search-input"
-        aria-label="Search medicines"
-      />
-    </div>
+    <SearchBar
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      ariaLabel="Search medicines"
+      wrapperClassName="medicine-search-wrap"
+      iconClassName="medicine-search-icon"
+      inputClassName="medicine-search-input"
+    />
   );
 };
 

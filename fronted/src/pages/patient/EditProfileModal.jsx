@@ -8,7 +8,7 @@ const EditProfileModal = ({ onClose }) => {
 
   const [formData, setFormData] = useState({
     username: user?.username || "",
-    email: user?.email || "",
+    fullName: user?.fullName || "",
     gender: user?.gender || "",
   });
 
@@ -21,44 +21,45 @@ const EditProfileModal = ({ onClose }) => {
     });
   };
 
-const handleSubmit = async (e) => {
-  e.preventDefault();
+  const handleSubmit = async (e) => {
+    e.preventDefault();
 
-  try {
-    setLoading(true);
+    try {
+      setLoading(true);
 
-    const res = await api.put("/users/update-profile", formData);
+      const payload = {
+        username: formData.username,
+        fullName: formData.fullName,
+        gender: formData.gender?.toLowerCase() || "",
+      };
 
-    console.log("Response:", res.data);
+      const res = await api.put("/patient/update", payload);
+      const updatedUser = res.data?.data?.patient;
 
-    // ✅ Correct access
-    const updatedUser = res.data.data.user;
+      if (!updatedUser) {
+        throw new Error("Invalid update response from server");
+      }
 
-    setUser(updatedUser);
-    localStorage.setItem("user", JSON.stringify(updatedUser));
+      const userWithRole = { ...updatedUser, role: user?.role || "patient" };
+      setUser(userWithRole);
+      localStorage.setItem("user", JSON.stringify(userWithRole));
 
-    alert("Profile updated successfully ✅");
-    onClose();
-
-  } catch (error) {
-    console.error(error);
-    alert("Update failed ❌");
-  } finally {
-    setLoading(false);
-  }
-};
-
+      alert("Profile updated successfully");
+      onClose();
+    } catch (error) {
+      console.error(error);
+      alert("Update failed");
+    } finally {
+      setLoading(false);
+    }
+  };
 
   return (
     <div className="modal-overlay" onClick={onClose}>
-      <div
-        className="modal-card"
-        onClick={(e) => e.stopPropagation()}
-      >
+      <div className="modal-card" onClick={(e) => e.stopPropagation()}>
         <h2>Edit Profile</h2>
 
         <form onSubmit={handleSubmit}>
-
           <label>Username</label>
           <input
             type="text"
@@ -68,25 +69,21 @@ const handleSubmit = async (e) => {
             required
           />
 
-          <label>Email</label>
+          <label>Full Name</label>
           <input
-            type="email"
-            name="email"
-            value={formData.email}
+            type="text"
+            name="fullName"
+            value={formData.fullName}
             onChange={handleChange}
             required
           />
 
           <label>Gender</label>
-          <select
-            name="gender"
-            value={formData.gender}
-            onChange={handleChange}
-          >
+          <select name="gender" value={formData.gender} onChange={handleChange}>
             <option value="">Select</option>
-            <option value="Male">Male</option>
-            <option value="Female">Female</option>
-            <option value="Other">Other</option>
+            <option value="male">Male</option>
+            <option value="female">Female</option>
+            <option value="other">Other</option>
           </select>
 
           <div className="modal-buttons">
@@ -94,15 +91,10 @@ const handleSubmit = async (e) => {
               {loading ? "Updating..." : "Update"}
             </button>
 
-            <button
-              type="button"
-              className="cancel-btn"
-              onClick={onClose}
-            >
+            <button type="button" className="cancel-btn" onClick={onClose}>
               Cancel
             </button>
           </div>
-
         </form>
       </div>
     </div>

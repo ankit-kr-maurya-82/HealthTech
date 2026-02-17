@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import "./css/AddProblem.css";
 
 const AddProblem = () => {
@@ -17,24 +17,24 @@ const AddProblem = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post(
-        "http://localhost:8000/api/problems",
-        formData,
-        { withCredentials: true }
-      );
+      const response = await api.post("/problems", formData);
       console.log("Saved:", response.data);
-      alert("Problem Added Successfully 👍");
+      alert("Problem added successfully");
       setFormData({ title: "", description: "", severity: "", date: "" });
     } catch (error) {
       console.log("FULL ERROR:", error);
       console.log("Response:", error.response);
+      if (error.response?.status === 401) {
+        alert("Session expired. Please login again.");
+        return;
+      }
       alert(error.response?.data?.message || "Error occurred");
     }
   };
 
   return (
     <div className="add-problem-container">
-      <h2>Add Medical Problem 🩺</h2>
+      <h2>Add Medical Problem</h2>
       <form onSubmit={handleSubmit}>
         <input
           type="text"

@@ -5,11 +5,9 @@ import { ApiError } from "../utils/ApiError.js";
 import { asyncHandler } from "../utils/asyncHandler.js";
 
 export const protect = asyncHandler(async (req, res, next) => {
-  const token =
-    req.cookies?.accessToken ||
-    (req.headers.authorization?.startsWith("Bearer")
-      ? req.headers.authorization.split(" ")[1]
-      : null);
+  const authHeader = req.header("Authorization") || req.header("authorization");
+  const bearerToken = authHeader?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim() || null;
+  const token = bearerToken || req.cookies?.accessToken;
 
   if (!token) throw new ApiError(401, "Access token missing");
 

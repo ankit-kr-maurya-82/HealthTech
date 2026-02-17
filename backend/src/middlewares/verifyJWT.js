@@ -5,9 +5,9 @@ import { ApiError } from "../utils/ApiError.js";
 
 export const verifyJWT = async (req, res, next) => {
   try {
-    const token =
-      req.cookies?.accessToken ||
-      req.header("Authorization")?.replace("Bearer ", "");
+    const authHeader = req.header("Authorization") || req.header("authorization");
+    const authHeaderToken = authHeader?.match(/^Bearer\s+(.+)$/i)?.[1]?.trim();
+    const token = authHeaderToken || req.cookies?.accessToken;
 
     if (!token) {
       return next(new ApiError(401, "Unauthorized request"));
@@ -27,7 +27,7 @@ export const verifyJWT = async (req, res, next) => {
       );
     }
 
-    if (!user) return next(new ApiError(401, "Invalid Access Token"));
+    if (!user) return next(new ApiError(401, "Invalid Access Token: user not found"));
 
     req.user = user;
     next();

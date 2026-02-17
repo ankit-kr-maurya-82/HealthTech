@@ -1,26 +1,34 @@
-import React, { useEffect, useState } from "react";
-import { useSearchParams } from "react-router-dom";
-import axios from "axios";
+import React, { useEffect, useRef, useState } from "react";
+import { useNavigate, useSearchParams } from "react-router-dom";
+import api from "../../api/axios";
 
 const AllProblems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(true);
   const [searchParams] = useSearchParams();
+  const navigate = useNavigate();
+  const lastFetchedPatientId = useRef(undefined);
 
   const patientId = searchParams.get("patient"); // optional filter
 
   useEffect(() => {
+    // Prevent duplicate API calls in React StrictMode (development only)
+    if (lastFetchedPatientId.current === patientId) return;
+    lastFetchedPatientId.current = patientId;
     fetchProblems();
   }, [patientId]);
 
   const fetchProblems = async () => {
     try {
-      const url = patientId
-        ? `http://localhost:8000/api/problems?patient=${patientId}`
-        : "http://localhost:8000/api/problems";
-      const res = await axios.get(url, { withCredentials: true });
+      const query = patientId ? `?patient=${patientId}` : "";
+      const res = await api.get(`/problems${query}`);
       setProblems(res.data.data);
     } catch (err) {
+      if (err.response?.status === 401) {
+        alert("Session expired. Please login again.");
+        navigate("/login/doctor");
+        return;
+      }
       console.log(err);
     } finally {
       setLoading(false);

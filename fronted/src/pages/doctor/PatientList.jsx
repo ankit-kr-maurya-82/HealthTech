@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
 
 const PatientList = () => {
@@ -13,12 +13,9 @@ const PatientList = () => {
 
   const fetchPatients = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8000/api/users/patients",
-        { withCredentials: true }
-      );
+      const res = await api.get("/patient");
 
-      setPatients(res.data.data);
+      setPatients(res.data?.data?.patients || []);
     } catch (error) {
       console.log("Fetch Error:", error);
       alert("Failed to load patients");

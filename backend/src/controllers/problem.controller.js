@@ -58,8 +58,13 @@ const getMyProblems = async (req, res) => {
 
  const getAllProblems = async (req, res) => {
   try {
-    const problems = await Problem.find()
-      .populate("patient", "name email")
+    const filter = {};
+    if (req.query.patient) {
+      filter.patient = req.query.patient;
+    }
+
+    const problems = await Problem.find(filter)
+      .populate("patient", "fullName email username")
       .sort({ createdAt: -1 });
 
     res.status(200).json({

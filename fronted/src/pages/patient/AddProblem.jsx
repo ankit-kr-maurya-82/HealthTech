@@ -62,7 +62,9 @@ const AddProblem = () => {
     <div className="add-problem-container">
       <h2>Add Medical Problem</h2>
       <form onSubmit={handleSubmit}>
+        <label htmlFor="doctor-select">Choose Doctor</label>
         <select
+          id="doctor-select"
           name="doctor"
           value={formData.doctor}
           onChange={handleChange}
@@ -79,6 +81,11 @@ const AddProblem = () => {
             </option>
           ))}
         </select>
+        {!loadingDoctors && doctors.length === 0 ? (
+          <p className="add-problem-help-text">
+            No doctors available right now. Please try again later.
+          </p>
+        ) : null}
         <input
           type="text"
           name="title"
@@ -112,7 +119,12 @@ const AddProblem = () => {
           onChange={handleChange}
           required
         />
-        <button type="submit">Submit Problem</button>
+        <button
+          type="submit"
+          disabled={loadingDoctors || doctors.length === 0 || !formData.doctor}
+        >
+          Submit Problem
+        </button>
       </form>
     </div>
   );

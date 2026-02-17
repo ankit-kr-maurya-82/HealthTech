@@ -1,11 +1,19 @@
-import React from 'react'
+﻿import React from "react";
+import SearchBar from "../common/SearchBar";
+import "./css/MedicineSearch.css";
 
-const MedicineSearch = () => {
+const MedicineSearch = ({ value, onChange, placeholder }) => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <SearchBar
+      value={value}
+      onChange={onChange}
+      placeholder={placeholder}
+      ariaLabel="Search medicines"
+      wrapperClassName="medicine-search-wrap"
+      iconClassName="medicine-search-icon"
+      inputClassName="medicine-search-input"
+    />
+  );
+};
 
-export default MedicineSearch
+export default MedicineSearch;

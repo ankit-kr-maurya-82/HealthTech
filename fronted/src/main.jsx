@@ -45,6 +45,7 @@ import PatientLayout from "./components/layout/PatientLayout.jsx";
 import UserProvider from "./context/UserContextProvider";
 import ProtectedRoute from "./components/ProtectedRoute.jsx";
 import DoctorProfile from "./pages/doctor/DoctorProfile.jsx";
+import Features from "./pages/public/Features.jsx";
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -54,6 +55,7 @@ const router = createBrowserRouter(
       <Route path="team" element={<Team />} />
       <Route path="about" element={<About />} />
       <Route path="contact" element={<Contact />} />
+      <Route path="feature" element={<Features />} />
       <Route path="register" element={<Register />} />
       <Route path="register/doctor" element={<DoctorRegister />} />
       <Route path="register/patient" element={<PatientRegister />} />

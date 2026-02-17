@@ -1,0 +1,115 @@
+﻿.medicine-page {
+  min-height: 100vh;
+  background: #f2f5f9;
+  border-radius: 16px;
+  overflow: hidden;
+  position: relative;
+}
+
+.medicine-hero {
+  padding: 48px 20px 140px;
+  text-align: center;
+  color: #ffffff;
+  background: linear-gradient(100deg, #10233c 0%, #163a60 40%, #1b4978 100%);
+}
+
+.medicine-hero-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  background: rgba(42, 111, 186, 0.35);
+  border: 1px solid rgba(123, 181, 243, 0.45);
+  padding: 8px 14px;
+  border-radius: 999px;
+  font-weight: 600;
+  font-size: 0.95rem;
+}
+
+.medicine-hero h1 {
+  margin-top: 22px;
+  font-size: clamp(2rem, 4vw, 3.35rem);
+  line-height: 1.15;
+}
+
+.medicine-hero p {
+  margin: 14px auto 0;
+  max-width: 680px;
+  font-size: clamp(1rem, 1.8vw, 1.55rem);
+  line-height: 1.45;
+  color: #d7e4f7;
+}
+
+.medicine-content {
+  padding: 26px 20px 32px;
+}
+
+.medicine-grid {
+  margin-top: 16px;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 14px;
+}
+
+.medicine-empty-state {
+  grid-column: 1 / -1;
+  background: #ffffff;
+  border: 1px dashed #c6d3e3;
+  border-radius: 14px;
+  padding: 28px;
+  text-align: center;
+}
+
+.medicine-empty-state h3 {
+  color: #0f243f;
+}
+
+.medicine-empty-state p {
+  margin-top: 8px;
+  color: #5f6f84;
+}
+
+.medicine-float-help {
+  position: fixed;
+  right: 22px;
+  bottom: 22px;
+  width: 56px;
+  height: 56px;
+  border: 0;
+  border-radius: 999px;
+  background: #1f8ae4;
+  color: #ffffff;
+  box-shadow: 0 10px 22px rgba(32, 112, 190, 0.34);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.5rem;
+  cursor: pointer;
+}
+
+@media (max-width: 1100px) {
+  .medicine-grid {
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+  }
+}
+
+@media (max-width: 768px) {
+  .medicine-page {
+    border-radius: 12px;
+  }
+
+  .medicine-hero {
+    padding: 26px 14px 112px;
+  }
+
+  .medicine-hero h1 {
+    font-size: 1.9rem;
+  }
+
+  .medicine-hero p {
+    font-size: 1rem;
+  }
+
+  .medicine-grid {
+    grid-template-columns: 1fr;
+  }
+}

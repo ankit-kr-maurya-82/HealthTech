@@ -1,5 +1,6 @@
-import React from "react";
+﻿import React from "react";
 import { FiActivity, FiAlertTriangle, FiBookOpen, FiRepeat, FiZap } from "react-icons/fi";
+import "./css/MedicineCard.css";
 
 const MedicineCard = ({ medicine, onClick }) => {
   return (

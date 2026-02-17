@@ -1,5 +1,6 @@
-import React, { useEffect, useState } from "react";
+﻿import React, { useEffect, useState } from "react";
 import { FiActivity, FiAlertTriangle, FiBookOpen, FiRepeat, FiShield, FiX, FiZap } from "react-icons/fi";
+import "./css/MedicineModal.css";
 
 const TABS = [
   { id: "overview", label: "Overview", icon: FiBookOpen },

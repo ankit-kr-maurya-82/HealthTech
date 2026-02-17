@@ -1,5 +1,6 @@
-import React from "react";
+﻿import React from "react";
 import { FiActivity, FiHeart, FiShield } from "react-icons/fi";
+import "./css/MedicineStats.css";
 
 const MedicineStats = ({ medicineCount, categoryCount, safeInfo }) => {
   return (

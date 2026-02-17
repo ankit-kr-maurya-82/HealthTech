@@ -1,11 +1,13 @@
 import React, { useEffect, useState } from "react";
 import api from "../../api/axios";
 import { useNavigate } from "react-router-dom";
+import "./css/PatientList.css";
 
 const PatientList = () => {
   const [patients, setPatients] = useState([]);
   const [loading, setLoading] = useState(true);
-  const navigate = useNavigate(); // for navigation
+  const [error, setError] = useState("");
+  const navigate = useNavigate();
 
   useEffect(() => {
     fetchPatients();
@@ -13,39 +15,42 @@ const PatientList = () => {
 
   const fetchPatients = async () => {
     try {
-      const res = await api.get("/patient");
+      const res = await api.get("/problems");
+      const problems = res.data?.data || [];
 
-      setPatients(res.data?.data?.patients || []);
-    } catch (error) {
-      console.log("Fetch Error:", error);
-      alert("Failed to load patients");
+      const uniquePatientsMap = new Map();
+      problems.forEach((problem) => {
+        const patient = problem?.patient;
+        if (patient?._id && !uniquePatientsMap.has(patient._id)) {
+          uniquePatientsMap.set(patient._id, patient);
+        }
+      });
+
+      setPatients(Array.from(uniquePatientsMap.values()));
+    } catch (err) {
+      console.log("Fetch Error:", err);
+      setError(err.response?.data?.message || "Failed to load connected patients");
     } finally {
       setLoading(false);
     }
   };
 
-  if (loading) return <h3>Loading patients...</h3>;
+  if (loading) return <h3 className="doctor-patient-list-loading">Loading patients...</h3>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>All Patients 👥</h2>
+    <div className="doctor-patient-list-page">
+      <h2>Connected Patients</h2>
+      {error ? <p className="doctor-patient-list-error">{error}</p> : null}
 
       {patients.length === 0 ? (
-        <p>No patients found.</p>
+        <p className="doctor-patient-list-empty">
+          Abhi tak koi connected patient nahi hai.
+        </p>
       ) : (
         patients.map((patient) => (
-          <div
-            key={patient._id}
-            style={{
-              border: "1px solid #ccc",
-              padding: "15px",
-              marginTop: "15px",
-              borderRadius: "8px",
-              background: "#f0f8ff",
-            }}
-          >
+          <div key={patient._id} className="doctor-patient-list-card">
             <p>
-              <strong>Name:</strong> {patient.username}
+              <strong>Name:</strong> {patient.fullName || patient.username}
             </p>
 
             <p>
@@ -58,14 +63,8 @@ const PatientList = () => {
             </p>
 
             <button
-              style={{
-                marginTop: "10px",
-                padding: "6px 12px",
-                cursor: "pointer",
-              }}
-              onClick={() =>
-                navigate(`/doctor/problems?patient=${patient._id}`)
-              }
+              className="doctor-patient-list-btn"
+              onClick={() => navigate(`/doctor/problems?patient=${patient._id}`)}
             >
               View Problems
             </button>

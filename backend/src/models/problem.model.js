@@ -7,6 +7,12 @@ const problemSchema = new mongoose.Schema(
       ref: "Patient",
       required: true,
     },
+    doctor: {
+      type: mongoose.Schema.Types.ObjectId,
+      ref: "Doctor",
+      required: true,
+      index: true,
+    },
     title: {
       type: String,
       required: true,

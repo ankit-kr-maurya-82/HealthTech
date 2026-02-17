@@ -40,6 +40,10 @@ const DoctorHeader = () => {
               Appointments
             </NavLink>
 
+            <NavLink to="/doctor/advice" className="nav-link">
+              Advice
+            </NavLink>
+
             <NavLink to="/doctor/profile" className="nav-link">
               Profile
             </NavLink>

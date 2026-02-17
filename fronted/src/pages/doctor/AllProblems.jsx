@@ -54,6 +54,8 @@ const AllProblems = () => {
               background: "#f9f9f9",
             }}
           >
+            <p><strong>Patient:</strong> {p.patient?.fullName || p.patient?.username}</p>
+            <p><strong>Patient Email:</strong> {p.patient?.email}</p>
             <p><strong>Title:</strong> {p.title}</p>
             <p><strong>Description:</strong> {p.description}</p>
             <p><strong>Status:</strong> {p.status}</p>

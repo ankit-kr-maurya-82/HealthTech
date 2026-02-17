@@ -1,0 +1,79 @@
+.doctor-advice-page {
+  padding: 20px;
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.doctor-advice-loading {
+  padding: 20px;
+}
+
+.doctor-advice-subtitle {
+  color: #555;
+  margin-bottom: 16px;
+}
+
+.doctor-advice-form {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 16px;
+  background: #fff;
+}
+
+.doctor-advice-field {
+  margin-bottom: 12px;
+}
+
+.doctor-advice-label {
+  display: block;
+  margin-bottom: 6px;
+}
+
+.doctor-advice-input {
+  width: 100%;
+  padding: 10px;
+}
+
+.doctor-advice-textarea {
+  resize: vertical;
+}
+
+.doctor-advice-error {
+  color: crimson;
+  margin-bottom: 10px;
+}
+
+.doctor-advice-success {
+  color: green;
+  margin-bottom: 10px;
+}
+
+.doctor-advice-submit {
+  border: none;
+  border-radius: 8px;
+  background: #1d4ed8;
+  color: #fff;
+  padding: 10px 16px;
+  cursor: pointer;
+}
+
+.doctor-advice-submit:disabled {
+  opacity: 0.7;
+  cursor: not-allowed;
+}
+
+.doctor-advice-list {
+  margin-top: 24px;
+}
+
+.doctor-advice-empty {
+  color: #666;
+}
+
+.doctor-advice-card {
+  border: 1px solid #ddd;
+  border-radius: 10px;
+  padding: 14px;
+  margin-top: 10px;
+  background: #f8fbff;
+}

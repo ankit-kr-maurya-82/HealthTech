@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import axios from "axios";
+import api from "../../api/axios";
 
 const MyProblems = () => {
   const [problems, setProblems] = useState([]);
@@ -11,12 +11,8 @@ const MyProblems = () => {
 
   const fetchProblems = async () => {
     try {
-      const res = await axios.get(
-        "http://localhost:8000/api/problems/my",
-        { withCredentials: true }
-      );
-
-      setProblems(res.data.data);
+      const res = await api.get("/problems/my");
+      setProblems(res.data?.data || []);
     } catch (error) {
       console.log("Fetch Error:", error);
       alert("Failed to load problems");
@@ -45,6 +41,11 @@ const MyProblems = () => {
               background: "#f9f9f9",
             }}
           >
+            <p>
+              <strong>Doctor:</strong>{" "}
+              {problem.doctor?.fullName || problem.doctor?.username || "Not assigned"}
+            </p>
+
             <p>
               <strong>Title:</strong> {problem.title}
             </p>

@@ -1,14 +1,34 @@
 import React, { useState } from "react";
+import { useEffect } from "react";
 import api from "../../api/axios";
 import "./css/AddProblem.css";
 
 const AddProblem = () => {
+  const [doctors, setDoctors] = useState([]);
+  const [loadingDoctors, setLoadingDoctors] = useState(true);
   const [formData, setFormData] = useState({
+    doctor: "",
     title: "",
     description: "",
     severity: "",
     date: "",
   });
+
+  useEffect(() => {
+    const fetchDoctors = async () => {
+      try {
+        setLoadingDoctors(true);
+        const res = await api.get("/doctors");
+        setDoctors(res.data?.data?.doctors || []);
+      } catch (err) {
+        console.log("Failed to fetch doctors:", err);
+      } finally {
+        setLoadingDoctors(false);
+      }
+    };
+
+    fetchDoctors();
+  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -20,7 +40,13 @@ const AddProblem = () => {
       const response = await api.post("/problems", formData);
       console.log("Saved:", response.data);
       alert("Problem added successfully");
-      setFormData({ title: "", description: "", severity: "", date: "" });
+      setFormData({
+        doctor: "",
+        title: "",
+        description: "",
+        severity: "",
+        date: "",
+      });
     } catch (error) {
       console.log("FULL ERROR:", error);
       console.log("Response:", error.response);
@@ -36,6 +62,23 @@ const AddProblem = () => {
     <div className="add-problem-container">
       <h2>Add Medical Problem</h2>
       <form onSubmit={handleSubmit}>
+        <select
+          name="doctor"
+          value={formData.doctor}
+          onChange={handleChange}
+          required
+          disabled={loadingDoctors}
+        >
+          <option value="">
+            {loadingDoctors ? "Loading doctors..." : "Select Doctor"}
+          </option>
+          {doctors.map((doctor) => (
+            <option key={doctor._id} value={doctor._id}>
+              {(doctor.fullName || doctor.username) +
+                (doctor.specialty ? ` - ${doctor.specialty}` : "")}
+            </option>
+          ))}
+        </select>
         <input
           type="text"
           name="title"

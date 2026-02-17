@@ -1,5 +1,6 @@
 import React from "react";
 import "./css/Home.css";
+// import heroImage from "./assets/Tracking_health_for_a_better_life.png";
 
 const Home = () => {
   return (
@@ -33,6 +34,11 @@ const Home = () => {
         </div>
 
         <div className="hero-panel">
+          {/* <img
+            src={heroImage}
+            alt="Tracking health for a better life"
+            className="hero-image"
+          /> */}
           <div className="panel-card">
             <h3>Quick Access</h3>
             <p>Get prescriptions, labs, and diet plans in one place.</p>

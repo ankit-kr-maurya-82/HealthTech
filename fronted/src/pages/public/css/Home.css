@@ -77,8 +77,17 @@
 }
 
 .hero-panel {
-  display: flex;
-  justify-content: flex-end;
+  display: grid;
+  gap: 16px;
+  justify-items: end;
+}
+
+.hero-image {
+  width: 100%;
+  max-width: 380px;
+  border-radius: 16px;
+  border: 1px solid #e6e6e6;
+  background: #ffffff;
 }
 
 .panel-card {
@@ -167,6 +176,6 @@
   }
 
   .hero-panel {
-    justify-content: flex-start;
+    justify-items: start;
   }
 }

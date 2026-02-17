@@ -1,0 +1,95 @@
+@import url("https://fonts.googleapis.com/css2?family=Spectral:wght@500;600&family=Work+Sans:wght@400;500;600&display=swap");
+
+.features-page {
+  padding: 60px 20px 80px;
+  background: #ffffff;
+  color: #111111;
+  font-family: "Work Sans", "Segoe UI", sans-serif;
+}
+
+.features-hero {
+  max-width: 760px;
+  margin-bottom: 28px;
+}
+
+.features-kicker {
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  font-size: 0.8rem;
+  color: #2b8a6e;
+  font-weight: 600;
+}
+
+.features-hero h1 {
+  font-family: "Spectral", "Times New Roman", serif;
+  font-size: 34px;
+  margin: 10px 0 12px;
+}
+
+.features-sub {
+  color: #5b5b5b;
+}
+
+.features-graph {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 18px;
+  background: #ffffff;
+  margin-bottom: 28px;
+}
+
+.features-image {
+  width: 100%;
+  border-radius: 10px;
+  border: 1px solid #e6e6e6;
+  margin-bottom: 14px;
+}
+
+.features-graph svg {
+  width: 100%;
+  height: auto;
+}
+
+.axis {
+  stroke: #dcdcdc;
+  stroke-width: 2;
+}
+
+.bar rect {
+  fill: #111111;
+  opacity: 0.9;
+}
+
+.bar text {
+  font-size: 12px;
+  fill: #5b5b5b;
+  text-anchor: middle;
+}
+
+.bar text:nth-of-type(2) {
+  fill: #111111;
+  font-weight: 600;
+}
+
+.features-list {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: 18px;
+}
+
+.feature-item {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.feature-item h3 {
+  margin: 0 0 8px;
+  font-size: 1rem;
+}
+
+.feature-item p {
+  margin: 0;
+  color: #5b5b5b;
+}

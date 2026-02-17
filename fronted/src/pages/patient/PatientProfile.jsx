@@ -23,7 +23,7 @@ const PatientProfile = () => {
           {user.username?.charAt(0).toUpperCase()}
         </div>
 
-        <h2 className="profile-title">My Profile 👤</h2>
+        <h2 className="profile-title">My Profile</h2>
 
         <div className="profile-info">
           <p><strong>Username:</strong> {user.username}</p>

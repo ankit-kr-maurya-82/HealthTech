@@ -4,58 +4,93 @@ import "./css/Home.css";
 const Home = () => {
   return (
     <div className="home">
-
-      {/* Hero Section */}
       <section className="hero">
-        <h1>Welcome to CareMe</h1>
-        <p>
-          Smart Digital Healthcare Platform where patients submit problems
-          and doctors provide medicines, tests and diet advice.
-        </p>
+        <div className="hero-content">
+          <p className="hero-kicker">CareMe Hospital Network</p>
+          <h1>Care that feels personal, powered by smart systems.</h1>
+          <p className="hero-sub">
+            A hospital‑grade platform where patients submit problems and doctors
+            deliver medicines, tests, and diet guidance with clarity.
+          </p>
+          <div className="hero-actions">
+            <button className="primary-btn">Book Appointment</button>
+            <button className="secondary-btn">Find a Doctor</button>
+          </div>
+          <div className="hero-stats">
+            <div>
+              <span>24/7</span>
+              <small>Virtual care</small>
+            </div>
+            <div>
+              <span>120+</span>
+              <small>Specialists</small>
+            </div>
+            <div>
+              <span>15k</span>
+              <small>Patients served</small>
+            </div>
+          </div>
+        </div>
 
-        <div className="hero-buttons">
-          <button className="primary-btn">Explore</button>
-          <button className="secondary-btn">Learn More</button>
+        <div className="hero-panel">
+          <div className="panel-card">
+            <h3>Quick Access</h3>
+            <p>Get prescriptions, labs, and diet plans in one place.</p>
+            <div className="panel-list">
+              <span>✓ Tele‑consultation</span>
+              <span>✓ Lab reports</span>
+              <span>✓ Medicine reminders</span>
+            </div>
+          </div>
         </div>
       </section>
 
-      {/* Features */}
       <section className="features">
-        <h2>Platform Features</h2>
+        <div className="section-header">
+          <h2>Hospital‑grade features</h2>
+          <p>Designed for patients, doctors, and care teams.</p>
+        </div>
 
         <div className="feature-grid">
-
           <div className="card">
             <h3>Patient Health Tracking</h3>
-            <p>Patients can add symptoms and daily habits.</p>
+            <p>Track symptoms, vitals, and habits with structured timelines.</p>
           </div>
-
           <div className="card">
             <h3>Doctor Advice</h3>
-            <p>Doctors provide medicines, tests and diet plans.</p>
+            <p>Evidence‑based medicines, tests, and personalized diet plans.</p>
           </div>
-
           <div className="card">
             <h3>Digital Workflow</h3>
-            <p>Real hospital style patient-doctor system.</p>
+            <p>Real hospital‑style patient‑doctor collaboration.</p>
           </div>
-
+          <div className="card">
+            <h3>Secure Records</h3>
+            <p>Access patient history and prescriptions securely.</p>
+          </div>
         </div>
       </section>
 
-      {/* Testimonials */}
       <section className="testimonials">
-        <h2>User Feedback</h2>
-
-        <div className="testimonial-card">
-          Very easy platform to track health digitally.
+        <div className="section-header">
+          <h2>Patient stories</h2>
+          <p>Trust earned through consistent care.</p>
         </div>
-
-        <div className="testimonial-card">
-          Doctors can easily suggest tests and diet.
+        <div className="testimonial-grid">
+          <div className="testimonial-card">
+            “Easy to book appointments and track health digitally.”
+            <span>— Riya, 28</span>
+          </div>
+          <div className="testimonial-card">
+            “Clear medicine and diet plans, no confusion.”
+            <span>— Arjun, 34</span>
+          </div>
+          <div className="testimonial-card">
+            “Doctors respond fast and reports are organized.”
+            <span>— Salim, 41</span>
+          </div>
         </div>
       </section>
-
     </div>
   );
 };

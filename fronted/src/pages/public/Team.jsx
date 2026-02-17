@@ -1,35 +1,8 @@
 import React from "react";
+import members from "./teamData.json";
 import "./css/Team.css";
 
 const Team = () => {
-  const members = [
-    {
-      name: "Ankit Kumar Maurya",
-      role: "Full Stack Developer",
-      img: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Bhrantik Nagar",
-      role: "UI/UX Designer",
-      img: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Harsh Tiwari",
-      role: "Database Designer",
-      img: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Anshumaan Pandey",
-      role: "UI Designer",
-      img: "https://via.placeholder.com/150"
-    },
-    {
-      name: "Dev Sharma",
-      role: "Database Designer",
-      img: "https://via.placeholder.com/150"
-    }
-  ];
-
   return (
     <section className="team">
       <h2 className="team-title">Our Team</h2>

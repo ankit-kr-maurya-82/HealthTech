@@ -1,35 +1,37 @@
 import { useLoaderData } from "react-router-dom";
+import "./css/Github.css";
 
 const Github = () => {
 
   const users = useLoaderData();
 
   return (
-    <div className="grid grid-cols-3 gap-5 p-5">
-
-      {users.map((user) => (
-
-        <div
-          key={user.id}
-          className="text-center bg-gray-600 text-white p-4 rounded"
-        >
-
-          <h2>{user.login}</h2>
-
-          <p>Followers: {user.followers}</p>
-
-          <img
-            src={user.avatar_url}
-            alt={user.login}
-            width={200}
-            className="mx-auto rounded-full mt-3"
-          />
-
-        </div>
-
-      ))}
-
-    </div>
+    <section className="github">
+      <h2 className="github-title">Developers</h2>
+      <div className="github-grid">
+        {users.map((user) => (
+          <div key={user.id} className="github-card">
+            <img
+              src={user.avatar_url}
+              alt={user.login}
+              className="github-avatar"
+            />
+            <div className="github-meta">
+              <h3>{user.login}</h3>
+              <p>Followers: {user.followers}</p>
+              <a
+                className="github-link"
+                href={user.html_url}
+                target="_blank"
+                rel="noreferrer"
+              >
+                View Profile
+              </a>
+            </div>
+          </div>
+        ))}
+      </div>
+    </section>
   );
 };
 

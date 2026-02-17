@@ -3,6 +3,12 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
+};
+
 
 const registerDoctor = asyncHandler(async (req, res) => {
   const { username, fullName, email, password, specialty, nmcNumber, gender, age } = req.body;
@@ -61,7 +67,11 @@ const registerDoctor = asyncHandler(async (req, res) => {
     { new: true }
   );
 
-  res.status(201).json(new ApiResponse(201, { user: createdDoctor, accessToken, refreshToken }, "Doctor registered successfully"));
+  res
+    .status(201)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(new ApiResponse(201, { user: createdDoctor, accessToken, refreshToken }, "Doctor registered successfully"));
 });
 
 // Login doctor
@@ -96,7 +106,11 @@ const loginDoctor = asyncHandler(async (req, res) => {
   );
 
   const doctorData = await Doctor.findById(doctor._id).select("-password -refreshToken");
-  res.status(200).json(new ApiResponse(200, { user: doctorData, accessToken, refreshToken }, "Doctor logged in successfully"));
+  res
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(new ApiResponse(200, { user: doctorData, accessToken, refreshToken }, "Doctor logged in successfully"));
 } );
 
 

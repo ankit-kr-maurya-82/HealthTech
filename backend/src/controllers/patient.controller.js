@@ -3,6 +3,12 @@ import { asyncHandler } from "../utils/asyncHandler.js";
 import { ApiError } from "../utils/ApiError.js";
 import { ApiResponse } from "../utils/ApiResponse.js";
 
+const cookieOptions = {
+  httpOnly: true,
+  secure: process.env.NODE_ENV === "production",
+  sameSite: "lax",
+};
+
 // Register new patient
  const registerPatient = asyncHandler(async (req, res) => {
   const { fullName, email, password, age, gender } = req.body;
@@ -51,7 +57,11 @@ import { ApiResponse } from "../utils/ApiResponse.js";
     { refreshToken },
     { new: true }
   );
-  res.status(201).json(new ApiResponse(201, { user: createdPatient, accessToken, refreshToken }, "Patient registered successfully"));
+  res
+    .status(201)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(new ApiResponse(201, { user: createdPatient, accessToken, refreshToken }, "Patient registered successfully"));
 });
 
 
@@ -70,7 +80,11 @@ import { ApiResponse } from "../utils/ApiResponse.js";
     { new: true }
   );
   const patientData = await Patient.findById(patient._id).select("-password -refreshToken");
-  res.status(200).json(new ApiResponse(200, { user: patientData, accessToken, refreshToken }, "Patient logged in successfully"));
+  res
+    .status(200)
+    .cookie("accessToken", accessToken, cookieOptions)
+    .cookie("refreshToken", refreshToken, cookieOptions)
+    .json(new ApiResponse(200, { user: patientData, accessToken, refreshToken }, "Patient logged in successfully"));
 });
 
 

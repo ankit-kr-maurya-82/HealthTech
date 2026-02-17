@@ -36,7 +36,7 @@ const PatientSidebar = () => {
           <li><Link to="/patient/add-problem">Add Problem</Link></li>
           <li><Link to="/patient/advice">Doctor Advice</Link></li>
           <li><Link to="/patient/reminder">Reminders</Link></li>
-          <li><Link to="/patient/medicines">Medicines</Link></li>
+          <li><Link to="/patient/medicines">Medicine</Link></li>
           <li><Link to="/patient/my-problems">My Problems</Link></li>
         </ul>
       </div>

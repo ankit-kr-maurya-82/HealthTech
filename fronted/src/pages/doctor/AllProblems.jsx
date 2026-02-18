@@ -17,7 +17,7 @@ const AllProblems = () => {
     lastFetchedPatientId.current = patientId;
     fetchProblems();
   }, [patientId]);
-
+     
   const fetchProblems = async () => {
     try {
       const query = patientId ? `?patient=${patientId}` : "";

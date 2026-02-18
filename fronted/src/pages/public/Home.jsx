@@ -1,8 +1,27 @@
 import React from "react";
 import "./css/Home.css";
-// import heroImage from "./assets/Tracking_health_for_a_better_life.png";
+import heathtechImages from "./heathtechImages.json";
+
+const assetImages = import.meta.glob("../../assets/*", {
+  eager: true,
+  import: "default",
+});
+
+const findAssetByFileName = (imgPath) => {
+  if (!imgPath) return null;
+  const normalized = imgPath.replace(/\\/g, "/");
+  const fileName = normalized.split("/").pop();
+  const matchKey = Object.keys(assetImages).find((key) =>
+    key.endsWith(`/${fileName}`)
+  );
+  return matchKey ? assetImages[matchKey] : null;
+};
 
 const Home = () => {
+  const heroImageData = heathtechImages[0] || null;
+  const heroImageSrc = findAssetByFileName(heroImageData?.img);
+  const heroImageAlt = heroImageData?.title || "Health technology";
+
   return (
     <div className="home">
       <section className="hero">
@@ -34,11 +53,9 @@ const Home = () => {
         </div>
 
         <div className="hero-panel">
-          {/* <img
-            src={heroImage}
-            alt="Tracking health for a better life"
-            className="hero-image"
-          /> */}
+          {heroImageSrc && (
+            <img src={heroImageSrc} alt={heroImageAlt} className="hero-image" />
+          )}
           <div className="panel-card">
             <h3>Quick Access</h3>
             <p>Get prescriptions, labs, and diet plans in one place.</p>

@@ -98,6 +98,8 @@
   outline: none;
 }
 
+
+
 .menu-icon {
   font-size: 18px;
   color: var(--ink);
@@ -132,8 +134,8 @@
 /* Hamburger toggle button */
 .sidebar-toggle {
   position: fixed;
-  top: 14px;
-  left: 14px;
+  top: 4px;
+  left: 0px;
   background: var(--bg);
   color: var(--ink);
   border: 2px solid var(--ink);
@@ -150,6 +152,6 @@
 
 @media (max-width: 768px) {
   .patient-sidebar {
-    width: 84vw;
+    width: 54vw;
   }
 }

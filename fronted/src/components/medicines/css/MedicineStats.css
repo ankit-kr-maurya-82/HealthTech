@@ -1,9 +1,9 @@
-﻿.medicine-stats-row {
-  margin: -80px auto 0;
-  max-width: 860px;
+.medicine-stats-row {
+  margin: -74px auto 0;
+  max-width: 980px;
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: 14px;
+  gap: 16px;
   padding: 0 20px;
 }
 
@@ -13,7 +13,7 @@
   border: 1px solid #dde6f1;
   box-shadow: 0 8px 18px rgba(17, 31, 48, 0.09);
   text-align: center;
-  padding: 20px 16px;
+  padding: 18px 16px;
 }
 
 .medicine-stat-icon {
@@ -42,19 +42,21 @@
 }
 
 .medicine-stat-card h3 {
-  font-size: 2.1rem;
+  font-size: 1.8rem;
   margin-top: 10px;
   color: #0c1d34;
 }
 
 .medicine-stat-card p {
-  margin-top: 6px;
+  margin-top: 4px;
   color: #5f6f84;
+  font-size: 0.92rem;
 }
 
 @media (max-width: 768px) {
   .medicine-stats-row {
-    margin-top: -64px;
+    margin-top: -56px;
     grid-template-columns: 1fr;
+    gap: 12px;
   }
 }

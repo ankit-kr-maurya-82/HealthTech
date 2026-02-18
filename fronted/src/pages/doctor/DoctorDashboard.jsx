@@ -14,7 +14,7 @@ const DoctorDashboard = () => {
   useEffect(() => {
     const loadDashboardData = async () => {
       if (!user?._id) return;
-
+ 
       try {
         setLoading(true);
         setError("");
@@ -42,27 +42,29 @@ const DoctorDashboard = () => {
 
   return (
     <div className="doctor-dashboard">
-      <h1>Welcome Dr. {user?.fullName}</h1>
-      <p>Email: {user?.email}</p>
-      <p>Specialty: {user?.specialty}</p>
-      {error ? <p className="doctor-dashboard-error">{error}</p> : null}
-      <hr />
+      <div>
+        <h1>Welcome Dr. {user?.fullName}</h1>
+        <p>Email: {user?.email}</p>
+        <p>Specialty: {user?.specialty}</p>
+        {error ? <p className="doctor-dashboard-error">{error}</p> : null}
+        <hr />
 
-      <div className="dashboard-buttons">
-        <button onClick={() => navigate("/doctor/patients")}>Patient List</button>
-        <button onClick={() => navigate("/doctor/problems")}>View Problems</button>
-        <button onClick={() => navigate("/doctor/profile")}>Update Profile</button>
+        <div className="dashboard-buttons">
+          <button onClick={() => navigate("/doctor/patients")}>Patient List</button>
+          <button onClick={() => navigate("/doctor/problems")}>View Problems</button>
+          <button onClick={() => navigate("/doctor/profile")}>Update Profile</button>
+        </div>
+
+        {!hasConnectedPatients ? (
+          <section className="doctor-dashboard-patient-section">
+            <h2>No Connected Patients Yet</h2>
+            <p>
+              Jab tak patient aapse connect nahi hota (problem assign nahi hoti),
+              dashboard me patient list show nahi hogi.
+            </p>
+          </section>
+        ) : null}
       </div>
-
-      {!hasConnectedPatients ? (
-        <section className="doctor-dashboard-patient-section">
-          <h2>No Connected Patients Yet</h2>
-          <p>
-            Jab tak patient aapse connect nahi hota (problem assign nahi hoti),
-            dashboard me patient list show nahi hogi.
-          </p>
-        </section>
-      ) : null}
     </div>
   );
 };

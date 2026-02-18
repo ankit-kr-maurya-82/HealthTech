@@ -16,7 +16,7 @@ const DoctorAdvice = () => {
     message: "",
     followUpDate: "",
   });
-
+ 
   useEffect(() => {
     const fetchPatients = async () => {
       try {
@@ -93,117 +93,119 @@ const DoctorAdvice = () => {
   if (loadingPatients) return <h3 className="doctor-advice-loading">Loading patients...</h3>;
 
   return (
-    <div className="doctor-advice-page">
-      <h2>Advice to Patients</h2>
-      <p className="doctor-advice-subtitle">
-        Select a patient and provide clear medical guidance.
-      </p>
+      <div className="doctor-advice-page">
+        <div className="doctor-advice-container">
+        <h2>Advice to Patients</h2>
+        <p className="doctor-advice-subtitle">
+          Select a patient and provide clear medical guidance.
+        </p>
 
-      <form onSubmit={handleSubmit} className="doctor-advice-form">
-        <div className="doctor-advice-field">
-          <label htmlFor="patientId" className="doctor-advice-label">
-            Patient
-          </label>
-          <select
-            id="patientId"
-            name="patientId"
-            value={form.patientId}
-            onChange={handleChange}
-            className="doctor-advice-input"
-          >
-            <option value="">Select a patient</option>
-            {patients.map((patient) => (
-              <option key={patient._id} value={patient._id}>
-                {patient.username} ({patient.email})
-              </option>
-            ))}
-          </select>
-        </div>
+        <form onSubmit={handleSubmit} className="doctor-advice-form">
+          <div className="doctor-advice-field">
+            <label htmlFor="patientId" className="doctor-advice-label">
+              Patient
+            </label>
+            <select
+              id="patientId"
+              name="patientId"
+              value={form.patientId}
+              onChange={handleChange}
+              className="doctor-advice-input"
+            >
+              <option value="">Select a patient</option>
+              {patients.map((patient) => (
+                <option key={patient._id} value={patient._id}>
+                  {patient.username} ({patient.email})
+                </option>
+              ))}
+            </select>
+          </div>
 
-        <div className="doctor-advice-field">
-          <label htmlFor="title" className="doctor-advice-label">
-            Advice Title
-          </label>
-          <input
-            id="title"
-            name="title"
-            type="text"
-            value={form.title}
-            onChange={handleChange}
-            placeholder="e.g. Diet and Hydration Plan"
-            className="doctor-advice-input"
-          />
-        </div>
+          <div className="doctor-advice-field">
+            <label htmlFor="title" className="doctor-advice-label">
+              Advice Title
+            </label>
+            <input
+              id="title"
+              name="title"
+              type="text"
+              value={form.title}
+              onChange={handleChange}
+              placeholder="e.g. Diet and Hydration Plan"
+              className="doctor-advice-input"
+            />
+          </div>
 
-        <div className="doctor-advice-field">
-          <label htmlFor="message" className="doctor-advice-label">
-            Advice Message
-          </label>
-          <textarea
-            id="message"
-            name="message"
-            value={form.message}
-            onChange={handleChange}
-            rows={5}
-            placeholder="Write patient advice here..."
-            className="doctor-advice-input doctor-advice-textarea"
-          />
-        </div>
+          <div className="doctor-advice-field">
+            <label htmlFor="message" className="doctor-advice-label">
+              Advice Message
+            </label>
+            <textarea
+              id="message"
+              name="message"
+              value={form.message}
+              onChange={handleChange}
+              rows={5}
+              placeholder="Write patient advice here..."
+              className="doctor-advice-input doctor-advice-textarea"
+            />
+          </div>
 
-        <div className="doctor-advice-field">
-          <label htmlFor="followUpDate" className="doctor-advice-label">
-            Follow-up Date (optional)
-          </label>
-          <input
-            id="followUpDate"
-            name="followUpDate"
-            type="date"
-            value={form.followUpDate}
-            onChange={handleChange}
-            className="doctor-advice-input"
-          />
-        </div>
+          <div className="doctor-advice-field">
+            <label htmlFor="followUpDate" className="doctor-advice-label">
+              Follow-up Date (optional)
+            </label>
+            <input
+              id="followUpDate"
+              name="followUpDate"
+              type="date"
+              value={form.followUpDate}
+              onChange={handleChange}
+              className="doctor-advice-input"
+            />
+          </div>
 
-        {error ? <p className="doctor-advice-error">{error}</p> : null}
-        {success ? <p className="doctor-advice-success">{success}</p> : null}
+          {error ? <p className="doctor-advice-error">{error}</p> : null}
+          {success ? <p className="doctor-advice-success">{success}</p> : null}
 
-        <button type="submit" className="doctor-advice-submit" disabled={submitting}>
-          {submitting ? "Sending..." : "Send Advice"}
-        </button>
-      </form>
+          <button type="submit" className="doctor-advice-submit" disabled={submitting}>
+            {submitting ? "Sending..." : "Send Advice"}
+          </button>
+        </form>
 
-      <div className="doctor-advice-list">
-        <h3>Sent Advice</h3>
-        {loadingAdvice ? (
-          <p className="doctor-advice-empty">Loading advice history...</p>
-        ) : sentAdvice.length === 0 ? (
-          <p className="doctor-advice-empty">No advice sent yet.</p>
-        ) : (
-          sentAdvice.map((advice) => (
-            <div key={advice._id} className="doctor-advice-card">
-              <p>
-                <strong>Patient:</strong>{" "}
-                {advice.patient?.fullName || advice.patient?.username || "Unknown Patient"}
-              </p>
-              <p>
-                <strong>Title:</strong> {advice.title}
-              </p>
-              <p>
-                <strong>Advice:</strong> {advice.message}
-              </p>
-              <p>
-                <strong>Given On:</strong>{" "}
-                {new Date(advice.createdAt).toLocaleString()}
-              </p>
-              {advice.followUpDate ? (
+        <div className="doctor-advice-list">
+          <h3>Sent Advice</h3>
+          {loadingAdvice ? (
+            <p className="doctor-advice-empty">Loading advice history...</p>
+          ) : sentAdvice.length === 0 ? (
+            <p className="doctor-advice-empty">No advice sent yet.</p>
+          ) : (
+            sentAdvice.map((advice) => (
+              <div key={advice._id} className="doctor-advice-card">
                 <p>
-                  <strong>Follow-up:</strong>{" "}
-                  {new Date(advice.followUpDate).toLocaleDateString()}
+                  <strong>Patient:</strong>{" "}
+                  {advice.patient?.fullName || advice.patient?.username || "Unknown Patient"}
                 </p>
-              ) : null}
-            </div>
-          ))
-        )}
+                <p>
+                  <strong>Title:</strong> {advice.title}
+                </p>
+                <p>
+                  <strong>Advice:</strong> {advice.message}
+                </p>
+                <p>
+                  <strong>Given On:</strong>{" "}
+                  {new Date(advice.createdAt).toLocaleString()}
+                </p>
+                {advice.followUpDate ? (
+                  <p>
+                    <strong>Follow-up:</strong>{" "}
+                    {new Date(advice.followUpDate).toLocaleDateString()}
+                  </p>
+                ) : null}
+              </div>
+            ))
+          )}
+        </div>
       </div>
     </div>
   );

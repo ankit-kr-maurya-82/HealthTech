@@ -25,14 +25,14 @@ const adviceSchema = new mongoose.Schema(
   {
     doctor: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Doctor",
       required: true,
       index: true,
     },
 
     patient: {
       type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
+      ref: "Patient",
       required: true,
       index: true,
     },
@@ -40,7 +40,24 @@ const adviceSchema = new mongoose.Schema(
     problem: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "Problem",
+      default: null,
+    },
+
+    title: {
+      type: String,
+      trim: true,
+      default: "General Advice",
+    },
+
+    message: {
+      type: String,
+      trim: true,
       required: true,
+    },
+
+    followUpDate: {
+      type: Date,
+      default: null,
     },
 
     medicine: {

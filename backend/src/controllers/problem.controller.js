@@ -1,112 +1,88 @@
-import {Problem} from "../models/problem.model.js";
+import { Problem } from "../models/problem.model.js";
+import { Doctor } from "../models/doctor.model.js";
+import { ApiError } from "../utils/ApiError.js";
+import { ApiResponse } from "../utils/ApiResponse.js";
+import { asyncHandler } from "../utils/asyncHandler.js";
 
-// ➤ Add Problem (Patient Only)
- const addProblem = async (req, res) => {
-  try {
-    const {
-      title,
-      description,
-      severity,
-      date,
-    } = req.body;
-
-    // Validate required fields
-    if (!title || !description || !severity) {
-      return res.status(400).json({
-        message: "Title, description, and severity are required",
-      });
-    }
-
-    const newProblem = await Problem.create({
-      patient: req.user._id, // from auth middleware
-      title,
-      description,
-      severity,
-      date,
-    });
-
-    res.status(201).json({
-      success: true,
-      message: "Problem submitted successfully",
-      data: newProblem,
-    });
-  } catch (error) {
-    console.error("Add Problem Error:", error);
-    res.status(500).json({
-      message: "Server error while adding problem",
-    });
+export const addProblem = asyncHandler(async (req, res) => {
+  if (req.userRole !== "patient") {
+    throw new ApiError(403, "Only patients can submit problems");
   }
-};
 
-const getMyProblems = async (req, res) => {
-  try {
-    const problems = await Problem.find({
-      patient: req.user._id,
-    }).sort({ createdAt: -1 });
+  const { doctor, title, description, severity, date } = req.body;
 
-    res.status(200).json({
-      success: true,
-      data: problems,
-    });
-  } catch (error) {
-    console.error("Get Problems Error:", error);
-    res.status(500).json({
-      message: "Server error while fetching problems",
-    });
+  if (!doctor || !title || !description || !severity) {
+    throw new ApiError(400, "Doctor, title, description, and severity are required");
   }
-};
 
- const getAllProblems = async (req, res) => {
-  try {
-    const filter = {};
-    if (req.query.patient) {
-      filter.patient = req.query.patient;
-    }
-
-    const problems = await Problem.find(filter)
-      .populate("patient", "fullName email username")
-      .sort({ createdAt: -1 });
-
-    res.status(200).json({
-      success: true,
-      data: problems,
-    });
-  } catch (error) {
-    console.error("Get All Problems Error:", error);
-    res.status(500).json({
-      message: "Server error",
-    });
+  const doctorExists = await Doctor.findById(doctor).select("_id");
+  if (!doctorExists) {
+    throw new ApiError(404, "Selected doctor not found");
   }
-};
 
- const updateProblemStatus = async (req, res) => {
-  try {
-    const { id } = req.params;
-    const { status } = req.body;
+  const newProblem = await Problem.create({
+    patient: req.user._id,
+    doctor,
+    title,
+    description,
+    severity,
+    date,
+  });
 
-    const updated = await Problem.findByIdAndUpdate(
-      id,
-      { status },
-      { new: true }
-    );
+  return res.status(201).json(
+    new ApiResponse(201, newProblem, "Problem submitted successfully")
+  );
+});
 
-    if (!updated) {
-      return res.status(404).json({
-        message: "Problem not found",
-      });
-    }
-
-    res.status(200).json({
-      success: true,
-      message: "Status updated",
-      data: updated,
-    });
-  } catch (error) {
-    console.error("Update Status Error:", error);
-    res.status(500).json({
-      message: "Server error",
-    });
+export const getMyProblems = asyncHandler(async (req, res) => {
+  if (req.userRole !== "patient") {
+    throw new ApiError(403, "Only patients can view their problems");
   }
-};
 
-export { addProblem, getMyProblems, getAllProblems, updateProblemStatus };
+  const problems = await Problem.find({ patient: req.user._id })
+    .populate("doctor", "fullName username email specialty")
+    .sort({ createdAt: -1 });
+
+  return res.status(200).json(new ApiResponse(200, problems, "Problems fetched"));
+});
+
+export const getAllProblems = asyncHandler(async (req, res) => {
+  if (req.userRole !== "doctor") {
+    throw new ApiError(403, "Only doctors can view all assigned problems");
+  }
+
+  const filter = { doctor: req.user._id };
+  if (req.query.patient) {
+    filter.patient = req.query.patient;
+  }
+
+  const problems = await Problem.find(filter)
+    .populate("patient", "fullName email username")
+    .populate("doctor", "fullName email username specialty")
+    .sort({ createdAt: -1 });
+
+  return res.status(200).json(new ApiResponse(200, problems, "Problems fetched"));
+});
+
+export const updateProblemStatus = asyncHandler(async (req, res) => {
+  if (req.userRole !== "doctor") {
+    throw new ApiError(403, "Only doctors can update problem status");
+  }
+
+  const { id } = req.params;
+  const { status } = req.body;
+
+  const updated = await Problem.findOneAndUpdate(
+    { _id: id, doctor: req.user._id },
+    { status },
+    { new: true }
+  );
+
+  if (!updated) {
+    throw new ApiError(404, "Problem not found for this doctor");
+  }
+
+  return res
+    .status(200)
+    .json(new ApiResponse(200, updated, "Status updated"));
+});

@@ -34,11 +34,13 @@ import Advice from "./pages/patient/Advice.jsx";
 import Reminder from "./pages/patient/Reminder.jsx";
 import PatientMedicines from "./pages/patient/PatientMedicines.jsx";
 import MyProblems from "./pages/auth/MyProblems.jsx";
+import DoctorList from "./pages/patient/DoctorList.jsx";
 
 // Doctor pages
 import DoctorDashboard from "./pages/doctor/DoctorDashboard.jsx";
 import AllProblems from "./pages/doctor/AllProblems.jsx";
 import PatientList from "./pages/doctor/PatientList.jsx";
+import DoctorAdvice from "./pages/doctor/DoctorAdvice.jsx";
 
 // Layout & Context
 import PatientLayout from "./components/layout/PatientLayout.jsx";
@@ -74,6 +76,7 @@ const router = createBrowserRouter(
           <Route path="advice" element={<Advice />} />
           <Route path="reminder" element={<Reminder />} />
           <Route path="medicines" element={<PatientMedicines />} />
+          <Route path="doctors" element={<DoctorList />} />
         </Route>
       </Route>
 
@@ -82,6 +85,7 @@ const router = createBrowserRouter(
         <Route path="doctor/dashboard" element={<DoctorDashboard />} />
         <Route path="doctor/patients" element={<PatientList />} />
         <Route path="doctor/problems" element={<AllProblems />} />
+        <Route path="doctor/advice" element={<DoctorAdvice />} />
         <Route path="doctor/profile" element={<DoctorProfile />} />
       </Route>
     </Route>

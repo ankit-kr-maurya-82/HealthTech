@@ -95,14 +95,14 @@ const PatientSidebar = () => {
         <div className="menu-section-title">Following</div>
         <ul className="menu-list">
           <li>
-            <span className="menu-item-static">
+            <Link to="/patient/doctors">
               <FiUsers className="menu-icon" />
               My Doctors
               <span className="status-dot" />
-            </span>
+            </Link>
           </li>
           <li>
-            <Link to="/patient/appointments">
+            <Link to="/patient/doctors">
               <FiPlus className="menu-icon" />
               Find doctors to follow
             </Link>

@@ -30,6 +30,7 @@ export const verifyJWT = async (req, res, next) => {
     if (!user) return next(new ApiError(401, "Invalid Access Token: user not found"));
 
     req.user = user;
+    req.userRole = decodedToken?.role;
     next();
   } catch (error) {
     return next(

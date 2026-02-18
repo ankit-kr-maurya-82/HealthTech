@@ -36,3 +36,19 @@
 .dashboard-buttons button:hover {
   background-color: #0056b3;
 }
+
+.doctor-dashboard-loading {
+  padding: 20px;
+}
+
+.doctor-dashboard-error {
+  color: crimson;
+}
+
+.doctor-dashboard-patient-section {
+  margin-top: 24px;
+  padding: 16px;
+  border: 1px solid #d1d5db;
+  border-radius: 10px;
+  background: #ffffff;
+}

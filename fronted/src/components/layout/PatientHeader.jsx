@@ -40,7 +40,7 @@ const PatientHeader = () => {
               Home
             </NavLink>
             <NavLink to="/patient/appointments" className="nav-link">
-              Library
+              Appointments
             </NavLink>
             <NavLink to="/patient/profile" className="nav-link">
               Profile

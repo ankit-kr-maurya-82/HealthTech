@@ -10,9 +10,8 @@ const Header = () => {
   const [menuOpen, setMenuOpen] = useState(false);
 
   const { user, logout } = useContext(UserContext);
-  const navigate = useNavigate(); // ✅ added
-
-  const dropdownRef = useRef();
+  const navigate = useNavigate();
+  const dropdownRef = useRef(null);
 
   useEffect(() => {
     const handleClick = (e) => {
@@ -21,49 +20,71 @@ const Header = () => {
         setShowLogin(false);
       }
     };
+
     document.addEventListener("mousedown", handleClick);
     return () => document.removeEventListener("mousedown", handleClick);
   }, []);
 
+  useEffect(() => {
+    document.body.style.overflow = menuOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [menuOpen]);
+
+  useEffect(() => {
+    const handleResize = () => {
+      if (window.innerWidth > 768) {
+        setMenuOpen(false);
+      }
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  const closeMenu = () => setMenuOpen(false);
+
   const handleLogout = () => {
-    logout();           // clear context + localStorage
-    setMenuOpen(false); // close mobile menu
-    navigate("/");      // ✅ redirect to Home
+    logout();
+    closeMenu();
+    navigate("/");
   };
 
   return (
     <header className="header">
       <nav className="navbar">
-        <Link to="/" className="logo">
+        <Link to="/" className="logo" onClick={closeMenu}>
           Careme
         </Link>
 
-        <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
-          <FaBars />
-        </div>
+        <button
+          type="button"
+          className="menu-icon"
+          onClick={() => setMenuOpen((prev) => !prev)}
+          aria-label={menuOpen ? "Close menu" : "Open menu"}
+          aria-expanded={menuOpen}
+        >
+          {menuOpen ? <FaTimes /> : <FaBars />}
+        </button>
+
+        {menuOpen && <button className="menu-overlay" onClick={closeMenu} aria-label="Close menu overlay" />}
 
         <div className={`nav-section ${menuOpen ? "active" : ""}`}>
-          <div className="sidebar-header">
-            <FaTimes
-              className="close-icon"
-              onClick={() => setMenuOpen(false)}
-            />
-          </div>
-
           <ul className="nav-links">
-            <NavLink to="/" end className="nav-link">
+            <NavLink to="/" end className="nav-link" onClick={closeMenu}>
               Home
             </NavLink>
 
             {!user && (
               <>
-                <NavLink to="/about" className="nav-link">
+                <NavLink to="/about" className="nav-link" onClick={closeMenu}>
                   About
                 </NavLink>
-                <NavLink to="/contact" className="nav-link">
+                <NavLink to="/contact" className="nav-link" onClick={closeMenu}>
                   Contact
                 </NavLink>
-                <NavLink to="/team" className="nav-link">
+                <NavLink to="/team" className="nav-link" onClick={closeMenu}>
                   Developer Team
                 </NavLink>
               </>
@@ -85,8 +106,12 @@ const Header = () => {
                   </button>
                   {showRegister && (
                     <div className="dropdown-menu">
-                      <Link to="/register/patient">Patient Register</Link>
-                      <Link to="/register/doctor">Doctor Register</Link>
+                      <Link to="/register/patient" onClick={closeMenu}>
+                        Patient Register
+                      </Link>
+                      <Link to="/register/doctor" onClick={closeMenu}>
+                        Doctor Register
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -103,8 +128,12 @@ const Header = () => {
                   </button>
                   {showLogin && (
                     <div className="dropdown-menu">
-                      <Link to="/login/patient">Patient Login</Link>
-                      <Link to="/login/doctor">Doctor Login</Link>
+                      <Link to="/login/patient" onClick={closeMenu}>
+                        Patient Login
+                      </Link>
+                      <Link to="/login/doctor" onClick={closeMenu}>
+                        Doctor Login
+                      </Link>
                     </div>
                   )}
                 </div>
@@ -112,12 +141,9 @@ const Header = () => {
             ) : (
               <div className="user-profile">
                 <FaUserCircle className="profile-icon" />
-
                 <span className="username">
-                  {user.username} (
-                  {user.role === "doctor" ? "Doctor" : "Patient"})
+                  {user.username} ({user.role === "doctor" ? "Doctor" : "Patient"})
                 </span>
-
                 <button className="btn logout" onClick={handleLogout}>
                   Logout
                 </button>

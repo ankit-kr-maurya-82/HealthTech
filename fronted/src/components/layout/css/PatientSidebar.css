@@ -12,18 +12,17 @@
 .patient-sidebar {
   width: 270px;
   background: var(--bg);
-  padding: 18px 16px;
-  border-radius: 0;
-  box-shadow: none;
+  padding: 16px;
   height: 100vh;
   position: fixed;
   top: 0;
   left: 0;
-  transition: transform 0.3s ease;
-  z-index: 1000;
+  transition: transform 0.25s ease;
+  z-index: 500;
   font-family: "Work Sans", "Segoe UI", sans-serif;
   color: var(--ink);
   border-right: 1px solid var(--line);
+  overflow-y: auto;
 }
 
 .patient-sidebar.open {
@@ -31,11 +30,10 @@
 }
 
 .patient-sidebar.closed {
-  transform: translateX(-300px);
-  box-shadow: none;
+  transform: translateX(-100%);
 }
 
-.patient-sidebar .sidebar-header {
+.sidebar-header {
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -44,31 +42,33 @@
   border-bottom: 1px solid var(--line);
 }
 
-.patient-sidebar h3 {
+.sidebar-brand {
   margin: 0;
   font-size: 1.4rem;
   font-family: "Spectral", "Times New Roman", serif;
   letter-spacing: 0.2px;
+  color: var(--ink);
+  text-decoration: none;
 }
 
-.patient-sidebar .close-btn {
+.close-btn {
   background: transparent;
   border: 1px solid var(--ink);
   color: var(--ink);
   cursor: pointer;
-  width: 36px;
-  height: 36px;
+  width: 34px;
+  height: 34px;
   border-radius: 6px;
   display: grid;
   place-items: center;
   transition: background 0.2s ease;
 }
 
-.patient-sidebar .close-btn:hover {
+.close-btn:hover {
   background: var(--hover);
 }
 
-.patient-sidebar ul {
+.menu-list {
   list-style: none;
   padding: 0;
   margin: 0;
@@ -76,8 +76,7 @@
   gap: 4px;
 }
 
-.patient-sidebar ul li a,
-.menu-item-static {
+.menu-list li a {
   text-decoration: none;
   color: var(--muted);
   font-weight: 500;
@@ -86,23 +85,27 @@
   gap: 12px;
   padding: 10px 8px;
   border-radius: 8px;
-  background: transparent;
   border: 1px solid transparent;
   transition: background 0.2s ease, color 0.2s ease;
 }
 
-.patient-sidebar ul li a:hover,
-.patient-sidebar ul li a:focus {
+.menu-list li a:hover,
+.menu-list li a:focus {
   background: var(--hover);
   color: var(--ink);
   outline: none;
 }
 
-
+.menu-list li a.active {
+  background: #edf6f3;
+  color: var(--ink);
+  border-color: #dcefe8;
+}
 
 .menu-icon {
   font-size: 18px;
   color: var(--ink);
+  flex-shrink: 0;
 }
 
 .menu-divider {
@@ -119,10 +122,6 @@
   margin: 2px 0 6px;
 }
 
-.menu-item-static {
-  position: relative;
-}
-
 .status-dot {
   width: 6px;
   height: 6px;
@@ -131,27 +130,42 @@
   margin-left: auto;
 }
 
-/* Hamburger toggle button */
 .sidebar-toggle {
   position: fixed;
-  top: 4px;
-  left: 0px;
+  top: 12px;
+  left: 12px;
   background: var(--bg);
   color: var(--ink);
-  border: 2px solid var(--ink);
-  padding: 10px 12px;
-  border-radius: 6px;
+  border: 1px solid var(--ink);
+  padding: 8px 10px;
+  border-radius: 8px;
   cursor: pointer;
-  z-index: 1100;
-  box-shadow: none;
+  z-index: 520;
 }
 
 .sidebar-toggle:hover {
   background: var(--hover);
 }
 
-@media (max-width: 768px) {
+.sidebar-overlay {
+  position: fixed;
+  inset: 0;
+  border: 0;
+  background: rgba(0, 0, 0, 0.35);
+  z-index: 490;
+}
+
+@media (min-width: 900px) {
+  .close-btn,
+  .sidebar-toggle,
+  .sidebar-overlay {
+    display: none;
+  }
+}
+
+@media (max-width: 899px) {
   .patient-sidebar {
-    width: 54vw;
+    width: min(300px, 82vw);
+    box-shadow: 12px 0 30px rgba(0, 0, 0, 0.18);
   }
 }

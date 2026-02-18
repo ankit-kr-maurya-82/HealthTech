@@ -1,29 +1,37 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import { Outlet, Navigate } from "react-router-dom";
 import UserContext from "../../context/UserContext";
 import PatientSidebar from "./PatientSidebar";
 
 const PatientLayout = () => {
   const { user, loading } = useContext(UserContext);
+  const [isDesktop, setIsDesktop] = useState(() => window.innerWidth >= 900);
+
+  useEffect(() => {
+    const handleResize = () => {
+      setIsDesktop(window.innerWidth >= 900);
+    };
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
 
   if (loading) return <div>Loading...</div>;
 
-  // protect route
   if (!user || user.role !== "patient") {
     return <Navigate to="/login" />;
   }
 
   return (
-    <div style={{ display: "flex", minHeight: "100vh" }}>
-      
-      {/* Sidebar */}
+    <div style={{ minHeight: "100vh", background: "#f8fafc" }}>
       <PatientSidebar />
-
-      {/* Main content */}
-      <div style={{ flex: 1, padding: "20px" }}>
+      <main
+        style={{
+          marginLeft: isDesktop ? "270px" : "0",
+          padding: "20px",
+        }}
+      >
         <Outlet />
-      </div>
-
+      </main>
     </div>
   );
 };

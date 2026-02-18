@@ -1,5 +1,5 @@
-import React, { useState } from "react";
-import { Link } from "react-router-dom";
+import React, { useEffect, useState } from "react";
+import { Link, NavLink } from "react-router-dom";
 import {
   FiX,
   FiMenu,
@@ -9,84 +9,110 @@ import {
   FiFileText,
   FiBarChart2,
   FiUsers,
-  FiPlus
+  FiPlus,
 } from "react-icons/fi";
 import "./css/PatientSidebar.css";
 
+const MOBILE_BREAKPOINT = 900;
+
 const PatientSidebar = () => {
-  const [isOpen, setIsOpen] = useState(false); // sidebar open/close
+  const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
+  const [isOpen, setIsOpen] = useState(() => window.innerWidth >= MOBILE_BREAKPOINT);
+
+  useEffect(() => {
+    const handleResize = () => {
+      const mobile = window.innerWidth < MOBILE_BREAKPOINT;
+      setIsMobile(mobile);
+      setIsOpen(!mobile);
+    };
+
+    window.addEventListener("resize", handleResize);
+    return () => window.removeEventListener("resize", handleResize);
+  }, []);
+
+  useEffect(() => {
+    document.body.style.overflow = isMobile && isOpen ? "hidden" : "";
+    return () => {
+      document.body.style.overflow = "";
+    };
+  }, [isMobile, isOpen]);
+
+  const closeSidebar = () => {
+    if (isMobile) {
+      setIsOpen(false);
+    }
+  };
 
   return (
     <>
-      {/* Hamburger icon to open sidebar if closed */}
-      {!isOpen && (
-        <button
-          className="sidebar-toggle"
-          onClick={() => setIsOpen(true)}
-        >
+      {isMobile && !isOpen && (
+        <button className="sidebar-toggle" onClick={() => setIsOpen(true)} aria-label="Open sidebar">
           <FiMenu size={24} />
         </button>
       )}
 
-      <div className={`patient-sidebar ${isOpen ? "open" : "closed"}`}>
+      {isMobile && isOpen && <button className="sidebar-overlay" onClick={closeSidebar} aria-label="Close sidebar overlay" />}
+
+      <aside className={`patient-sidebar ${isOpen ? "open" : "closed"}`}>
         <div className="sidebar-header">
-          <h3>CareMe</h3>
-          <button
-            className="close-btn"
-            onClick={() => setIsOpen(false)}
-          >
-            <FiX size={24} />
-          </button>
+          <Link to="/patient/dashboard" className="sidebar-brand" onClick={closeSidebar}>
+            CareMe
+          </Link>
+          {isMobile && (
+            <button className="close-btn" onClick={closeSidebar} aria-label="Close sidebar">
+              <FiX size={22} />
+            </button>
+          )}
         </div>
 
         <ul className="menu-list">
           <li>
-            <Link to="/patient/dashboard">
+            <NavLink to="/patient/dashboard" onClick={closeSidebar}>
               <FiHome className="menu-icon" />
               Dashboard
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/appointments">
+            <NavLink to="/patient/appointments" onClick={closeSidebar}>
               <FiBookOpen className="menu-icon" />
               Appointments
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/profile">
+            <NavLink to="/patient/profile" onClick={closeSidebar}>
               <FiUser className="menu-icon" />
               Profile
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/add-problem">
+            <NavLink to="/patient/add-problem" onClick={closeSidebar}>
               <FiFileText className="menu-icon" />
               Add Problem
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/advice">
+            <NavLink to="/patient/advice" onClick={closeSidebar}>
               <FiFileText className="menu-icon" />
               Doctor Advice
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/reminder">
+            <NavLink to="/patient/reminder" onClick={closeSidebar}>
               <FiBarChart2 className="menu-icon" />
               Reminders
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/medicines">
+            <NavLink to="/patient/medicines" onClick={closeSidebar}>
               <FiBookOpen className="menu-icon" />
               Medicine
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/my-problems">
+            <NavLink to="/patient/my-problems" onClick={closeSidebar}>
               <FiFileText className="menu-icon" />
               My Problems
-            </Link>
+            </NavLink>
           </li>
         </ul>
 
@@ -95,20 +121,20 @@ const PatientSidebar = () => {
         <div className="menu-section-title">Following</div>
         <ul className="menu-list">
           <li>
-            <Link to="/patient/doctors">
+            <NavLink to="/patient/doctors" onClick={closeSidebar}>
               <FiUsers className="menu-icon" />
               My Doctors
               <span className="status-dot" />
-            </Link>
+            </NavLink>
           </li>
           <li>
-            <Link to="/patient/doctors">
+            <NavLink to="/patient/doctors" onClick={closeSidebar}>
               <FiPlus className="menu-icon" />
               Find doctors to follow
-            </Link>
+            </NavLink>
           </li>
         </ul>
-      </div>
+      </aside>
     </>
   );
 };

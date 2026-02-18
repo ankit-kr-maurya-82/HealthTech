@@ -74,9 +74,9 @@ const Medicine = () => {
         </div>
       </div>
 
-      <button type="button" className="medicine-float-help" aria-label="Open support">
+      {/* <button type="button" className="medicine-float-help" aria-label="Open support">
         <FiMessageCircle />
-      </button>
+      </button> */}
 
       <MedicineModal medicine={selectedMedicine} open={isModalOpen} onClose={closeMedicineModal} />
     </section>

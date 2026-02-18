@@ -31,50 +31,29 @@
 }
 
 .features-graph {
+  width: min(100%, 980px);
+  margin: 0 auto 28px;
   border: 1px solid #e6e6e6;
   border-radius: 12px;
-  padding: 18px;
+  padding: 14px;
   background: #ffffff;
-  margin-bottom: 28px;
 }
 
 .features-image {
+  display: block;
   width: 100%;
+  max-height: 520px;
+  object-fit: contain;
   border-radius: 10px;
   border: 1px solid #e6e6e6;
-  margin-bottom: 14px;
-}
-
-.features-graph svg {
-  width: 100%;
-  height: auto;
-}
-
-.axis {
-  stroke: #dcdcdc;
-  stroke-width: 2;
-}
-
-.bar rect {
-  fill: #111111;
-  opacity: 0.9;
-}
-
-.bar text {
-  font-size: 12px;
-  fill: #5b5b5b;
-  text-anchor: middle;
-}
-
-.bar text:nth-of-type(2) {
-  fill: #111111;
-  font-weight: 600;
+  margin: 0 auto;
 }
 
 .features-list {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
   gap: 18px;
+  margin-bottom: 24px;
 }
 
 .feature-item {
@@ -92,4 +71,48 @@
 .feature-item p {
   margin: 0;
   color: #5b5b5b;
+}
+
+.feature-sections {
+  display: grid;
+  gap: 18px;
+}
+
+.feature-role-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 18px;
+}
+
+.feature-role-card,
+.feature-trust-card {
+  border: 1px solid #e6e6e6;
+  border-radius: 12px;
+  padding: 18px;
+  background: #ffffff;
+}
+
+.feature-role-card h3,
+.feature-trust-card h3 {
+  margin: 0 0 10px;
+  font-size: 1.05rem;
+}
+
+.feature-role-card ul,
+.feature-trust-card ul {
+  margin: 0;
+  padding-left: 18px;
+  color: #444444;
+  display: grid;
+  gap: 8px;
+}
+
+@media (max-width: 768px) {
+  .features-graph {
+    padding: 10px;
+  }
+
+  .features-image {
+    max-height: 320px;
+  }
 }

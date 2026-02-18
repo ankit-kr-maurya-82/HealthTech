@@ -8,18 +8,27 @@
 
 .hero {
   padding: 80px 20px 60px;
-  display: grid;
-  grid-template-columns: minmax(0, 1.2fr) minmax(0, 0.8fr);
-  gap: 30px;
+  display: flex;
+  justify-items: center;
   align-items: center;
+  flex-direction: column;
   background: linear-gradient(180deg, #f7fbfa 0%, #ffffff 100%);
 }
 
+.hero-content{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  height: 100vh;
+}
+
 .hero-content h1 {
-  font-size: 44px;
+  font-size: 54px;
   line-height: 1.1;
-  margin: 10px 0 14px;
+  margin: 40px 0 34px;
   font-family: "Spectral", "Times New Roman", serif;
+  align-self: center;
 }
 
 .hero-kicker {
@@ -28,34 +37,39 @@
   font-size: 0.8rem;
   color: #2b8a6e;
   font-weight: 600;
+  text-align: center;
+  margin-top: -12rem;
 }
 
 .hero-sub {
   max-width: 560px;
   color: #5b5b5b;
+  font-size: 22px;
 }
 
 .hero-actions {
-  margin-top: 22px;
+  margin-top: 62px;
   display: flex;
   gap: 12px;
   flex-wrap: wrap;
 }
 
 .primary-btn {
-  background: #111111;
+  font-size: 15px;
+  background: #24329c;
   color: #ffffff;
-  padding: 10px 20px;
-  border: 1px solid #111111;
+  padding: 20px 60px;
+  border: 0px;
   border-radius: 999px;
   cursor: pointer;
 }
 
 .secondary-btn {
+  font-size: 15px;
   border: 1px solid #111111;
   background: transparent;
   color: #111111;
-  padding: 10px 20px;
+  padding: 20px 60px;
   border-radius: 999px;
   cursor: pointer;
 }
@@ -63,7 +77,7 @@
 .hero-stats {
   display: flex;
   gap: 24px;
-  margin-top: 28px;
+  margin-top: 58px;
 }
 
 .hero-stats span {
@@ -114,21 +128,28 @@
 }
 
 .features {
-  padding: 50px 20px 20px;
+  /* padding: 50px 20px 20px; */
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 .section-header {
-  margin-bottom: 20px;
+  margin-bottom: 80px;
 }
 
 .section-header h2 {
   font-family: "Spectral", "Times New Roman", serif;
-  font-size: 28px;
+  font-size: 58px;
   margin: 0 0 8px;
 }
 
 .section-header p {
   color: #5b5b5b;
+  text-align: center;
+  font-size: 16px;
 }
 
 .feature-grid {
@@ -148,6 +169,7 @@
 .testimonials {
   padding: 50px 20px 80px;
   background: #f7fbfa;
+  height: 100vh;
 }
 
 .testimonial-grid {

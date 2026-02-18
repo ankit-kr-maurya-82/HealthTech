@@ -1,4 +1,4 @@
-﻿.medicine-modal-overlay {
+.medicine-modal-overlay {
   position: fixed;
   inset: 0;
   background: rgba(7, 15, 28, 0.55);
@@ -23,7 +23,7 @@
   align-items: center;
   justify-content: space-between;
   gap: 12px;
-  padding: 20px;
+  padding: 18px 20px;
   border-bottom: 1px solid #e5edf6;
 }
 
@@ -47,12 +47,12 @@
 
 .medicine-modal-title-wrap h2 {
   color: #0c1d34;
-  font-size: 1.2rem;
+  font-size: 1.15rem;
 }
 
 .medicine-modal-title-wrap p {
   color: #64748b;
-  font-size: 0.92rem;
+  font-size: 0.9rem;
 }
 
 .medicine-modal-close {
@@ -84,7 +84,7 @@
   align-items: center;
   justify-content: center;
   gap: 6px;
-  font-size: 0.82rem;
+  font-size: 0.78rem;
 }
 
 .medicine-modal-tab.active {
@@ -225,7 +225,25 @@
 }
 
 @media (max-width: 768px) {
+  .medicine-modal {
+    border-radius: 12px;
+  }
+
+  .medicine-modal-header {
+    padding: 14px;
+  }
+
   .medicine-modal-tabs {
     grid-template-columns: repeat(2, minmax(0, 1fr));
+    padding: 10px 14px 0;
+  }
+
+  .medicine-modal-tab {
+    min-height: 34px;
+    font-size: 0.76rem;
+  }
+
+  .medicine-modal-content {
+    padding: 14px;
   }
 }

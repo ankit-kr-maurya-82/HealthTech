@@ -13,7 +13,7 @@ const AddProblem = () => {
     title: "",
     description: "",
     severity: "",
-    date: null,
+    date: "",
   });
 
   const handleChange = (e) => {

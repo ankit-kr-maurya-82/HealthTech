@@ -2,77 +2,116 @@ import React from "react";
 import "./css/Features.css";
 import featuresImage from "../../assets/Objectives.png";
 
+const coreFeatures = [
+  {
+    title: "Patient Problem Submission",
+    description:
+      "Patients can submit symptoms, history, and concerns in a structured format so doctors get complete context quickly.",
+  },
+  {
+    title: "Doctor Advice Workflow",
+    description:
+      "Doctors review reported problems and provide medicines, tests, and diet recommendations from one dashboard.",
+  },
+  {
+    title: "Medicine Intelligence",
+    description:
+      "Patients can search medicines and view usage details, side effects, interactions, and alternatives.",
+  },
+  {
+    title: "Smart Reminders",
+    description:
+      "Medication and care reminders help patients stay on schedule and reduce missed follow-ups.",
+  },
+  {
+    title: "Appointment Coordination",
+    description:
+      "Patients can discover doctors, request appointments, and track consultation status without manual back-and-forth.",
+  },
+  {
+    title: "Protected Access",
+    description:
+      "Role-based route protection keeps patient and doctor workflows separated and secured inside the app.",
+  },
+];
+
+const roleBenefits = [
+  {
+    role: "For Patients",
+    points: [
+      "Simple interface to report health issues and view doctor advice",
+      "Clear medication details before taking any medicine",
+      "Central profile for medical context and follow-up continuity",
+    ],
+  },
+  {
+    role: "For Doctors",
+    points: [
+      "Unified problem queue with patient-specific context",
+      "Faster treatment suggestions with structured guidance fields",
+      "Cleaner digital record flow than paper-based coordination",
+    ],
+  },
+];
+
+const trustHighlights = [
+  "Educational medicine information with safety-first disclaimers",
+  "Consistent digital records reduce communication gaps",
+  "Scalable architecture for future hospital integrations",
+];
+
 const Features = () => {
   return (
     <section className="features-page">
       <div className="features-hero">
         <p className="features-kicker">CareMe Features</p>
-        <h1>Hospital‑grade capabilities, shown as clear outcomes.</h1>
+        <h1>Complete hospital-care workflow in one website.</h1>
         <p className="features-sub">
-          The graph below represents how CareMe improves each key area of
-          hospital workflow.
+          CareMe connects patients and doctors through a practical digital flow:
+          report problems, review advice, manage medicines, and maintain secure
+          records.
         </p>
       </div>
 
       <div className="features-graph">
         <img
           src={featuresImage}
-          alt="Feature objectives"
+          alt="CareMe feature objectives"
           className="features-image"
         />
-        <svg viewBox="0 0 640 260" role="img" aria-label="Features graph">
-          <line x1="40" y1="20" x2="40" y2="220" className="axis" />
-          <line x1="40" y1="220" x2="600" y2="220" className="axis" />
-
-          <g className="bar">
-            <rect x="70" y="90" width="80" height="130" rx="10" />
-            <text x="110" y="240">Tracking</text>
-            <text x="110" y="70">90%</text>
-          </g>
-          <g className="bar">
-            <rect x="180" y="110" width="80" height="110" rx="10" />
-            <text x="220" y="240">Advice</text>
-            <text x="220" y="90">82%</text>
-          </g>
-          <g className="bar">
-            <rect x="290" y="70" width="80" height="150" rx="10" />
-            <text x="330" y="240">Workflow</text>
-            <text x="330" y="50">95%</text>
-          </g>
-          <g className="bar">
-            <rect x="400" y="125" width="80" height="95" rx="10" />
-            <text x="440" y="240">Records</text>
-            <text x="440" y="105">76%</text>
-          </g>
-          <g className="bar">
-            <rect x="510" y="100" width="80" height="120" rx="10" />
-            <text x="550" y="240">Support</text>
-            <text x="550" y="80">86%</text>
-          </g>
-        </svg>
       </div>
 
       <div className="features-list">
-        <div className="feature-item">
-          <h3>Patient Health Tracking</h3>
-          <p>Structured symptom timelines and daily habit monitoring.</p>
+        {coreFeatures.map((item) => (
+          <article key={item.title} className="feature-item">
+            <h3>{item.title}</h3>
+            <p>{item.description}</p>
+          </article>
+        ))}
+      </div>
+
+      <div className="feature-sections">
+        <div className="feature-role-grid">
+          {roleBenefits.map((group) => (
+            <article key={group.role} className="feature-role-card">
+              <h3>{group.role}</h3>
+              <ul>
+                {group.points.map((point) => (
+                  <li key={point}>{point}</li>
+                ))}
+              </ul>
+            </article>
+          ))}
         </div>
-        <div className="feature-item">
-          <h3>Doctor Advice</h3>
-          <p>Clear medicines, tests, and diet plans with follow‑ups.</p>
-        </div>
-        <div className="feature-item">
-          <h3>Digital Workflow</h3>
-          <p>Hospital‑style queues and collaboration built in.</p>
-        </div>
-        <div className="feature-item">
-          <h3>Secure Records</h3>
-          <p>Centralized patient history with role‑based access.</p>
-        </div>
-        <div className="feature-item">
-          <h3>Care Support</h3>
-          <p>Reminders and notifications that keep patients on track.</p>
-        </div>
+
+        <article className="feature-trust-card">
+          <h3>Why this matters</h3>
+          <ul>
+            {trustHighlights.map((item) => (
+              <li key={item}>{item}</li>
+            ))}
+          </ul>
+        </article>
       </div>
     </section>
   );

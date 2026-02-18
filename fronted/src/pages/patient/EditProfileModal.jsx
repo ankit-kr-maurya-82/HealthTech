@@ -11,7 +11,7 @@ const EditProfileModal = ({ onClose }) => {
     fullName: user?.fullName || "",
     gender: user?.gender || "",
   });
-
+  
   const [loading, setLoading] = useState(false);
 
   const handleChange = (e) => {

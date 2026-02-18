@@ -1,40 +1,62 @@
+body {
+  background: linear-gradient(135deg, #eef6fb, #f8fbff);
+  min-height: 100vh;
+}
+
+/* Centering container */
+.add-problem-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 90vh;
+}
+
 /* Container styling */
 .add-problem-container {
-  padding: 20px;
-  max-width: 500px;
-  margin: 0 auto;
-  background-color: #f9f9f9;
-  border-radius: 10px;
-  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-  font-family: Arial, sans-serif;
+  width: 100%;
+  max-width: 520px;
+  background: #ffffff;
+  padding: 40px 35px;
+  border-radius: 18px;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.08);
+  border: 1px solid #e6edf5;
+  font-family: "Segoe UI", Arial, sans-serif;
 }
 
 /* Heading */
 .add-problem-container h2 {
   text-align: center;
-  margin-bottom: 20px;
-  color: #333;
+  font-size: 1.9rem;
+  color: #0f172a;
+  margin-bottom: 30px;
+  font-weight: 600;
+}
+ 
+/* Form spacing */
+.add-problem-container form {
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
 }
 
 /* Form inputs and textarea */
 .add-problem-container input,
 .add-problem-container textarea,
 .add-problem-container select {
-  width: 100%;
-  padding: 10px 12px;
-  margin-top: 10px;
-  margin-bottom: 10px;
-  border: 1px solid #ccc;
-  border-radius: 6px;
-  font-size: 16px;
-  box-sizing: border-box;
-  transition: border-color 0.2s ease;
+  padding: 14px 16px;
+  border-radius: 12px;
+  border: 1px solid #d6e0ea;
+  background: #f9fbfe;
+  font-size: 15px;
+  transition: 0.25s;
 }
 
 .add-problem-container input:focus,
 .add-problem-container textarea:focus,
 .add-problem-container select:focus {
-  border-color: #007bff;
+  border-color: #0ea5e9;
+  background: #ffffff;
+  box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.18);
   outline: none;
 }
 
@@ -55,25 +77,27 @@
 
 /* Textarea specific */
 .add-problem-container textarea {
+  min-height: 110px;
   resize: vertical;
-  min-height: 80px;
 }
 
 /* Submit button */
 .add-problem-container button {
-  width: 100%;
-  padding: 12px;
-  background-color: #007bff;
+  margin-top: 10px;
+  padding: 15px;
+  border-radius: 14px;
   border: none;
-  border-radius: 6px;
-  color: #fff;
   font-size: 16px;
+  font-weight: 600;
+  color: white;
   cursor: pointer;
-  transition: background-color 0.2s ease;
+  background: linear-gradient(90deg, #0ea5e9, #2563eb);
+  transition: all 0.25s ease;
 }
 
 .add-problem-container button:hover {
-  background-color: #0056b3;
+  transform: translateY(-3px);
+  box-shadow: 0 12px 22px rgba(37, 99, 235, 0.28);
 }
 
 .add-problem-container button:disabled {
@@ -81,7 +105,14 @@
   cursor: not-allowed;
 }
 
-/* Option default */
-.add-problem-container select option:first-child {
-  color: #999;
+/* Active click */
+.add-problem-container button:active {
+  transform: scale(0.98);
+}
+
+/* Responsive */
+@media (max-width: 500px) {
+  .add-problem-container {
+    padding: 30px 20px;
+  }
 }

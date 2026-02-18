@@ -2,6 +2,8 @@ import React, { useState } from "react";
 import { useEffect } from "react";
 import api from "../../api/axios";
 import "./css/AddProblem.css";
+import DatePicker from "react-datepicker";
+import "react-datepicker/dist/react-datepicker.css";
 
 const AddProblem = () => {
   const [doctors, setDoctors] = useState([]);
@@ -11,24 +13,8 @@ const AddProblem = () => {
     title: "",
     description: "",
     severity: "",
-    date: "",
+    date: null,
   });
-
-  useEffect(() => {
-    const fetchDoctors = async () => {
-      try {
-        setLoadingDoctors(true);
-        const res = await api.get("/doctors");
-        setDoctors(res.data?.data?.doctors || []);
-      } catch (err) {
-        console.log("Failed to fetch doctors:", err);
-      } finally {
-        setLoadingDoctors(false);
-      }
-    };
-
-    fetchDoctors();
-  }, []);
 
   const handleChange = (e) => {
     setFormData({ ...formData, [e.target.name]: e.target.value });
@@ -62,30 +48,6 @@ const AddProblem = () => {
     <div className="add-problem-container">
       <h2>Add Medical Problem</h2>
       <form onSubmit={handleSubmit}>
-        <label htmlFor="doctor-select">Choose Doctor</label>
-        <select
-          id="doctor-select"
-          name="doctor"
-          value={formData.doctor}
-          onChange={handleChange}
-          required
-          disabled={loadingDoctors}
-        >
-          <option value="">
-            {loadingDoctors ? "Loading doctors..." : "Select Doctor"}
-          </option>
-          {doctors.map((doctor) => (
-            <option key={doctor._id} value={doctor._id}>
-              {(doctor.fullName || doctor.username) +
-                (doctor.specialty ? ` - ${doctor.specialty}` : "")}
-            </option>
-          ))}
-        </select>
-        {!loadingDoctors && doctors.length === 0 ? (
-          <p className="add-problem-help-text">
-            No doctors available right now. Please try again later.
-          </p>
-        ) : null}
         <input
           type="text"
           name="title"
@@ -119,12 +81,7 @@ const AddProblem = () => {
           onChange={handleChange}
           required
         />
-        <button
-          type="submit"
-          disabled={loadingDoctors || doctors.length === 0 || !formData.doctor}
-        >
-          Submit Problem
-        </button>
+        <button type="submit">Submit Problem</button>
       </form>
     </div>
   );

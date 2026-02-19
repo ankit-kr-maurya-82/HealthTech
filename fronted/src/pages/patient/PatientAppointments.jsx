@@ -1,54 +1,117 @@
-import React, { useContext } from "react";
+import React, { useContext, useEffect, useState } from "react";
 import UserContext from "../../context/UserContext";
+import { cancelAppointment, getPatientAppointments } from "../../utils/appointments";
+import "./css/PatientAppointments.css";
 
 const PatientAppointments = () => {
   const { user } = useContext(UserContext);
+  const [appointments, setAppointments] = useState([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState("");
+
+  const loadAppointments = async () => {
+    try {
+      setLoading(true);
+      setError("");
+      const data = await getPatientAppointments();
+      setAppointments(data);
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to load appointments");
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  useEffect(() => {
+    if (!user?._id) return;
+    loadAppointments();
+  }, [user?._id]);
+
+  const handleCancel = async (appointmentId) => {
+    try {
+      await cancelAppointment(appointmentId);
+      loadAppointments();
+    } catch (err) {
+      setError(err.response?.data?.message || "Failed to cancel appointment");
+    }
+  };
 
   if (!user) return <h2>Please login first</h2>;
-
-  // temporary dummy data (API se baad me ayega)
-  const appointments = [
-    {
-      id: 1,
-      doctor: "Dr. Sharma",
-      date: "20 Feb 2026",
-      time: "10:30 AM",
-      status: "Upcoming",
-    },
-    {
-      id: 2,
-      doctor: "Dr. Khan",
-      date: "25 Feb 2026",
-      time: "2:00 PM",
-      status: "Confirmed",
-    },
-  ];
+  if (loading) return <h3 className="patient-appointments-loading">Loading appointments...</h3>;
 
   return (
-    <div style={{ padding: "20px" }}>
-      <h2>My Appointments 📅</h2>
+    <section className="patient-appointments-page">
+      <div className="patient-appointments-head">
+        <h2>My Appointments</h2>
+        <span className="patient-appointments-count">
+          {appointments.length} appointment{appointments.length === 1 ? "" : "s"}
+        </span>
+      </div>
+
+      {error ? <p className="patient-appointments-error">{error}</p> : null}
 
       {appointments.length === 0 ? (
-        <p>No appointments found</p>
+        <div className="patient-appointments-empty">
+          <h3>No appointments yet</h3>
+          <p>Go to Find Doctors and book your first appointment.</p>
+        </div>
       ) : (
-        appointments.map((appt) => (
-          <div
-            key={appt.id}
-            style={{
-              border: "1px solid #ddd",
-              padding: "15px",
-              marginTop: "10px",
-              borderRadius: "8px",
-            }}
-          >
-            <p><strong>Doctor:</strong> {appt.doctor}</p>
-            <p><strong>Date:</strong> {appt.date}</p>
-            <p><strong>Time:</strong> {appt.time}</p>
-            <p><strong>Status:</strong> {appt.status}</p>
-          </div>
-        ))
+        <div className="patient-appointments-list">
+          {appointments.map((appointment) => (
+            <article key={appointment._id} className="patient-appointments-card">
+              <div className="patient-appointments-card-head">
+                <h3>{appointment.doctor?.fullName || appointment.doctor?.username || "Doctor"}</h3>
+                <span
+                  className={`patient-appointments-status ${appointment.status.toLowerCase()}`}
+                >
+                  {appointment.status}
+                </span>
+              </div>
+
+              <div className="patient-appointments-grid">
+                <p>
+                  <span>Date</span>
+                  <strong>{new Date(appointment.dateTime).toLocaleDateString()}</strong>
+                </p>
+                <p>
+                  <span>Time</span>
+                  <strong>
+                    {new Date(appointment.dateTime).toLocaleTimeString([], {
+                      hour: "2-digit",
+                      minute: "2-digit",
+                    })}
+                  </strong>
+                </p>
+                <p>
+                  <span>Specialty</span>
+                  <strong>{appointment.doctor?.specialty || "General"}</strong>
+                </p>
+                <p>
+                  <span>Email</span>
+                  <strong>{appointment.doctor?.email || "Not provided"}</strong>
+                </p>
+              </div>
+
+              {appointment.reason ? (
+                <p className="patient-appointments-reason">
+                  <span>Reason:</span> {appointment.reason}
+                </p>
+              ) : null}
+
+              {appointment.status !== "Cancelled" ? (
+                <button
+                  type="button"
+                  className="patient-appointments-cancel-btn"
+                  onClick={() => handleCancel(appointment._id)}
+                >
+                  Cancel Appointment
+                </button>
+              ) : null}
+            </article>
+          ))}
+        </div>
       )}
-    </div>
+    </section>
   );
 };
 

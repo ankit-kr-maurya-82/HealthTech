@@ -78,7 +78,9 @@ const Home = () => {
           ) : null}
 
           <div className="hero-actions">
-            <button className="primary-btn">Book Appointment</button>
+            <Link to={findDoctorPath} className="primary-btn">
+              Book Appointment
+            </Link>
             <Link to={findDoctorPath} className="secondary-btn">
               Find a Doctor
             </Link>

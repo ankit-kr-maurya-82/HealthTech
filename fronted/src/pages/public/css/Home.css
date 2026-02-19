@@ -95,6 +95,7 @@
 }
 
 .primary-btn {
+  display: inline-block;
   font-size: 15px;
   background: #24329c;
   color: #ffffff;
@@ -102,6 +103,7 @@
   border: 0;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .secondary-btn {

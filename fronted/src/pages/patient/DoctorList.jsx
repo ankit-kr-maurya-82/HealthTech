@@ -1,17 +1,27 @@
-import React, { useEffect, useMemo, useState } from "react";
+import React, { useContext, useEffect, useMemo, useState } from "react";
 import { useSearchParams } from "react-router-dom";
 import api from "../../api/axios";
+import UserContext from "../../context/UserContext";
+import { createAppointment } from "../../utils/appointments";
 import "./css/DoctorList.css";
 
 const DoctorList = () => {
+  const { user } = useContext(UserContext);
   const [doctors, setDoctors] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState("");
+  const [bookingDoctorId, setBookingDoctorId] = useState("");
+  const [appointmentDate, setAppointmentDate] = useState("");
+  const [appointmentTime, setAppointmentTime] = useState("");
+  const [appointmentReason, setAppointmentReason] = useState("");
+  const [bookingSubmitting, setBookingSubmitting] = useState(false);
+  const [bookingMessage, setBookingMessage] = useState("");
+  const [bookingError, setBookingError] = useState("");
   const [searchParams, setSearchParams] = useSearchParams();
   const [searchText, setSearchText] = useState(searchParams.get("search") || "");
 
   useEffect(() => {
-    const fetchDcoctors = async () => {
+    const fetchDoctors = async () => {
       try {
         setLoading(true);
         const res = await api.get("/doctors");
@@ -64,6 +74,69 @@ const DoctorList = () => {
   const clearSearch = () => {
     setSearchText("");
     setSearchParams({});
+  };
+
+  const resetBookingForm = () => {
+    setAppointmentDate("");
+    setAppointmentTime("");
+    setAppointmentReason("");
+  };
+
+  const handleBookClick = (doctorId) => {
+    setBookingMessage("");
+    setBookingError("");
+
+    if (bookingDoctorId === doctorId) {
+      setBookingDoctorId("");
+      resetBookingForm();
+      return;
+    }
+
+    setBookingDoctorId(doctorId);
+    resetBookingForm();
+  };
+
+  const handleBookAppointment = async (doctor) => {
+    if (!appointmentDate || !appointmentTime) {
+      setBookingError("Please choose both date and time.");
+      setBookingMessage("");
+      return;
+    }
+
+    const chosenDateTime = new Date(`${appointmentDate}T${appointmentTime}`);
+    const now = new Date();
+
+    if (Number.isNaN(chosenDateTime.getTime())) {
+      setBookingError("Please select a valid appointment date and time.");
+      setBookingMessage("");
+      return;
+    }
+
+    if (chosenDateTime < now) {
+      setBookingError("Appointment must be scheduled in the future.");
+      setBookingMessage("");
+      return;
+    }
+
+    try {
+      setBookingSubmitting(true);
+      await createAppointment({
+        doctorId: doctor._id || doctor.id || "",
+        date: appointmentDate,
+        time: appointmentTime,
+        reason: appointmentReason,
+      });
+
+      setBookingError("");
+      setBookingMessage("Appointment booked. Check My Appointments.");
+      setBookingDoctorId("");
+      resetBookingForm();
+    } catch (err) {
+      setBookingMessage("");
+      setBookingError(err.response?.data?.message || "Failed to book appointment");
+    } finally {
+      setBookingSubmitting(false);
+    }
   };
 
   if (loading) return <h3 className="patient-doctor-list-loading">Loading doctors...</h3>;
@@ -138,10 +211,62 @@ const DoctorList = () => {
                   <strong>{doctor.phone || "Not provided"}</strong>
                 </p>
               </div>
+
+              <div className="patient-doctor-list-actions">
+                <button
+                  type="button"
+                  className="patient-doctor-list-book-btn"
+                  onClick={() => handleBookClick(doctor._id)}
+                >
+                  {bookingDoctorId === doctor._id ? "Close" : "Book Appointment"}
+                </button>
+              </div>
+
+              {bookingDoctorId === doctor._id ? (
+                <div className="patient-doctor-list-book-panel">
+                  <label>
+                    Date
+                    <input
+                      type="date"
+                      value={appointmentDate}
+                      min={new Date().toISOString().split("T")[0]}
+                      onChange={(event) => setAppointmentDate(event.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Time
+                    <input
+                      type="time"
+                      value={appointmentTime}
+                      onChange={(event) => setAppointmentTime(event.target.value)}
+                    />
+                  </label>
+                  <label>
+                    Reason (optional)
+                    <textarea
+                      rows={3}
+                      placeholder="Briefly describe your concern"
+                      value={appointmentReason}
+                      onChange={(event) => setAppointmentReason(event.target.value)}
+                    />
+                  </label>
+                  <button
+                    type="button"
+                    className="patient-doctor-list-confirm-btn"
+                    onClick={() => handleBookAppointment(doctor)}
+                    disabled={bookingSubmitting}
+                  >
+                    {bookingSubmitting ? "Booking..." : "Confirm Appointment"}
+                  </button>
+                </div>
+              ) : null}
             </article>
           ))}
         </div>
       )}
+
+      {bookingMessage ? <p className="patient-doctor-list-success">{bookingMessage}</p> : null}
+      {bookingError ? <p className="patient-doctor-list-error">{bookingError}</p> : null}
     </section>
   );
 };

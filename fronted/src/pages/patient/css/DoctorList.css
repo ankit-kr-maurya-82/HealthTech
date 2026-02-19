@@ -163,6 +163,63 @@
   color: #111827;
 }
 
+.patient-doctor-list-actions {
+  margin-top: 14px;
+}
+
+.patient-doctor-list-book-btn,
+.patient-doctor-list-confirm-btn {
+  width: 100%;
+  border: 0;
+  border-radius: 10px;
+  padding: 11px 14px;
+  font-size: 14px;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.patient-doctor-list-book-btn {
+  background: #1d4ed8;
+  color: #fff;
+}
+
+.patient-doctor-list-confirm-btn {
+  background: #166534;
+  color: #fff;
+}
+
+.patient-doctor-list-book-panel {
+  margin-top: 12px;
+  display: grid;
+  gap: 10px;
+  padding: 12px;
+  border-radius: 12px;
+  border: 1px solid #e5e7eb;
+  background: #f8fafc;
+}
+
+.patient-doctor-list-book-panel label {
+  display: grid;
+  gap: 6px;
+  font-size: 13px;
+  color: #374151;
+}
+
+.patient-doctor-list-book-panel input,
+.patient-doctor-list-book-panel textarea {
+  border: 1px solid #d1d5db;
+  border-radius: 8px;
+  padding: 10px;
+  font-size: 14px;
+  font-family: inherit;
+}
+
+.patient-doctor-list-success {
+  margin-top: 16px;
+  color: #166534;
+  font-weight: 600;
+}
+
 @media (max-width: 640px) {
   .patient-doctor-list-toolbar {
     flex-direction: column;

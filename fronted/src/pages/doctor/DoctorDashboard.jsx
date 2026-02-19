@@ -51,6 +51,7 @@ const DoctorDashboard = () => {
 
         <div className="dashboard-buttons">
           <button onClick={() => navigate("/doctor/patients")}>Patient List</button>
+          <button onClick={() => navigate("/doctor/appointments")}>Appointments</button>
           <button onClick={() => navigate("/doctor/problems")}>View Problems</button>
           <button onClick={() => navigate("/doctor/profile")}>Update Profile</button>
         </div>

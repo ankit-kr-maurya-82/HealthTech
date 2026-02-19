@@ -25,12 +25,14 @@ import doctorRouter from "./routes/doctor.routes.js";
 import patientRouter from "./routes/patient.routes.js";
 import adviceRouter from "./routes/advice.routes.js";
 import problemRouter from "./routes/problem.routes.js";
+import appointmentRouter from "./routes/appointment.routes.js";
 
 // ✅ Routes declaration
 app.use("/api/doctors", doctorRouter);
 app.use("/api/patient", patientRouter);
 app.use("/api/advice", adviceRouter);
 app.use("/api/problems", problemRouter);
+app.use("/api/appointments", appointmentRouter);
 
 
 // 🔥🔥🔥 VERY IMPORTANT 🔥🔥🔥

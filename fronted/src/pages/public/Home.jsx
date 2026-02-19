@@ -1,6 +1,8 @@
-import React from "react";
+import React, { useContext, useState } from "react";
 import "./css/Home.css";
 import heathtechImages from "./heathtechImages.json";
+import { Link, useNavigate } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 
 const assetImages = import.meta.glob("../../assets/*", {
   eager: true,
@@ -18,9 +20,31 @@ const findAssetByFileName = (imgPath) => {
 };
 
 const Home = () => {
+  const { user } = useContext(UserContext);
+  const navigate = useNavigate();
+  const [searchTerm, setSearchTerm] = useState("");
+
   const heroImageData = heathtechImages[0] || null;
   const heroImageSrc = findAssetByFileName(heroImageData?.img);
   const heroImageAlt = heroImageData?.title || "Health technology";
+  const canSearchDoctors = user?.role === "patient";
+  const findDoctorPath = canSearchDoctors ? "/patient/doctors" : "/login/patient";
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    const query = searchTerm.trim();
+
+    if (!canSearchDoctors) {
+      navigate("/login/patient");
+      return;
+    }
+
+    navigate(
+      query
+        ? `/patient/doctors?search=${encodeURIComponent(query)}`
+        : "/patient/doctors"
+    );
+  };
 
   return (
     <div className="home">
@@ -29,13 +53,37 @@ const Home = () => {
           <p className="hero-kicker">CareMe Hospital Network</p>
           <h1>Care that feels personal, powered by smart systems.</h1>
           <p className="hero-sub">
-            A hospital‑grade platform where patients submit problems and doctors
+            A hospital-grade platform where patients submit problems and doctors
             deliver medicines, tests, and diet guidance with clarity.
           </p>
+
+          <form className="hero-search-form" onSubmit={handleSearchSubmit}>
+            <input
+              type="text"
+              className="hero-search-input"
+              value={searchTerm}
+              onChange={(event) => setSearchTerm(event.target.value)}
+              placeholder="Search doctor by name, specialty, or email"
+              aria-label="Search doctors"
+            />
+            <button type="submit" className="hero-search-btn">
+              Search
+            </button>
+          </form>
+
+          {!canSearchDoctors ? (
+            <p className="hero-search-hint">
+              Login as a patient to search and view available doctors.
+            </p>
+          ) : null}
+
           <div className="hero-actions">
             <button className="primary-btn">Book Appointment</button>
-            <button className="secondary-btn">Find a Doctor</button>
+            <Link to={findDoctorPath} className="secondary-btn">
+              Find a Doctor
+            </Link>
           </div>
+
           <div className="hero-stats">
             <div>
               <span>24/7</span>
@@ -60,9 +108,9 @@ const Home = () => {
             <h3>Quick Access</h3>
             <p>Get prescriptions, labs, and diet plans in one place.</p>
             <div className="panel-list">
-              <span>✓ Tele‑consultation</span>
-              <span>✓ Lab reports</span>
-              <span>✓ Medicine reminders</span>
+              <span>Tele-consultation</span>
+              <span>Lab reports</span>
+              <span>Medicine reminders</span>
             </div>
           </div>
         </div>
@@ -70,7 +118,7 @@ const Home = () => {
 
       <section className="features">
         <div className="section-header">
-          <h2>Hospital‑grade features</h2>
+          <h2>Hospital-grade features</h2>
           <p>Designed for patients, doctors, and care teams.</p>
         </div>
 
@@ -81,11 +129,11 @@ const Home = () => {
           </div>
           <div className="card">
             <h3>Doctor Advice</h3>
-            <p>Evidence‑based medicines, tests, and personalized diet plans.</p>
+            <p>Evidence-based medicines, tests, and personalized diet plans.</p>
           </div>
           <div className="card">
             <h3>Digital Workflow</h3>
-            <p>Real hospital‑style patient‑doctor collaboration.</p>
+            <p>Real hospital-style patient-doctor collaboration.</p>
           </div>
           <div className="card">
             <h3>Secure Records</h3>
@@ -101,16 +149,16 @@ const Home = () => {
         </div>
         <div className="testimonial-grid">
           <div className="testimonial-card">
-            “Easy to book appointments and track health digitally.”
-            <span>— Riya, 28</span>
+            "Easy to book appointments and track health digitally."
+            <span>- Riya, 28</span>
           </div>
           <div className="testimonial-card">
-            “Clear medicine and diet plans, no confusion.”
-            <span>— Arjun, 34</span>
+            "Clear medicine and diet plans, no confusion."
+            <span>- Arjun, 34</span>
           </div>
           <div className="testimonial-card">
-            “Doctors respond fast and reports are organized.”
-            <span>— Salim, 41</span>
+            "Doctors respond fast and reports are organized."
+            <span>- Salim, 41</span>
           </div>
         </div>
       </section>

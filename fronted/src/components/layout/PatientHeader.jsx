@@ -25,10 +25,10 @@ const PatientHeader = () => {
           </Link>
         </div>
 
-        <div className="nav-search">
+        {/* <div className="nav-search">
           <FiSearch className="search-icon" />
           <input type="text" placeholder="Search" />
-        </div>
+        </div> */}
 
         <div className="menu-icon" onClick={() => setMenuOpen(!menuOpen)}>
           {menuOpen ? <FaTimes /> : <FaBars />}

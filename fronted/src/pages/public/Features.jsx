@@ -1,7 +1,7 @@
 import React from "react";
 import "./css/Features.css";
 import featuresImage from "../../assets/Objectives.png";
-
+ 
 const coreFeatures = [
   {
     title: "Patient Problem Submission",

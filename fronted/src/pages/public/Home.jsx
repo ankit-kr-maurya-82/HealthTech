@@ -106,7 +106,7 @@ const Home = () => {
               </div>
             </div>
           </div>
-
+ 
           <div className="hero-panel">
             {heroImageSrc && (
               <img

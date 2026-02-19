@@ -90,15 +90,7 @@ const Home = () => {
                 Find a Doctor
               </Link>
             </div>
-          <div className="hero-actions">
-            <Link to={findDoctorPath} className="primary-btn">
-              Book Appointment
-            </Link>
-            <Link to={findDoctorPath} className="secondary-btn">
-              Find a Doctor
-            </Link>
-          </div>
-
+          
             <div className="hero-stats">
               <div>
                 <span>24/7</span>

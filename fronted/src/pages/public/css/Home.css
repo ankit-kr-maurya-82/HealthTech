@@ -112,6 +112,7 @@
   padding: 20px 60px;
   border-radius: 999px;
   cursor: pointer;
+  text-decoration: none;
 }
 
 .hero-stats {

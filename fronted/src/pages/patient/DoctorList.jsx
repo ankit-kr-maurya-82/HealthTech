@@ -11,7 +11,7 @@ const DoctorList = () => {
   const [searchText, setSearchText] = useState(searchParams.get("search") || "");
 
   useEffect(() => {
-    const fetchDoctors = async () => {
+    const fetchDcoctors = async () => {
       try {
         setLoading(true);
         const res = await api.get("/doctors");

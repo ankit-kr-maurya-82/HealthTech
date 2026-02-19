@@ -11,7 +11,7 @@ const PatientDashboard = () => {
   if (!user) return <h2>Please login first</h2>;
   if (user.role?.toLowerCase() !== "patient")
     return <h2>Access Denied</h2>;
-
+ 
   return (
     <div className="patient-dashboard">
       {/* Header */}

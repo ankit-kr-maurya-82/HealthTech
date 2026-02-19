@@ -1,7 +1,8 @@
-import React from "react";
+import React, { useContext } from "react";
 import "./css/Home.css";
 import heathtechImages from "./heathtechImages.json";
-
+import { Link } from "react-router-dom";
+import UserContext from "../../context/UserContext";
 const assetImages = import.meta.glob("../../assets/*", {
   eager: true,
   import: "default",
@@ -18,9 +19,11 @@ const findAssetByFileName = (imgPath) => {
 };
 
 const Home = () => {
+  const { user } = useContext(UserContext);
   const heroImageData = heathtechImages[0] || null;
   const heroImageSrc = findAssetByFileName(heroImageData?.img);
   const heroImageAlt = heroImageData?.title || "Health technology";
+  const findDoctorPath = user?.role === "patient" ? "/patient/dashboard" : "/login/patient";
 
   return (
     <div className="home">
@@ -34,7 +37,9 @@ const Home = () => {
           </p>
           <div className="hero-actions">
             <button className="primary-btn">Book Appointment</button>
-            <button className="secondary-btn">Find a Doctor</button>
+            <Link to={findDoctorPath} className="secondary-btn">
+              Find a Doctor
+            </Link>
           </div>
           <div className="hero-stats">
             <div>

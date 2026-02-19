@@ -156,8 +156,6 @@
 }
 
 @media (min-width: 900px) {
-  .close-btn,
-  .sidebar-toggle,
   .sidebar-overlay {
     display: none;
   }

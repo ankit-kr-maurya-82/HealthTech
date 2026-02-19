@@ -9,7 +9,6 @@ import {
   FiFileText,
   FiBarChart2,
   FiUsers,
-  FiPlus,
 } from "react-icons/fi";
 import "./css/PatientSidebar.css";
 
@@ -17,13 +16,12 @@ const MOBILE_BREAKPOINT = 900;
 
 const PatientSidebar = () => {
   const [isMobile, setIsMobile] = useState(() => window.innerWidth < MOBILE_BREAKPOINT);
-  const [isOpen, setIsOpen] = useState(() => window.innerWidth >= MOBILE_BREAKPOINT);
+  const [isOpen, setIsOpen] = useState(false);
 
   useEffect(() => {
     const handleResize = () => {
       const mobile = window.innerWidth < MOBILE_BREAKPOINT;
       setIsMobile(mobile);
-      setIsOpen(!mobile);
     };
 
     window.addEventListener("resize", handleResize);
@@ -38,14 +36,12 @@ const PatientSidebar = () => {
   }, [isMobile, isOpen]);
 
   const closeSidebar = () => {
-    if (isMobile) {
-      setIsOpen(false);
-    }
+    setIsOpen(false);
   };
 
   return (
     <>
-      {isMobile && !isOpen && (
+      {!isOpen && (
         <button className="sidebar-toggle" onClick={() => setIsOpen(true)} aria-label="Open sidebar">
           <FiMenu size={24} />
         </button>
@@ -58,11 +54,9 @@ const PatientSidebar = () => {
           <Link to="/patient/dashboard" className="sidebar-brand" onClick={closeSidebar}>
             CareMe
           </Link>
-          {isMobile && (
-            <button className="close-btn" onClick={closeSidebar} aria-label="Close sidebar">
-              <FiX size={22} />
-            </button>
-          )}
+          <button className="close-btn" onClick={closeSidebar} aria-label="Close sidebar">
+            <FiX size={22} />
+          </button>
         </div>
 
         <ul className="menu-list">
@@ -123,14 +117,8 @@ const PatientSidebar = () => {
           <li>
             <NavLink to="/patient/doctors" onClick={closeSidebar}>
               <FiUsers className="menu-icon" />
-              My Doctors
+              Find Doctors
               <span className="status-dot" />
-            </NavLink>
-          </li>
-          <li>
-            <NavLink to="/patient/doctors" onClick={closeSidebar}>
-              <FiPlus className="menu-icon" />
-              Find doctors to follow
             </NavLink>
           </li>
         </ul>

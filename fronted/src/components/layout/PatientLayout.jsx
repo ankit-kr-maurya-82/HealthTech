@@ -18,7 +18,7 @@ const PatientLayout = () => {
   if (loading) return <div>Loading...</div>;
 
   if (!user || user.role !== "patient") {
-    return <Navigate to="/login" />;
+    return <Navigate to="/login/patient" replace />;
   }
 
   return (
@@ -26,7 +26,7 @@ const PatientLayout = () => {
       <PatientSidebar />
       <main
         style={{
-          marginLeft: isDesktop ? "270px" : "0",
+         
           padding: "20px",
         }}
       >
